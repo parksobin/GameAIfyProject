@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5201970054473130367}
   - component: {fileID: -3296873925313707138}
   - component: {fileID: -5866011504725202228}
+  - component: {fileID: 8638516583411459822}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -150,3 +151,15 @@ MonoBehaviour:
   targetTags:
   - Bullet
   - Guard
+--- !u!114 &8638516583411459822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921236900920657690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6753eb0c6d87b20499959f572ef0bd55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
