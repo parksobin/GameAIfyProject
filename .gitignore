@@ -6,6 +6,7 @@
 /GameAify_Project/[Bb]uilds/
 /GameAify_Project/[Ll]ogs/
 /GameAify_Project/[Uu]ser[Ss]ettings/
+/GameAify_Project/[Pp]roject[Ss]ettings/
 
 # 로그 파일
 *.log
