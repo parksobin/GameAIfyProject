@@ -16,6 +16,9 @@ public class PlayerMove : MonoBehaviour
     public TextMeshProUGUI xText;
     public TextMeshProUGUI yText;
 
+    public static float HP = 5.0f;
+    public TextMeshProUGUI hpText;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,6 +42,9 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W)) sr.sprite = walkUpSprite;
         else sr.sprite = idleSprite;
+
+        CheckHP();
+        hpText.text = "HP : " + HP.ToString("N1");
     }
 
     void FixedUpdate()
@@ -46,12 +52,22 @@ public class PlayerMove : MonoBehaviour
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
+    void CheckHP()
+    {
+        if (HP >= 5.0f) HP = 5.0f;
+    }
+
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Guarditem"))
+        /*if (other.CompareTag("Guarditem"))
         {
             orbitSpawner.AddOrbitingObject(); // 하나 더 추가 요청
             Destroy(other.gameObject); // 아이템 제거
+        }*/
+        if (other.CompareTag("Enemy"))
+        {
+            HP -= 1.0f;
         }
     }
 }

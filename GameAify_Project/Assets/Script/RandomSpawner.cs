@@ -13,8 +13,23 @@ public class RandomSpawner : MonoBehaviour
     private float EnemySpawnDelay = 2.0f;
     private float itemSpawnDelay = 5.0f;
 
+    public static bool isDropApple = false;
+    public static Vector2 lastDropPosition; // 사과를 생성할 위치 확인
+
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     private List<GameObject> spawnedItems = new List<GameObject>();
+
+    public GameObject applePrefabInspector;     // 인스펙터에서 할당
+    public GameObject appleDamagePrefabInspector;
+
+    public static GameObject ApplePrefab;
+    public static GameObject AppleDamagePrefab;
+
+    void Awake()
+    {
+        ApplePrefab = applePrefabInspector;
+        AppleDamagePrefab = appleDamagePrefabInspector;
+    }
 
     void Start()
     {
@@ -52,5 +67,14 @@ public class RandomSpawner : MonoBehaviour
         spawnedItems.Add(obj);
 
         obj.AddComponent<AutoRemove>().Init(spawnedItems, obj);
+    }
+
+    public static void SetDropPosition(Vector2 pos)
+    {
+        lastDropPosition = pos;
+        int randomValue = Random.Range(0, 2);
+        if (randomValue == 0) Instantiate(ApplePrefab, lastDropPosition, Quaternion.identity);
+        else Instantiate(AppleDamagePrefab, lastDropPosition, Quaternion.identity);
+        isDropApple = false;
     }
 }
