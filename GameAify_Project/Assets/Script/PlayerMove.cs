@@ -8,6 +8,9 @@ public class PlayerMove : MonoBehaviour
     public Transform player;
     public Orbit orbitSpawner;
 
+    private SpriteRenderer sr;
+    public Sprite idleSprite;
+    public Sprite walkUpSprite;
     private Rigidbody2D rb;
     private Vector2 movement;
     public TextMeshProUGUI xText;
@@ -16,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -32,6 +36,9 @@ public class PlayerMove : MonoBehaviour
             xText.text = $"X : {x:F2}";
             yText.text = $"Y : {y:F2}";
         }
+
+        if (Input.GetKey(KeyCode.W)) sr.sprite = walkUpSprite;
+        else sr.sprite = idleSprite;
     }
 
     void FixedUpdate()
