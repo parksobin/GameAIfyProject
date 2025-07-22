@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: 15aa220e375556044972647045ca04f0
+guid: 6fdc4705d369cc84699e7e411c675599
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5734154831426632154
-    second: Apple-Damage_0
+      213: 7667639571242049443
+    second: hold_0
   - first:
-      213: 2590005744529146619
-    second: Apple-Damage_1
+      213: 889771249726201494
+    second: hold_1
+  - first:
+      213: -238250580161189629
+    second: hold_2
+  - first:
+      213: 4081949610635846821
+    second: hold_3
+  - first:
+      213: 2584691473672951207
+    second: hold_4
+  - first:
+      213: -3971903722116575475
+    second: hold_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,11 +61,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 7
+  spritePivot: {x: 0.5, y: 0}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -116,45 +128,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Apple-Damage_0
+      name: hold_0
       rect:
         serializedVersion: 2
-        x: 147
-        y: 33
-        width: 280
-        height: 353
+        x: 0
+        y: 1036
+        width: 5
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad93646307fc39f40800000000000000
-      internalID: 5734154831426632154
+      spriteID: 3af5c9da09de86a60800000000000000
+      internalID: 7667639571242049443
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple-Damage_1
+      name: hold_1
       rect:
         serializedVersion: 2
-        x: 339
-        y: 32
-        width: 15
-        height: 15
+        x: 1039
+        y: 966
+        width: 5
+        height: 78
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bf281e0908c81f320800000000000000
-      internalID: 2590005744529146619
+      spriteID: 69e1947cc3a195c00800000000000000
+      internalID: 889771249726201494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hold_2
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 16
+        width: 800
+        height: 924
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30926f11c5091bcf0800000000000000
+      internalID: -238250580161189629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hold_3
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 257
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a46ef43b8ff5a830800000000000000
+      internalID: 4081949610635846821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hold_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a5d146733baed320800000000000000
+      internalID: 2584691473672951207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hold_5
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 0
+        width: 510
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0f8039db96f0e8c0800000000000000
+      internalID: -3971903722116575475
       vertices: []
       indices: 
       edges: []
@@ -163,8 +263,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -173,8 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Apple-Damage_0: 5734154831426632154
-      Apple-Damage_1: 2590005744529146619
+      hold_0: 7667639571242049443
+      hold_1: 889771249726201494
+      hold_2: -238250580161189629
+      hold_3: 4081949610635846821
+      hold_4: 2584691473672951207
+      hold_5: -3971903722116575475
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
