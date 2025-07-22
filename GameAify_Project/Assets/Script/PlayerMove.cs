@@ -19,10 +19,16 @@ public class PlayerMove : MonoBehaviour
     public static float HP = 5.0f;
     public TextMeshProUGUI hpText;
 
+    private Animation walkAni;
+    private Animator animator;
+    private bool walkState = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        walkAni = GetComponent<Animation>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -42,6 +48,19 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W)) sr.sprite = walkUpSprite;
         else sr.sprite = idleSprite;
+
+        //플레이어 걷기 애니메이션
+        if (Input.GetKey(KeyCode.D))
+        {
+            sr.flipX = false;
+            animator.SetBool("walk", true);
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            sr.flipX = true;
+            animator.SetBool("walk", true);
+        }
+        else   animator.SetBool("walk", false);
 
         CheckHP();
         hpText.text = "HP : " + HP.ToString("N1");
