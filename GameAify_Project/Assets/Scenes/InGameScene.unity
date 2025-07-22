@@ -1940,7 +1940,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10.44, y: 10.44}
+  m_Size: {x: 5.92, y: 9.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1976,8 +1976,8 @@ MonoBehaviour:
   moveSpeed: 5
   player: {fileID: 1911230239}
   orbitSpawner: {fileID: 1911230243}
-  idleSprite: {fileID: -1955857366003967073, guid: e466a362a7df9e54880372a7f43602a7, type: 3}
-  walkUpSprite: {fileID: 1356648912636168812, guid: 33ad635da5c250147b56acb9942110f8, type: 3}
+  idleSprite: {fileID: 21300000, guid: 6fdc4705d369cc84699e7e411c675599, type: 3}
+  walkUpSprite: {fileID: 3362969897412220435, guid: cfefe15954b52ed469b9ca116d4524d8, type: 3}
   xText: {fileID: 322341330}
   yText: {fileID: 674504528}
   hpText: {fileID: 1230487514}
