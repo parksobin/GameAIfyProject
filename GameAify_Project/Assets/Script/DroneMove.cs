@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Orbit : MonoBehaviour
+public class DroneMove : MonoBehaviour
 {
     public Transform player;      // 중심이 될 플레이어
     public GameObject orbitPrefab; // 공전할 오브젝트 프리팹

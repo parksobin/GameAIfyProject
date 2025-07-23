@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Enemy
   - Guard
-  - Bullet
+  - Weapon
   - DropApple
   - Apple
   - AppleDmg
   - Box
+  - Guarditem
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - Player
   - Water
   - UI
-  - Bullet
-  - Guard
+  - Weapon
+  - 
   - item
   - 
   - 

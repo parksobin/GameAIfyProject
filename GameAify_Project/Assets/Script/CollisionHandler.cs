@@ -13,11 +13,10 @@ public class CollisionHandler : MonoBehaviour
         {
             if (other.CompareTag(tag))
             {
-                if ((CompareTag("Enemy") && (other.CompareTag("Bullet") || other.CompareTag("Guard")))) PlayerShoot.Score++;
-                if (other.CompareTag("Bullet")) Destroy(other.gameObject);
+                if (CompareTag("Enemy") && other.CompareTag("Weapon")) PlayerAttack.Score++;
                 if (CompareTag("Apple") && other.CompareTag("Player")) PlayerMove.HP += 1.0f;
                 if (CompareTag("AppleDmg") && other.CompareTag("Player")) PlayerMove.HP -= 0.5f;
-                if ((CompareTag("Box") && (other.CompareTag("Bullet") || other.CompareTag("Guard"))))
+                if (CompareTag("Box") && other.CompareTag("Weapon"))
                 {
                     RandomSpawner.isDropApple = true;
                     Vector2 collisionPosition = other.transform.position;

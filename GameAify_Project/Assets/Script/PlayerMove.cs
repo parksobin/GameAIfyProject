@@ -6,15 +6,13 @@ public class PlayerMove : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Transform player;
-    public Orbit orbitSpawner;
+    public DroneMove orbitSpawner;
 
-    private SpriteRenderer sr; //캐릭터 기본 ㅅ스프라이트 렌더러
+    private SpriteRenderer sr; //캐릭터 기본 스프라이트 렌더러
     public Sprite idleSprite; //기본 이미지
     public Sprite walkUpSprite; // 캐릭터 뒷모습 이미지
     private Rigidbody2D rb;
     private Vector2 movement;
-    public TextMeshProUGUI xText;
-    public TextMeshProUGUI yText;
 
     public static float HP = 5.0f;
     public TextMeshProUGUI hpText;
@@ -34,15 +32,6 @@ public class PlayerMove : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal"); 
         movement.y = Input.GetAxisRaw("Vertical");
         movement.Normalize(); // 대각선 속도 보정
-
-        if (player != null && xText != null && yText != null )
-        {
-            float x = player.position.x;
-            float y = player.position.y;
-            xText.text = $"X : {x:F2}";
-            yText.text = $"Y : {y:F2}";
-        }
-
 
         //플레이어 입력 이동에 따른
         if (Input.GetKey(KeyCode.D))
@@ -83,11 +72,6 @@ public class PlayerMove : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        /*if (other.CompareTag("Guarditem"))
-        {
-            orbitSpawner.AddOrbitingObject(); // 하나 더 추가 요청
-            Destroy(other.gameObject); // 아이템 제거
-        }*/
         if (other.CompareTag("Enemy"))
         {
             HP -= 1.0f;

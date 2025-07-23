@@ -149,8 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTags:
-  - Bullet
-  - Guard
+  - Weapon
 --- !u!114 &8638516583411459822
 MonoBehaviour:
   m_ObjectHideFlags: 0
