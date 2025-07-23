@@ -6,7 +6,6 @@ public class PlayerMove : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Transform player;
-    public DroneMove orbitSpawner;
 
     private SpriteRenderer sr; //캐릭터 기본 스프라이트 렌더러
     public Sprite idleSprite; //기본 이미지

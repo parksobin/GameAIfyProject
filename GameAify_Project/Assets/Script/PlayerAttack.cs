@@ -8,25 +8,31 @@ public class PlayerAttack : MonoBehaviour
     public CollisionHandler collisionHandler;
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
-    public float SyringeSpeed = 10f; // 주사기 속도
-    public float shootInterval = 1.5f; // 주사기 발사 간격
+    private float SyringeSpeed = 10f; // 주사기 속도
+    private float shootInterval = 1.5f; // 주사기 발사 간격
     private float SyringeLifetime = 1f; // 주사기 수명
     private float timer = 0f; // 발사 시간 초기화
-    public int SyringeMemberCount = 1; // 주사기 갯수
+    private int SyringeMemberCount = 1; // 주사기 갯수
     private float SyringeInterval = 0.15f; // 주사기 간 발사 간격
-    public int SyringeStep = 1; // 주사기 단계
 
     // 메스 관련 멤버 변수
     public GameObject ScalpelPrefab; // 메스 프리팹
     public GameObject ScalpelBulletPrefab; // 메스 발사체 프리팹
     private float rotationDuration = 0.5f; // 0도에서 최대각도까지 도는 데 걸리는 시간
     private bool ScalpelRotating = false; // 메스가 생성 중인지 여부
-    public float ScalpelBulletSpeed = 10f; // 메스 발사체 속도
+    private float ScalpelBulletSpeed = 10f; // 메스 발사체 속도
+
+    public int SyringeStep = 1; // 주사기 단계
     public int ScalpelStep = 1; // 메스 단계
 
     // 게임 시스템 관련 멤버 변수
     public TextMeshProUGUI ScoreText;
     public static int Score = 0;
+
+    void Start()
+    {
+        
+    }
 
     void Update()
     {

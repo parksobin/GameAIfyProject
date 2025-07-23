@@ -3,64 +3,120 @@ using UnityEngine;
 
 public class DroneMove : MonoBehaviour
 {
-    public Transform player;      // 중심이 될 플레이어
-    public GameObject orbitPrefab; // 공전할 오브젝트 프리팹
-    public int numberOfGuard = 1; // 몇 개를 공전시킬지
-    private float radius = 2f;      // 공전 반지름
-    public float speed = 1f;       // 공전 속도
-    public int maxGuard = 5;
+    public Transform player; 
+    public GameObject DronePrefab; // 일반 드론 프리팹
+    public GameObject UpgradeDronePrefab; // 업그레이드 드론 프리팹
 
-    private GameObject[] orbitObjects;
-    private float[] angles;
+    public int DroneStep = 1;
+
+    private int currentDroneStep = -1;
+
+    // 일반 드론
+    private GameObject[] normalDrones;
+    private float[] normalAngles;
+    private float normalRadius = 2f;
+    private float normalSpeed = 2f;
+
+    // 업그레이드 드론
+    private GameObject[] upgradeDrones;
+    private float[] upgradeAngles;
+    private float upgradeRadius = 4f;
+    private float upgradeSpeed = 3f;
 
     void Start()
     {
-        SetGuard();
+        SetDrone();
     }
 
     void Update()
     {
-        for (int i = 0; i < numberOfGuard; i++)
+        // DroneStep 변경 감지
+        if (DroneStep != currentDroneStep)
         {
-            angles[i] += speed * Time.deltaTime;
-            float x = Mathf.Cos(angles[i]) * radius;
-            float y = Mathf.Sin(angles[i]) * radius;
-            orbitObjects[i].transform.position = player.position + new Vector3(x, y, 0);
+            currentDroneStep = DroneStep;
+            DroneUpdate();
+        }
+
+        // 일반 드론 공전
+        if (normalDrones != null)
+        {
+            for (int i = 0; i < normalDrones.Length; i++)
+            {
+                normalAngles[i] += normalSpeed * Time.deltaTime;
+                float x = Mathf.Cos(normalAngles[i]) * normalRadius;
+                float y = Mathf.Sin(normalAngles[i]) * normalRadius;
+                normalDrones[i].transform.position = player.position + new Vector3(x, y, 0);
+            }
+        }
+
+        // 업그레이드 드론 공전
+        if (upgradeDrones != null)
+        {
+            for (int i = 0; i < upgradeDrones.Length; i++)
+            {
+                upgradeAngles[i] += upgradeSpeed * Time.deltaTime;
+                float x = Mathf.Cos(upgradeAngles[i]) * upgradeRadius;
+                float y = Mathf.Sin(upgradeAngles[i]) * upgradeRadius;
+                upgradeDrones[i].transform.position = player.position + new Vector3(x, y, 0);
+            }
         }
     }
 
-    private void SetGuard()
+    private void SetDrone()
     {
-        orbitObjects = new GameObject[numberOfGuard];
-        angles = new float[numberOfGuard];
+        // 기존 드론 제거
+        if (normalDrones != null)
+            foreach (var d in normalDrones) Destroy(d);
+        if (upgradeDrones != null)
+            foreach (var d in upgradeDrones) Destroy(d);
 
-        float angleStep = 360f / numberOfGuard;
+        switch (DroneStep)
+        {
+            case 1:
+                CreateNormalDrones(2);
+                break;
+            case 2:
+                CreateNormalDrones(3);
+                break;
+            case 3:
+                CreateNormalDrones(3);
+                CreateUpgradeDrones(2);
+                break;
+        }
+    }
 
-        for (int i = 0; i < numberOfGuard; i++)
+    private void CreateNormalDrones(int count)
+    {
+        normalDrones = new GameObject[count];
+        normalAngles = new float[count];
+        float angleStep = 360f / count;
+
+        for (int i = 0; i < count; i++)
         {
             float angle = i * angleStep * Mathf.Deg2Rad;
-            angles[i] = angle;
-
-            Vector3 pos = player.position + new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0);
-            orbitObjects[i] = Instantiate(orbitPrefab, pos, Quaternion.identity);
+            normalAngles[i] = angle;
+            Vector3 pos = player.position + new Vector3(Mathf.Cos(angle) * normalRadius, Mathf.Sin(angle) * normalRadius, 0);
+            normalDrones[i] = Instantiate(DronePrefab, pos, Quaternion.identity);
         }
     }
 
-    public void AddOrbitingObject()
+    private void CreateUpgradeDrones(int count)
     {
-        if(numberOfGuard < maxGuard)
+        upgradeDrones = new GameObject[count];
+        upgradeAngles = new float[count];
+        float angleStep = 360f / count;
+
+        for (int i = 0; i < count; i++)
         {
-            numberOfGuard++;
-            GuardUpdate();
+            float angle = i * angleStep * Mathf.Deg2Rad;
+            upgradeAngles[i] = angle;
+            Vector3 pos = player.position + new Vector3(Mathf.Cos(angle) * upgradeRadius, Mathf.Sin(angle) * upgradeRadius, 0);
+            upgradeDrones[i] = Instantiate(UpgradeDronePrefab, pos, Quaternion.identity);
         }
     }
 
-    private void GuardUpdate()
+    private void DroneUpdate()
     {
-        foreach (GameObject obj in orbitObjects)
-        {
-            Destroy(obj);
-        }
-        SetGuard();    
+        SetDrone();
     }
 }

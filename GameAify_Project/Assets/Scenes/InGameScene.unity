@@ -421,93 +421,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &380115909
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 380115911}
-  - component: {fileID: 380115910}
-  m_Layer: 0
-  m_Name: Drone(Upgrade)_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &380115910
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380115909}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 3896201219881815714, guid: c141fe70e9dde5147bb07da0941710dc, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 4.08, y: 3.76}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &380115911
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380115909}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.01, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &406342723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,7 +1273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1911230239}
-  spawnEnemyPrefab: {fileID: 921236900920657690, guid: c14078f32fabec94289e8c876cc6dc70, type: 3}
+  spawnEnemyPrefab: {fileID: 3263401917564440933, guid: c80e6f48f03ecf845b88a15d579562b7, type: 3}
   spawnItemPrefab: {fileID: 3793810913243761795, guid: 44dc331016ab38143928265786b442f8, type: 3}
   EnemyDistance: 10
   ItemDistance: 15
@@ -1843,7 +1756,7 @@ GameObject:
   - component: {fileID: 1911230238}
   - component: {fileID: 1911230240}
   - component: {fileID: 1911230242}
-  - component: {fileID: 1911230243}
+  - component: {fileID: 1911230248}
   - component: {fileID: 1911230247}
   - component: {fileID: 1911230241}
   - component: {fileID: 1911230244}
@@ -1921,7 +1834,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1940,7 +1853,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   player: {fileID: 1911230239}
-  orbitSpawner: {fileID: 1911230243}
   idleSprite: {fileID: 21300000, guid: 6fdc4705d369cc84699e7e411c675599, type: 3}
   walkUpSprite: {fileID: 3362969897412220435, guid: cfefe15954b52ed469b9ca116d4524d8, type: 3}
   hpText: {fileID: 1230487514}
@@ -1983,34 +1895,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5202b9531c737438ff260c8961a4fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionHandler: {fileID: -5866011504725202228, guid: c14078f32fabec94289e8c876cc6dc70, type: 3}
+  collisionHandler: {fileID: 1237187398483034450, guid: c80e6f48f03ecf845b88a15d579562b7, type: 3}
   SyringePrefab: {fileID: 1642362934980271500, guid: 16fa3ed957d2c744d9d036a1b6536546, type: 3}
-  SyringeSpeed: 10
-  shootInterval: 1
-  SyringeMemberCount: 1
-  SyringeStep: 3
   ScalpelPrefab: {fileID: 8283444544461909553, guid: 485f5f7b568aac14184ee1151b2359af, type: 3}
   ScalpelBulletPrefab: {fileID: 4135190079753697617, guid: c2e77355fb4e27d47b5ecb393bb30de4, type: 3}
-  ScalpelBulletSpeed: 5
+  SyringeStep: 1
   ScalpelStep: 1
   ScoreText: {fileID: 246148668}
---- !u!114 &1911230243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911230237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c172b4e07395c9b40a29ef77b6aee3fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1911230239}
-  orbitPrefab: {fileID: 93159858725629191, guid: 147acf9f22c492d4191f6035a240a38e, type: 3}
-  numberOfGuard: 0
-  speed: 3
-  maxGuard: 5
 --- !u!70 &1911230244
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2103,6 +1994,22 @@ MonoBehaviour:
   firePoint: {fileID: 1911230239}
   warningTime: 1.5
   laserTime: 2
+--- !u!114 &1911230248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911230237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c172b4e07395c9b40a29ef77b6aee3fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1911230239}
+  DronePrefab: {fileID: 8466247847011912937, guid: 7dea060d67e1f634bbaf061f7655e25a, type: 3}
+  UpgradeDronePrefab: {fileID: 4840715986232599474, guid: 714a480a7b890674d98ca11dd71ad002, type: 3}
+  DroneStep: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2113,4 +2020,3 @@ SceneRoots:
   - {fileID: 863612590}
   - {fileID: 1634346479}
   - {fileID: 289787325}
-  - {fileID: 380115911}
