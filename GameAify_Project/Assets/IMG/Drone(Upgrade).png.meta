@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Drone(Upgrade)_0: 3896201219881815714
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Monster(Bacteria)_0: 4185994959879561505
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

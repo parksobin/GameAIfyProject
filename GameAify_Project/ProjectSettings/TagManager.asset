@@ -12,6 +12,7 @@ TagManager:
   - AppleDmg
   - Box
   - Guarditem
+  - Vaccine
   layers:
   - Default
   - TransparentFX
