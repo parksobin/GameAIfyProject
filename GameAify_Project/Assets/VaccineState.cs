@@ -8,6 +8,8 @@ public class VaccineState : MonoBehaviour
     private Vector3 destination;  
     private Vector3 direction; //방향 (대각선)
 
+    private bool downSign = false;
+    private float timer = 0f;
     private Rigidbody2D rb;
 
     void Start()
@@ -29,6 +31,15 @@ public class VaccineState : MonoBehaviour
 
     void Update()
     {
+
+        if (downSign==true)
+        {
+            timer += Time.deltaTime;
+            if (timer > 3.0f)
+            {
+                Destroy(gameObject);
+            }
+        }
         MoveVaccine();
     }
 
@@ -43,11 +54,12 @@ public class VaccineState : MonoBehaviour
         {
             VaccineObj.SetActive(false );
             VaccineFeild.SetActive(true );
+            downSign=true;
             rb.linearVelocity = Vector2.zero;
             rb.gravityScale = 0f; // 중력 제거로 멈춤 유지
             transform.position = gameObject.transform.position; // 정확한 위치 고정
             rb.bodyType = RigidbodyType2D.Kinematic;   // 정지 상태로 전환
-            enabled = false;
+            //enabled = false;   //업데이트 구문 중지
 
         }
     }

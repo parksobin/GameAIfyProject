@@ -39,9 +39,17 @@ public class PlayerAttack : MonoBehaviour
     private int vaccineMaxCount; //백신 단계당 초당 생성 개수
     private float vaccineWaitSeconds; //백신 생성주기 초수
 
+
+    //캡슐 관련 변슈
+    private GameObject capsuleObj; //캡슐 오브젝트(플레이어 내에있음)
+    private float capsuleTimer;  //캡슐 쿨타임
+    private CapsuleState capsuleState;
+    public int capsuleLevel = 1;
     
     void Start()
     {
+        capsuleObj = GameObject.Find("CapsuleiTem");
+        capsuleState = capsuleObj.GetComponent<CapsuleState>();
         StartCoroutine(VaccineInject());
     }
 
@@ -62,6 +70,7 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(SpawnScalpelRotate(direction));
         }
         */
+        CapsuleActiveOn();
     }
     /*
     IEnumerator ShootSyringe() // 주사기 발사 함수
@@ -190,7 +199,6 @@ public class PlayerAttack : MonoBehaviour
              yield return new WaitForSeconds(vaccineWaitSeconds); // 각 백신마다 간격
         }
     }
-
     private void VaccineCoordinate()  //백신 위치 함수
     {
         float playerX = gameObject.transform.position.x;
@@ -201,5 +209,41 @@ public class PlayerAttack : MonoBehaviour
         // mark = Random.Range(0, 2) == 1;  //y좌표 - + 랜덤 변수
         float RandomY = playerY + Random.Range(-2, 8);
         Instantiate(vaccine, new Vector3(RandomX, RandomY, -0.5f), Quaternion.identity); //캐릭터 중심근처로 백신 영역생성
+    }
+
+
+    //캡슐 활성화 함수
+    private void CapsuleActiveOn()
+    {
+        if (!capsuleState.CapsuleActive)
+        {
+            capsuleTimer += Time.deltaTime;
+
+            switch (capsuleLevel)
+            {
+                case 1:
+                    //  타격 감소 관련 작성 예정
+                    CapsuleTimerOn(20);
+                    break;
+                case 2:
+                    CapsuleTimerOn(20);
+                    break;
+                case 3:
+                    CapsuleTimerOn(20);
+                    break;
+                case 4:
+                    CapsuleTimerOn(15);
+                    break;
+            }
+        }
+    }
+    
+    private void CapsuleTimerOn(float sec) //캡슐 재생성 쿨타임
+    {
+        if (capsuleTimer > sec)
+        {
+            capsuleTimer = 0;
+            capsuleObj.SetActive(true);
+        }
     }
 }
