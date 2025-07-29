@@ -6,21 +6,18 @@ public class DroneMove : MonoBehaviour
     public Transform player; 
     public GameObject DronePrefab; // 일반 드론 프리팹
     public GameObject UpgradeDronePrefab; // 업그레이드 드론 프리팹
-
-    public int DroneStep = 1;
-
     private int currentDroneStep = -1;
 
     // 일반 드론
     private GameObject[] normalDrones;
     private float[] normalAngles;
-    private float normalRadius = 2f;
+    private float normalRadius = 5f;
     private float normalSpeed = 2f;
 
     // 업그레이드 드론
     private GameObject[] upgradeDrones;
     private float[] upgradeAngles;
-    private float upgradeRadius = 4f;
+    private float upgradeRadius = 10f;
     private float upgradeSpeed = 3f;
 
     void Start()
@@ -30,10 +27,10 @@ public class DroneMove : MonoBehaviour
 
     void Update()
     {
-        // DroneStep 변경 감지
-        if (DroneStep != currentDroneStep)
+        // DroneLevel 변경 감지
+        if (PlayerAttack.DroneLevel != currentDroneStep)
         {
-            currentDroneStep = DroneStep;
+            currentDroneStep = PlayerAttack.DroneLevel;
             DroneUpdate();
         }
 
@@ -70,7 +67,7 @@ public class DroneMove : MonoBehaviour
         if (upgradeDrones != null)
             foreach (var d in upgradeDrones) Destroy(d);
 
-        switch (DroneStep)
+        switch (PlayerAttack.DroneLevel)
         {
             case 1:
                 CreateNormalDrones(2);

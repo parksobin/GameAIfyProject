@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 506102972571770672}
   m_Layer: 6
-  m_Name: Scalpel
+  m_Name: Mess
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

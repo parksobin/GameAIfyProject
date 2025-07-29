@@ -2310,13 +2310,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1634346485}
+        m_TargetAssemblyTypeName: StatDebug, Assembly-CSharp
+        m_MethodName: ApplySettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2874,7 +2874,7 @@ MonoBehaviour:
 
     Capcule - click
 
-'
+    Mess - Space'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3901,6 +3901,7 @@ GameObject:
   - component: {fileID: 1634346482}
   - component: {fileID: 1634346483}
   - component: {fileID: 1634346484}
+  - component: {fileID: 1634346485}
   m_Layer: 0
   m_Name: MainManager
   m_TagString: Untagged
@@ -3993,6 +3994,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1863847895}
+--- !u!114 &1634346485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634346478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2a01ce44e008d4ca3b92d0e21fd2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyringeLev: {fileID: 927401795}
+  MessLev: {fileID: 197176416}
+  DroneLev: {fileID: 1779996425}
+  VaccineLev: {fileID: 333599224}
+  CapsuleLev: {fileID: 1902114194}
 --- !u!1 &1666005960
 GameObject:
   m_ObjectHideFlags: 0
@@ -5291,15 +5309,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5202b9531c737438ff260c8961a4fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SyringeStep: 4
-  ScalpelStep: 1
-  vaccineLevel: 3
-  capsuleLevel: 1
   collisionHandler: {fileID: 1237187398483034450, guid: c80e6f48f03ecf845b88a15d579562b7, type: 3}
   SyringePrefab: {fileID: 1642362934980271500, guid: 16fa3ed957d2c744d9d036a1b6536546, type: 3}
-  ScalpelPrefab: {fileID: 8283444544461909553, guid: 485f5f7b568aac14184ee1151b2359af, type: 3}
-  ScalpelBulletPrefab: {fileID: 4135190079753697617, guid: c2e77355fb4e27d47b5ecb393bb30de4, type: 3}
-  MessRend: {fileID: 0}
+  MessPrefab: {fileID: 8283444544461909553, guid: 485f5f7b568aac14184ee1151b2359af, type: 3}
+  MessBulletPrefab: {fileID: 4135190079753697617, guid: c2e77355fb4e27d47b5ecb393bb30de4, type: 3}
   vaccine: {fileID: 521822207882441309, guid: c33ef46c58496f54198a459f3171ac71, type: 3}
 --- !u!70 &1911230244
 CapsuleCollider2D:
@@ -5408,7 +5421,6 @@ MonoBehaviour:
   player: {fileID: 1911230239}
   DronePrefab: {fileID: 8466247847011912937, guid: 7dea060d67e1f634bbaf061f7655e25a, type: 3}
   UpgradeDronePrefab: {fileID: 4840715986232599474, guid: 714a480a7b890674d98ca11dd71ad002, type: 3}
-  DroneStep: 1
 --- !u!1 &1986057015
 GameObject:
   m_ObjectHideFlags: 0

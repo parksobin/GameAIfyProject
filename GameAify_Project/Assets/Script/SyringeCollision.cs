@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class SyringeCollision : MonoBehaviour
@@ -6,7 +7,7 @@ public class SyringeCollision : MonoBehaviour
     {
         if(collision.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
+            if(PlayerAttack.SyringeLevel <= 1) Destroy(gameObject);
         }
     }
 }

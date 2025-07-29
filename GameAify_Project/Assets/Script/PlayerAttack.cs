@@ -5,27 +5,27 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public int SyringeStep = 1; // 주사기 단계
-    public int ScalpelStep = 1; // 메스 단계
-    
-    public int  vaccineLevel=1;  //백신 투하 단계
-    public int capsuleLevel = 1;
+    public static int SyringeLevel = 1; // 주사기 단계
+    public static int MessLevel = 1; // 메스 단계
+    public static int DroneLevel = 1; // 드론 단계
+    public static int VaccineLevel = 1;  // 백신 투하 단계
+    public static int CapsuleLevel = 1; // 캡슐 단계
 
     public CollisionHandler collisionHandler;
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
     private float SyringeSpeed = 10f; // 주사기 속도
     private float shootInterval = 1.5f; // 주사기 발사 간격
-    private float SyringeLifetime = 1f; // 주사기 수명
+    private float SyringeLifetime = 2f; // 주사기 수명
     private float timer = 0f; // 발사 시간 초기화
 
     // 메스 관련 멤버 변수
-    public GameObject ScalpelPrefab; // 메스 프리팹
-    public GameObject ScalpelBulletPrefab; // 메스 발사체 프리팹
-    public SpriteRenderer MessRend;
-    private float rotationDuration = 0.5f; // 0도에서 최대각도까지 도는 데 걸리는 시간
-    private bool ScalpelRotating = false; // 메스가 생성 중인지 여부
-    private float ScalpelBulletSpeed = 10f; // 메스 발사체 속도
+    public GameObject MessPrefab; // 메스 프리팹
+    public GameObject MessBulletPrefab; // 메스 발사체 프리팹
+    private SpriteRenderer MessRend; // 메스 스프라이트 참조용
+    private float rotationDuration = 0.25f; // 0도에서 최대각도까지 도는 데 걸리는 시간
+    private bool MessRotating = false; // 메스가 생성 중인지 여부
+    private float MessBulletSpeed = 15f; // 메스 발사체 속도
 
 
 
@@ -58,7 +58,7 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(ShootSyringe());
             timer = 0f;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !ScalpelRotating)
+        if (Input.GetKeyDown(KeyCode.Space) && !MessRotating)
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float direction = mouseWorld.x < transform.position.x ? 1f : -1f;
@@ -76,7 +76,7 @@ public class PlayerAttack : MonoBehaviour
         int countPerRow = 1;
         int rows = 1;
 
-        switch (SyringeStep)
+        switch (SyringeLevel)
         {
             case 1:
                 countPerRow = 1;
@@ -96,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
                 break;
         }
 
-        float spacing = 1.0f; // 주사기 간의 위치 간격입니다
+        float spacing = 1.5f; // 주사기 간의 위치 간격입니다
 
         for (int r = 0; r < rows; r++)
         {
@@ -122,8 +122,8 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator SpawnMessRotate(float direction)
     {
-        ScalpelRotating = true;
-        GameObject obj = Instantiate(ScalpelPrefab, transform.position, Quaternion.identity);
+        MessRotating = true;
+        GameObject obj = Instantiate(MessPrefab, transform.position, Quaternion.identity);
         Transform MessTarget = obj.transform.Find("Square");
         MessRend = MessTarget.GetComponent<SpriteRenderer>();
         if (direction > 0f) MessRend.flipX = true;
@@ -132,7 +132,7 @@ public class PlayerAttack : MonoBehaviour
         float startAngle = 0f;
         float endAngle = 0f;
         bool isBulletShoot = false;
-        switch (ScalpelStep)
+        switch (MessLevel)
         {
             case 1:
                 endAngle = 90f * direction;
@@ -159,7 +159,7 @@ public class PlayerAttack : MonoBehaviour
             // 발사 조건: 각도 지나침 체크
             if (isBulletShoot && Mathf.Abs(angle) >= 90f)
             {
-                ScalpelBulletShoot(direction);
+                MessBulletShoot(direction);
                 isBulletShoot = false;
             }
 
@@ -169,16 +169,18 @@ public class PlayerAttack : MonoBehaviour
         // 마지막 각도 보정
         obj.transform.rotation = Quaternion.Euler(0f, 0f, endAngle);
         Destroy(obj);
-        ScalpelRotating = false;
+        MessRotating = false;
     }
-    void ScalpelBulletShoot(float direction)
+    void MessBulletShoot(float direction)
     {
-        GameObject proj = Instantiate(ScalpelBulletPrefab, transform.position, Quaternion.identity);
+        GameObject proj = Instantiate(MessBulletPrefab, transform.position, Quaternion.identity);
         Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            Vector2 fireDir = direction > 0 ? Vector2.left : Vector2.right;
-            rb.linearVelocity = fireDir * ScalpelBulletSpeed;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f;
+            Vector3 fireDir = (mousePos - transform.position).normalized;
+            rb.linearVelocity = fireDir * MessBulletSpeed;
         }
     }
     // 백신 생성 함수
@@ -189,7 +191,7 @@ public class PlayerAttack : MonoBehaviour
         int vaccineCount = 0 ; //백신 단계당 생성된 개수
         while (true)
         {
-            switch (vaccineLevel)
+            switch (VaccineLevel)
             {
                 case 1: //1단계
                     vaccineWaitSeconds = 8f;
@@ -248,7 +250,7 @@ public class PlayerAttack : MonoBehaviour
         {
             capsuleTimer += Time.deltaTime;
 
-            switch (capsuleLevel)
+            switch (CapsuleLevel)
             {
                 case 1:
                     //  타격 감소 관련 작성 예정
