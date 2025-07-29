@@ -5,7 +5,12 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public int SyringeStep = 1; // 주사기 단계
+    public int ScalpelStep = 1; // 메스 단계
     
+    public int  vaccineLevel=1;  //백신 투하 단계
+    public int capsuleLevel = 1;
+
     public CollisionHandler collisionHandler;
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
@@ -13,29 +18,19 @@ public class PlayerAttack : MonoBehaviour
     private float shootInterval = 1.5f; // 주사기 발사 간격
     private float SyringeLifetime = 1f; // 주사기 수명
     private float timer = 0f; // 발사 시간 초기화
-    private int SyringeMemberCount = 1; // 주사기 갯수
-    private float SyringeInterval = 0.15f; // 주사기 간 발사 간격
 
     // 메스 관련 멤버 변수
     public GameObject ScalpelPrefab; // 메스 프리팹
     public GameObject ScalpelBulletPrefab; // 메스 발사체 프리팹
+    public SpriteRenderer MessRend;
     private float rotationDuration = 0.5f; // 0도에서 최대각도까지 도는 데 걸리는 시간
     private bool ScalpelRotating = false; // 메스가 생성 중인지 여부
     private float ScalpelBulletSpeed = 10f; // 메스 발사체 속도
 
-    public int SyringeStep = 1; // 주사기 단계
-    public int ScalpelStep = 1; // 메스 단계
-
-    // 게임 시스템 관련 멤버 변수
-   // public TextMeshProUGUI ScoreText;
-    public static int Score = 0;
-    
-    
 
 
     //백신 관련 변수
     public GameObject vaccine;  //백신 투하 영역 프리팹 오브젝트
-    public int  vaccineLevel=1;  //백신 투하 단계
     private int vaccineMaxCount; //백신 단계당 초당 생성 개수
     private float vaccineWaitSeconds; //백신 생성주기 초수
 
@@ -44,7 +39,6 @@ public class PlayerAttack : MonoBehaviour
     private GameObject capsuleObj; //캡슐 오브젝트(플레이어 내에있음)
     private float capsuleTimer;  //캡슐 쿨타임
     private CapsuleState capsuleState;
-    public int capsuleLevel = 1;
 
 
     void Start()
@@ -68,42 +62,72 @@ public class PlayerAttack : MonoBehaviour
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float direction = mouseWorld.x < transform.position.x ? 1f : -1f;
-            StartCoroutine(SpawnScalpelRotate(direction));
+            StartCoroutine(SpawnMessRotate(direction));
         }
     }
 
-    IEnumerator ShootSyringe() // 주사기 발사 함수
+    IEnumerator ShootSyringe()
     {
-        switch(SyringeStep)
-        {
-            case 1:
-                SyringeMemberCount = 1;
-                break;
-            case 2:
-                SyringeMemberCount = 3;
-                break;
-            case 3:
-                SyringeMemberCount = 5;
-                break;
-        }
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
-        Vector3 direction = (mousePos - transform.position).normalized; // 방향 계산
-        for(int i = 0; i < SyringeMemberCount; i++)
+        Vector3 direction = (mousePos - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        int countPerRow = 1;
+        int rows = 1;
+
+        switch (SyringeStep)
         {
-            GameObject proj = Instantiate(SyringePrefab, transform.position, Quaternion.identity); // 발사체 생성
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            proj.transform.rotation = Quaternion.Euler(0, 0, angle + 90f); // 마우스 커서에 맞춰서 프리팹 각도 변경
-            Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
-            if (rb != null) rb.linearVelocity = direction * SyringeSpeed;
-            yield return new WaitForSeconds(SyringeInterval);
-            Destroy(proj, SyringeLifetime); // 일정 시간 뒤 발사체 제거
+            case 1:
+                countPerRow = 1;
+                rows = 1;
+                break;
+            case 2:
+                countPerRow = 3;
+                rows = 1;
+                break;
+            case 3:
+                countPerRow = 5;
+                rows = 1;
+                break;
+            default:
+                countPerRow = 5;
+                rows = 2;
+                break;
         }
+
+        float spacing = 1.0f; // 주사기 간의 위치 간격입니다
+
+        for (int r = 0; r < rows; r++)
+        {
+            for (int i = 0; i < countPerRow; i++)
+            {
+                // 좌우로 간격을 둔 위치 계산
+                float xOffset = (-(countPerRow - 1) / 2f + i) * spacing;
+                float yOffset = (rows == 2) ? (r == 0 ? 0.3f : -0.3f) : 0f;
+
+                // 발사 방향에 맞춰 오프셋 회전
+                Vector3 offset = Quaternion.Euler(0, 0, angle) * new Vector3(xOffset, yOffset, 0);
+                Vector3 spawnPos = transform.position + offset;
+
+                GameObject proj = Instantiate(SyringePrefab, spawnPos, Quaternion.Euler(0, 0, angle + 90f));
+                Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
+                if (rb != null) rb.linearVelocity = direction * SyringeSpeed;
+                Destroy(proj, SyringeLifetime);
+            }
+        }
+
+        yield return null; // 또는 생략
     }
-    private IEnumerator SpawnScalpelRotate(float direction)
+
+    private IEnumerator SpawnMessRotate(float direction)
     {
         ScalpelRotating = true;
         GameObject obj = Instantiate(ScalpelPrefab, transform.position, Quaternion.identity);
+        Transform MessTarget = obj.transform.Find("Square");
+        MessRend = MessTarget.GetComponent<SpriteRenderer>();
+        if (direction > 0f) MessRend.flipX = true;
+        else MessRend.flipX = false;
         float elapsed = 0f;
         float startAngle = 0f;
         float endAngle = 0f;
