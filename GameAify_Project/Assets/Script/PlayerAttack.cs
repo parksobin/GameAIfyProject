@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    /*
+    
     public CollisionHandler collisionHandler;
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
@@ -29,7 +29,7 @@ public class PlayerAttack : MonoBehaviour
     // 게임 시스템 관련 멤버 변수
     public TextMeshProUGUI ScoreText;
     public static int Score = 0;
-    */
+    
     
 
 
@@ -54,9 +54,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     void Update()
-    {
-        /*
-        ScoreText.text = "Score : " + Score.ToString();
+    { 
         timer += Time.deltaTime;
         if (timer >= shootInterval)
         {
@@ -69,10 +67,9 @@ public class PlayerAttack : MonoBehaviour
             float direction = mouseWorld.x < transform.position.x ? 1f : -1f;
             StartCoroutine(SpawnScalpelRotate(direction));
         }
-        */
         CapsuleActiveOn();
     }
-    /*
+    
     IEnumerator ShootSyringe() // 주사기 발사 함수
     {
         switch(SyringeStep)
@@ -158,11 +155,7 @@ public class PlayerAttack : MonoBehaviour
             rb.linearVelocity = fireDir * ScalpelBulletSpeed;
         }
     }
-    */
-    
-
-
-
+   
     // 백신 생성 함수
     IEnumerator VaccineInject()
     {
