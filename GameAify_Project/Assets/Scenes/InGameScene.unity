@@ -1843,7 +1843,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6fdc4705d369cc84699e7e411c675599, type: 3}
+  m_Sprite: {fileID: 917232941213192446, guid: 4ed4875e0f3abdc4f83dbb1ad2e15b57, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1884,8 +1884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   player: {fileID: 1911230239}
-  idleSprite: {fileID: 21300000, guid: 6fdc4705d369cc84699e7e411c675599, type: 3}
-  walkUpSprite: {fileID: 3362969897412220435, guid: cfefe15954b52ed469b9ca116d4524d8, type: 3}
+  idleSprite: {fileID: 917232941213192446, guid: 4ed4875e0f3abdc4f83dbb1ad2e15b57, type: 3}
   hpText: {fileID: 1230487514}
 --- !u!50 &1911230241
 Rigidbody2D:
@@ -1970,8 +1969,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.2, y: -0.5}
-  m_Size: {x: 4, y: 9}
+  m_Offset: {x: 0.039643843, y: -0.018930435}
+  m_Size: {x: 4.2290807, y: 10.282854}
   m_Direction: 0
 --- !u!95 &1911230245
 Animator:

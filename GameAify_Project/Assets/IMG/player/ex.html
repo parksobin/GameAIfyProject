@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>캐릭터 이동 및 스킬</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    #character {
+      position: absolute;
+      top: 300px;
+      left: 300px;
+      width: 128px;
+      height: 128px;
+      image-rendering: pixelated;
+      object-fit: contain;
+    }
+
+    #controls {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+
+    input[type="number"] {
+      width: 60px;
+    }
+
+    #info {
+      margin-top: 15px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="character" src="fhold.png">
+
+  <div id="controls">
+    <label>
+      이동 속도(px):
+      <input type="number" id="moveSpeed" min="1" max="20" value="3">
+    </label>
+    <label>
+      이동 프레임 속도(ms):
+      <input type="number" id="frameSpeed" min="50" max="1000" value="150">
+    </label>
+    <label>
+      스킬 프레임 속도(ms):
+      <input type="number" id="skillSpeed" min="50" max="1000" value="100">
+    </label>
+
+    <div id="info">
+      방향키 상/하/좌/우 및 대각선 이동에 따라 다른 스프라이트가 재생됩니다.<br>
+      Z 키를 누르고 있으면 스킬이 반복 재생되며, 이동은 불가능합니다.
+    </div>
+  </div>
+
+  <script>
+    const character = document.getElementById("character");
+    const moveSpeedInput = document.getElementById("moveSpeed");
+    const frameSpeedInput = document.getElementById("frameSpeed");
+    const skillSpeedInput = document.getElementById("skillSpeed");
+
+    let x = 300, y = 300;
+    let frame = 0;
+    let lastFrameTime = 0;
+    let keyPressed = {};
+    let lastDirection = "right";
+
+    let isCastingSkill = false;
+    let skillFrame = 0;
+    let lastSkillTime = 0;
+    const skillFrames = 10;
+
+    const spriteData = {
+      left: { path: "side/s", frames: 4 },
+      right: { path: "side/ss", frames: 4 },
+      back: { path: "back/b", frames: 6 },
+      front: { path: "front/f", frames: 4 },
+      skill: { path: "skill/z", frames: 10 }
+    };
+
+    document.addEventListener("keydown", (e) => {
+      keyPressed[e.key] = true;
+      if ((e.key === "z" || e.key === "Z") && !isCastingSkill) {
+        isCastingSkill = true;
+        skillFrame = 0;
+        lastSkillTime = 0;
+      }
+    });
+
+    document.addEventListener("keyup", (e) => {
+      keyPressed[e.key] = false;
+    });
+
+    function getDirection() {
+      if (isCastingSkill) return null;
+      const up = keyPressed["ArrowUp"];
+      const down = keyPressed["ArrowDown"];
+      const left = keyPressed["ArrowLeft"];
+      const right = keyPressed["ArrowRight"];
+      if (up && left) return "upleft";
+      if (up && right) return "upright";
+      if (down && left) return "downleft";
+      if (down && right) return "downright";
+      if (up) return "back";
+      if (left) return "left";
+      if (right) return "right";
+      if (down) return "down";
+      return null;
+    }
+
+    function updatePosition(speed) {
+      const dir = getDirection();
+      const diagonalSpeed = speed / Math.sqrt(2);
+      switch (dir) {
+        case "left": x -= speed; break;
+        case "right": x += speed; break;
+        case "back": y -= speed; break;
+        case "down": y += speed; break;
+        case "upleft": x -= diagonalSpeed; y -= diagonalSpeed; break;
+        case "upright": x += diagonalSpeed; y -= diagonalSpeed; break;
+        case "downleft": x -= diagonalSpeed; y += diagonalSpeed; break;
+        case "downright": x += diagonalSpeed; y += diagonalSpeed; break;
+      }
+      character.style.left = `${x}px`;
+      character.style.top = `${y}px`;
+      return dir;
+    }
+
+    function updateFrame(direction) {
+      if (!direction) {
+        character.src = "fhold.png";
+        frame = 0;
+        return;
+      }
+      let sprite = null;
+      if (["left", "upleft", "downleft"].includes(direction)) {
+        sprite = spriteData["left"];
+        lastDirection = "left";
+      } else if (["right", "upright", "downright"].includes(direction)) {
+        sprite = spriteData["right"];
+        lastDirection = "right";
+      } else if (direction === "back") {
+        sprite = spriteData["back"];
+      } else if (direction === "down") {
+        sprite = spriteData["front"];
+      }
+      if (sprite) {
+        const currentFrame = (frame % sprite.frames) + 1;
+        character.src = `${sprite.path}${currentFrame}.png`;
+        frame++;
+      }
+    }
+
+    function updateSkillFrame(timestamp) {
+      const skillSpeed = parseInt(skillSpeedInput.value) || 100;
+      if (!keyPressed["z"] && !keyPressed["Z"]) {
+        isCastingSkill = false;
+        character.src = "fhold.png";
+        return;
+      }
+      if (timestamp - lastSkillTime > skillSpeed) {
+        lastSkillTime = timestamp;
+        skillFrame = (skillFrame % skillFrames) + 1;
+        character.src = `skill/z${skillFrame}.png`;
+      }
+    }
+
+    function gameLoop(timestamp) {
+      const moveSpeed = parseInt(moveSpeedInput.value) || 3;
+      const frameSpeed = parseInt(frameSpeedInput.value) || 150;
+
+      if (isCastingSkill) {
+        updateSkillFrame(timestamp);
+      } else {
+        const direction = getDirection();
+        if (direction) {
+          updatePosition(moveSpeed);
+          if (timestamp - lastFrameTime > frameSpeed) {
+            updateFrame(direction);
+            lastFrameTime = timestamp;
+          }
+        } else {
+          updateFrame(null);
+        }
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    requestAnimationFrame(gameLoop);
+  </script>
+
+</body>
+</html>

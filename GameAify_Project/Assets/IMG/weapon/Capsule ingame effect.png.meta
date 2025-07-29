@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Capsule ingame effect_0: -135243958968512715
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

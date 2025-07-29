@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Defalt_Dron_0: -3227565499108562418
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -247,7 +247,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Backsin Circle_0: 1367584334244049038
+      Backsin Circle_1: 8150277417544392768
+      Backsin Circle_2: -5168523521617029327
+      Backsin Circle_3: 8003594803215927939
+      Backsin Circle_4: -7273317024783584994
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
