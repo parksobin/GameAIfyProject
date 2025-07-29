@@ -3,10 +3,10 @@
 public class VaccineState : MonoBehaviour
 {
     public float speed = 10f;
-    public GameObject VaccineObj; //떨어지는 백신
-    public GameObject VaccineFeild;  //백신 구역
-    private Vector3 destination;  
-    private Vector3 direction; //방향 (대각선)
+    public GameObject VaccineObj; // 떨어지는 백신
+    public GameObject VaccineFeild;  // 백신 구역
+    private Vector3 destination;
+    private PlayerAttack playerAttack;
 
     private bool downSign = false;
     private float timer = 0f;
@@ -18,21 +18,28 @@ public class VaccineState : MonoBehaviour
         VaccineFeild.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
 
-        float randX = Random.Range(2, 5);
-        float randY = Random.Range(1, 3);
+        playerAttack = GameObject.FindWithTag("Player").GetComponent<PlayerAttack>();
+        Vector3 playerPos = GameObject.FindWithTag("Player").transform.position;
+        float randX = Random.Range(-5f, 5f);
+        float randY = Random.Range(-2f, 2f);
+        destination = new Vector3(playerPos.x + randX, playerPos.y + randY, transform.position.z);
+        //destination = new Vector3(playerPos.x , playerPos.y , transform.position.z);
 
-        Vector3 departure = transform.position; //출발지점
-        destination = new Vector3(departure.x - randX, departure.y - randY, departure.z); //도착지 - 좌측 하단으로 낙하되도록
-        direction = (destination - departure).normalized;  //방향
+        // 출발 위치는 y+10 위에서 수직으로 시작
+        transform.position = new Vector3(destination.x, destination.y + 10f, transform.position.z);
 
-        rb.linearVelocity = direction * speed;
-       
+        // 중력 off (옵션), 힘으로 떨어지게
+        rb.gravityScale = 0f;
+
+        // 낙하
+        float forcePower = Random.Range(30,40);
+        rb.AddForce(Vector2.down * forcePower, ForceMode2D.Impulse);
     }
+
 
     void Update()
     {
-
-        if (downSign==true)
+        if (downSign)
         {
             timer += Time.deltaTime;
             if (timer > 3.0f)
@@ -40,27 +47,25 @@ public class VaccineState : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
         MoveVaccine();
     }
 
-    private void MoveVaccine() //백신 낙하 함수
+    private void MoveVaccine()
     {
-        Vector2 pos = new Vector2(transform.position.x, transform.position.y);
-        Vector2 dest = new Vector2(destination.x, destination.y);
-        Vector2 travelDir = (dest - pos).normalized; 
+        Vector2 pos = transform.position;
+        Vector2 dest = destination;
 
-        //낙하 지점 근처에 오면 정지하여 백신 물체 숨기고, 구역 보이게 함
-        if (Vector2.Distance(pos, dest) < 0.1f || Vector2.Dot(direction, travelDir) < 0f)
+        // 도착지점 근처,  지나친 경우 정지
+        if (Vector2.Distance(pos, dest) < 0.1f || pos.y <= dest.y)
         {
-            VaccineObj.SetActive(false );
-            VaccineFeild.SetActive(true );
-            downSign=true;
+            VaccineObj.SetActive(false);
+            VaccineFeild.SetActive(true);
+            downSign = true;
             rb.linearVelocity = Vector2.zero;
-            rb.gravityScale = 0f; // 중력 제거로 멈춤 유지
-            transform.position = gameObject.transform.position; // 정확한 위치 고정
-            rb.bodyType = RigidbodyType2D.Kinematic;   // 정지 상태로 전환
-            //enabled = false;   //업데이트 구문 중지
-
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            transform.position = destination;
         }
     }
+
 }

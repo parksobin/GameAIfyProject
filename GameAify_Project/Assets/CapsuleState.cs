@@ -11,6 +11,10 @@ public class CapsuleState : MonoBehaviour
         Player = GameObject.Find("Player");
         playerAttack = Player.GetComponent<PlayerAttack>();
     }
+    private void Update()
+    {
+        transform.position = Player.transform.position; 
+    }
     private void OnMouseDown()  //이거 나중ㅇㅔ 변경
     {
         CapsuleLevelCheck();

@@ -27,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
     public int ScalpelStep = 1; // 메스 단계
 
     // 게임 시스템 관련 멤버 변수
-    public TextMeshProUGUI ScoreText;
+   // public TextMeshProUGUI ScoreText;
     public static int Score = 0;
     
     
@@ -45,16 +45,19 @@ public class PlayerAttack : MonoBehaviour
     private float capsuleTimer;  //캡슐 쿨타임
     private CapsuleState capsuleState;
     public int capsuleLevel = 1;
-    
+
+
     void Start()
     {
+        //StartCoroutine(VaccineInject());
         capsuleObj = GameObject.Find("CapsuleiTem");
         capsuleState = capsuleObj.GetComponent<CapsuleState>();
-        StartCoroutine(VaccineInject());
     }
 
     void Update()
-    { 
+    {
+        MakeVaccine();
+        CapsuleActiveOn();
         timer += Time.deltaTime;
         if (timer >= shootInterval)
         {
@@ -67,9 +70,8 @@ public class PlayerAttack : MonoBehaviour
             float direction = mouseWorld.x < transform.position.x ? 1f : -1f;
             StartCoroutine(SpawnScalpelRotate(direction));
         }
-        CapsuleActiveOn();
     }
-    
+
     IEnumerator ShootSyringe() // 주사기 발사 함수
     {
         switch(SyringeStep)
@@ -155,12 +157,11 @@ public class PlayerAttack : MonoBehaviour
             rb.linearVelocity = fireDir * ScalpelBulletSpeed;
         }
     }
-   
     // 백신 생성 함수
     IEnumerator VaccineInject()
     {
         vaccineWaitSeconds = 8f;
-        yield return new WaitForSeconds(vaccineWaitSeconds); // 각 백신마다 간격
+       // yield return new WaitForSeconds(vaccineWaitSeconds); // 각 백신마다 간격
         int vaccineCount = 0 ; //백신 단계당 생성된 개수
         while (true)
         {
@@ -189,22 +190,33 @@ public class PlayerAttack : MonoBehaviour
             {
                 VaccineCoordinate();
             }
-             yield return new WaitForSeconds(vaccineWaitSeconds); // 각 백신마다 간격
+            // yield return new WaitForSeconds(vaccineWaitSeconds); // 각 백신마다 간격
         }
     }
-    private void VaccineCoordinate()  //백신 위치 함수
+    
+    private void MakeVaccine()
     {
-        float playerX = gameObject.transform.position.x;
-        float playerY = gameObject.transform.position.y;
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            VaccineCoordinate();
+        }
+    }
+    private void VaccineCoordinate()  // 백신 위치 함수
+    {
+        float playerX = transform.position.x;
+        float playerY = transform.position.y;
 
-        bool mark = Random.Range(0, 2) == 1;  //x좌표 - + 랜덤 변수
-        float RandomX = playerX + (Random.Range(3, 10) * (mark ? 1 : -1));  // mark가 false면 -부호 붙임 플레이어 좌표 기준으로 생성
-        // mark = Random.Range(0, 2) == 1;  //y좌표 - + 랜덤 변수
-        float RandomY = playerY + Random.Range(-2, 8);
-        Instantiate(vaccine, new Vector3(RandomX, RandomY, -0.5f), Quaternion.identity); //캐릭터 중심근처로 백신 영역생성
+        // X축: -5 ~ +5 사이 랜덤
+        float randomX = playerX + Random.Range(-5f, 5f);
+
+        // Y축: +10 고정
+        float randomY = playerY + 10f;
+
+        Instantiate(vaccine, new Vector3(randomX, randomY, -0.5f), Quaternion.identity);
     }
 
 
+    
     //캡슐 활성화 함수
     private void CapsuleActiveOn()
     {
