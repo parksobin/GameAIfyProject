@@ -19,6 +19,23 @@ public class StatDebug : MonoBehaviour
     public TMP_InputField AttackSpeed;
     //public TMP_InputField AttackPower;
 
+    public TextMeshProUGUI SyrText;
+    public TextMeshProUGUI MesText;
+    public TextMeshProUGUI DroText;
+    public TextMeshProUGUI VacText;
+    public TextMeshProUGUI CapText;
+
+    public TextMeshProUGUI HeaText;
+    public TextMeshProUGUI AraText;
+    public TextMeshProUGUI SpeText;
+    public TextMeshProUGUI AspText;
+    //public TextMeshProUGUI AtpText;
+
+    public void Start()
+    {
+        UpdateStatus();
+    }
+
     public void ApplySettings()
     {
         if (int.TryParse(SyringeLev.text, out int Syr)) PlayerStat.SyringeLevel = Syr;
@@ -33,7 +50,24 @@ public class StatDebug : MonoBehaviour
         if (float.TryParse(AttackSpeed.text, out float Asp)) PlayerStat.AttackSpeed = Asp;
         //if (float.TryParse(AttackPower.text, out float Apo)) PlayerStat.AttackPower = Apo;
 
+        UpdateStatus();
+
         Debug.Log("설정 적용 완료");
         EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    public void UpdateStatus()
+    {
+        SyrText.text = "Syringe : " + PlayerStat.SyringeLevel.ToString();
+        MesText.text = "Mess : " + PlayerStat.MessLevel.ToString();
+        DroText.text = "Drone : " + PlayerStat.DroneLevel.ToString();
+        VacText.text = "Vaccine : " + PlayerStat.VaccineLevel.ToString();
+        CapText.text = "Capsule : " + PlayerStat.CapsuleLevel.ToString();
+
+        HeaText.text = "HP : " + PlayerStat.HP.ToString("N1");
+        AraText.text = "Att Range : " + PlayerStat.AttackRange.ToString();
+        SpeText.text = "Mov Speed : " + PlayerStat.PlayerMoveSpeed.ToString();
+        AspText.text = "Att Speed : " + PlayerStat.AttackSpeed.ToString();
+        //AtpText.text = "HP : " + PlayerStat.AttackPower.ToString("N1");
     }
 }

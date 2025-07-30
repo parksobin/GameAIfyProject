@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTags:
   - Weapon
+  - Player
 --- !u!114 &9060217269231420864
 MonoBehaviour:
   m_ObjectHideFlags: 0

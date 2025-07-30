@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyState : MonoBehaviour
 {
-    private int stamina=100;
+    private int stamina = 100;
     private float VaccineFeildInTime = 0f;
 
     private PlayerAttack playerAttack;
@@ -15,7 +15,7 @@ public class EnemyState : MonoBehaviour
     {
         playerObj = GameObject.Find("Player");
         playerAttack = playerObj.GetComponent<PlayerAttack>();
-        moveSpeed = Random.Range(1, 4);
+        moveSpeed = Random.Range(2, 4);
     }
     private void Update()
     {
