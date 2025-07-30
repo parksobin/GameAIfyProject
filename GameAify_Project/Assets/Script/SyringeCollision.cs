@@ -7,7 +7,7 @@ public class SyringeCollision : MonoBehaviour
     {
         if(collision.CompareTag("Enemy"))
         {
-            if(PlayerAttack.SyringeLevel <= 1) Destroy(gameObject);
+            if(PlayerStat.SyringeLevel <= 1) Destroy(gameObject);
         }
     }
 }

@@ -28,9 +28,9 @@ public class DroneMove : MonoBehaviour
     void Update()
     {
         // DroneLevel 변경 감지
-        if (PlayerAttack.DroneLevel != currentDroneStep)
+        if (PlayerStat.DroneLevel != currentDroneStep)
         {
-            currentDroneStep = PlayerAttack.DroneLevel;
+            currentDroneStep = PlayerStat.DroneLevel;
             DroneUpdate();
         }
 
@@ -67,7 +67,7 @@ public class DroneMove : MonoBehaviour
         if (upgradeDrones != null)
             foreach (var d in upgradeDrones) Destroy(d);
 
-        switch (PlayerAttack.DroneLevel)
+        switch (PlayerStat.DroneLevel)
         {
             case 1:
                 CreateNormalDrones(2);

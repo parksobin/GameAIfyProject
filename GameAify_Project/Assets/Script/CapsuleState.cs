@@ -22,7 +22,7 @@ public class CapsuleState : MonoBehaviour
     private void CapsuleLevelCheck() //레벨별 캡슐타격 홋수
     {
         int maxCount;
-        switch (PlayerAttack.CapsuleLevel)
+        switch (PlayerStat.CapsuleLevel)
         {
             case 1:
                 maxCount = 1;

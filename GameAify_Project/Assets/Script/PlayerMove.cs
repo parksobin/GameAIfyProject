@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public Transform player;
-    private SpriteRenderer sr; //캐릭터 기본 스프라이트 렌더러
-    public Sprite idleSprite; //기본 이미지
+    private SpriteRenderer sr; // 캐릭터 기본 스프라이트 렌더러
+    public Sprite idleSprite; // 기본 이미지
     private Rigidbody2D rb;
     private Vector2 movement;
 
@@ -59,27 +59,19 @@ public class PlayerMove : MonoBehaviour
             walkAni("skill", true,false,false,true);
         }
         */
-        CheckHP();
-        hpText.text = "HP : " + PlayerAttack.HP.ToString("N1");
+        hpText.text = "HP : " + PlayerStat.HP.ToString("N1");
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * PlayerAttack.PlayerMoveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * PlayerStat.PlayerMoveSpeed * Time.fixedDeltaTime);
     }
-
-    //HP 체크
-    void CheckHP()
-    {
-        if (PlayerAttack.HP >= 300f) PlayerAttack.HP = 300f;
-    }
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
         {
-            PlayerAttack.HP -= 50f;
+            PlayerStat.HP -= 50f;
         }
     }
 

@@ -31,7 +31,7 @@ public class EnemyState : MonoBehaviour
 
     private void CheckVaccineState() //백신 상태 체력 감소 함수
     {
-        switch (PlayerAttack.VaccineLevel)
+        switch (PlayerStat.VaccineLevel)
         {
             case 1:
                 stamina -= 1;

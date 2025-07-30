@@ -6,18 +6,6 @@ using UnityEngine.UIElements;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public static int SyringeLevel = 1; // 주사기 단계
-    public static int MessLevel = 1; // 메스 단계
-    public static int DroneLevel = 1; // 드론 단계
-    public static int VaccineLevel = 1;  // 백신 투하 단계
-    public static int CapsuleLevel = 1; // 캡슐 단계
-
-    public static float HP = 300f; // 플레이어의 기본 체력
-    public static float AttackRange = 10f; // 플레이어의 기본 공격 범위
-    public static float PlayerMoveSpeed = 10f; // 플레이어 기본 이동 속도
-    public static float AttackSpeed = 1.5f; // 플레이어의 기본 공격 속도
-    //public static float AttackPower = 100f; // 플레이어의 기본 공격력
-
     public CollisionHandler collisionHandler;
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
@@ -54,12 +42,12 @@ public class PlayerAttack : MonoBehaviour
         MakeVaccine();
         CapsuleActiveOn();
         timer += Time.deltaTime;
-        if (timer >= AttackSpeed)
+        if (timer >= PlayerStat.AttackSpeed)
         {
             StartCoroutine(ShootSyringe());
             timer = 0f;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !MessRotating && timer >= AttackSpeed)
+        if (Input.GetKeyDown(KeyCode.Space) && !MessRotating && timer >= PlayerStat.AttackSpeed)
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float direction = mouseWorld.x < transform.position.x ? 1f : -1f;
@@ -77,7 +65,7 @@ public class PlayerAttack : MonoBehaviour
         int countPerRow = 1;
         int rows = 1;
 
-        switch (SyringeLevel)
+        switch (PlayerStat.SyringeLevel)
         {
             case 1:
                 countPerRow = 1;
@@ -132,7 +120,7 @@ public class PlayerAttack : MonoBehaviour
         float startAngle = 0f;
         float endAngle = 0f;
         bool isBulletShoot = false;
-        switch (MessLevel)
+        switch (PlayerStat.MessLevel)
         {
             case 1:
                 endAngle = 90f * direction;
@@ -193,7 +181,7 @@ public class PlayerAttack : MonoBehaviour
         int vaccineCount = 0 ; //백신 단계당 생성된 개수
         while (true)
         {
-            switch (VaccineLevel)
+            switch (PlayerStat.VaccineLevel)
             {
                 case 1: //1단계
                     vaccineWaitSeconds = 8f;
@@ -252,7 +240,7 @@ public class PlayerAttack : MonoBehaviour
         {
             capsuleTimer += Time.deltaTime;
 
-            switch (CapsuleLevel)
+            switch (PlayerStat.CapsuleLevel)
             {
                 case 1:
                     //  타격 감소 관련 작성 예정

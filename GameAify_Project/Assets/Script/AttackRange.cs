@@ -12,7 +12,7 @@ public class AttackRange : MonoBehaviour
     void Update()
     {
         float distance = Vector3.Distance(startPosition, transform.position);
-        if (distance >= PlayerAttack.AttackRange)
+        if (distance >= PlayerStat.AttackRange)
         {
             Destroy(gameObject);
         }
