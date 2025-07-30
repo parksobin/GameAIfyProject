@@ -3010,7 +3010,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HP : 0.0'
+  m_text: 'HP : 000.0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4011,6 +4011,8 @@ MonoBehaviour:
   DroneLev: {fileID: 1779996425}
   VaccineLev: {fileID: 333599224}
   CapsuleLev: {fileID: 1902114194}
+  HealthPoint: {fileID: 0}
+  AttackRange: {fileID: 0}
 --- !u!1 &1666005960
 GameObject:
   m_ObjectHideFlags: 0
@@ -5266,7 +5268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb6effc79066c9409be7834cdab2823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
   player: {fileID: 1911230239}
   idleSprite: {fileID: 917232941213192446, guid: 4ed4875e0f3abdc4f83dbb1ad2e15b57, type: 3}
   hpText: {fileID: 1230487514}

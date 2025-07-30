@@ -12,13 +12,16 @@ public class PlayerAttack : MonoBehaviour
     public static int VaccineLevel = 1;  // 백신 투하 단계
     public static int CapsuleLevel = 1; // 캡슐 단계
 
-    public static float maxDistance = 10f; // 플레이어의 공격 범위
+    public static float HP = 300f; // 플레이어의 기본 체력
+    public static float AttackRange = 10f; // 플레이어의 기본 공격 범위
+    public static float PlayerMoveSpeed = 10f; // 플레이어 기본 이동 속도
+    public static float AttackSpeed = 1.5f; // 플레이어의 기본 공격 속도
+    //public static float AttackPower = 100f; // 플레이어의 기본 공격력
 
     public CollisionHandler collisionHandler;
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
     private float SyringeSpeed = 10f; // 주사기 속도
-    private float shootInterval = 1.5f; // 주사기 발사 간격
     private float timer = 0f; // 발사 시간 초기화
 
     // 메스 관련 멤버 변수
@@ -51,12 +54,12 @@ public class PlayerAttack : MonoBehaviour
         MakeVaccine();
         CapsuleActiveOn();
         timer += Time.deltaTime;
-        if (timer >= shootInterval)
+        if (timer >= AttackSpeed)
         {
             StartCoroutine(ShootSyringe());
             timer = 0f;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !MessRotating)
+        if (Input.GetKeyDown(KeyCode.Space) && !MessRotating && timer >= AttackSpeed)
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float direction = mouseWorld.x < transform.position.x ? 1f : -1f;

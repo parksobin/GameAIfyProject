@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float moveSpeed = 5f;
     public Transform player;
-
     private SpriteRenderer sr; //캐릭터 기본 스프라이트 렌더러
     public Sprite idleSprite; //기본 이미지
     private Rigidbody2D rb;
     private Vector2 movement;
 
-    public static float HP = 5.0f;
     public TextMeshProUGUI hpText;
-
     private Animator animator;
 
     void Start()
@@ -64,18 +60,18 @@ public class PlayerMove : MonoBehaviour
         }
         */
         CheckHP();
-        hpText.text = "HP : " + HP.ToString("N1");
+        hpText.text = "HP : " + PlayerAttack.HP.ToString("N1");
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * PlayerAttack.PlayerMoveSpeed * Time.fixedDeltaTime);
     }
 
     //HP 체크
     void CheckHP()
     {
-        if (HP >= 5.0f) HP = 5.0f;
+        if (PlayerAttack.HP >= 300f) PlayerAttack.HP = 300f;
     }
 
 
@@ -83,7 +79,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            HP -= 1.0f;
+            PlayerAttack.HP -= 50f;
         }
     }
 
