@@ -15,10 +15,13 @@ public class PlayerAttack : MonoBehaviour
     // 메스 관련 멤버 변수
     public GameObject MessPrefab; // 메스 프리팹
     public GameObject MessBulletPrefab; // 메스 발사체 프리팹
+    public GameObject UniqueBulletPrefab; // 유니티 발사체 프리팹
     private SpriteRenderer MessRend; // 메스 스프라이트 참조용
     private float rotationDuration = 0.25f; // 0도에서 최대각도까지 도는 데 걸리는 시간
     private bool MessRotating = false; // 메스가 생성 중인지 여부
     private float MessBulletSpeed = 15f; // 메스 발사체 속도
+    private bool hasStarted = false;
+    private float ShootDelay = 5f;
 
     //백신 관련 변수
     public GameObject vaccine;  //백신 투하 영역 프리팹 오브젝트
@@ -41,17 +44,26 @@ public class PlayerAttack : MonoBehaviour
     {
         MakeVaccine();
         CapsuleActiveOn();
+        AttackSyringeAndMess();        
+    }
+    void AttackSyringeAndMess()
+    {
         timer += Time.deltaTime;
         if (timer >= PlayerStat.AttackSpeed)
         {
             StartCoroutine(ShootSyringe());
             timer = 0f;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !MessRotating && timer >= PlayerStat.AttackSpeed)
+        if (Input.GetKeyDown(KeyCode.Space) && !MessRotating)
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float direction = mouseWorld.x < transform.position.x ? 1f : -1f;
             StartCoroutine(SpawnMessRotate(direction));
+        }
+        if (PlayerStat.MessLevel == 4 && !hasStarted)
+        {
+            StartCoroutine(Explosion());
+            hasStarted = true;
         }
     }
 
@@ -102,7 +114,6 @@ public class PlayerAttack : MonoBehaviour
                 if (rb != null) rb.linearVelocity = direction * SyringeSpeed;
                 AttackRange AR = proj.GetComponent<AttackRange>();
                 if (AR != null) AR.SetStartPosition(transform.position);
-
             }
         }
         yield return null; // 또는 생략
@@ -118,19 +129,19 @@ public class PlayerAttack : MonoBehaviour
         else MessRend.flipX = false;
         float elapsed = 0f;
         float startAngle = 0f;
-        float endAngle = 0f;
+        float endAngle;
         bool isBulletShoot = false;
         switch (PlayerStat.MessLevel)
         {
             case 1:
                 endAngle = 90f * direction;
                 break;
-            case 2:
-                endAngle = 180f * direction;
-                break;
             case 3:
                 endAngle = 180f * direction;
                 isBulletShoot = true;
+                break;
+            default:
+                endAngle = 180f * direction;
                 break;
         }
         
@@ -157,6 +168,7 @@ public class PlayerAttack : MonoBehaviour
         // 마지막 각도 보정
         obj.transform.rotation = Quaternion.Euler(0f, 0f, endAngle);
         Destroy(obj);
+        yield return new WaitForSeconds(PlayerStat.AttackSpeed);
         MessRotating = false;
     }
     void MessBulletShoot()
@@ -172,6 +184,25 @@ public class PlayerAttack : MonoBehaviour
         if (rb != null) rb.linearVelocity = fireDir * MessBulletSpeed;
         AttackRange AR = proj.GetComponent<AttackRange>();
         if (AR != null) AR.SetStartPosition(transform.position);
+    }
+
+    IEnumerator Explosion()
+    {
+        while (true)
+        {
+            for (int i = 0; i <= 270; i += 90)
+            {
+                float rad = i * Mathf.Deg2Rad;
+                Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+                GameObject proj = Instantiate(UniqueBulletPrefab, transform.position, Quaternion.Euler(0, 0, i));
+                Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
+                if (rb != null) rb.linearVelocity = direction * MessBulletSpeed;
+                AttackRange AR = proj.GetComponent<AttackRange>();
+                if (AR != null) AR.SetStartPosition(transform.position);
+            }
+
+            yield return new WaitForSeconds(ShootDelay); // 5초 기다리고 다시 발사
+        }
     }
     // 백신 생성 함수
     IEnumerator VaccineInject()

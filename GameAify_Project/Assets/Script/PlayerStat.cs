@@ -10,7 +10,7 @@ public class PlayerStat : MonoBehaviour
 
     public static float HP = 300f; // 플레이어의 기본 체력
     public static float AttackRange = 10f; // 플레이어의 기본 공격 범위
-    public static float PlayerMoveSpeed = 10f; // 플레이어 기본 이동 속도
+    public static float PlayerMoveSpeed = 5f; // 플레이어 기본 이동 속도
     public static float AttackSpeed = 1.5f; // 플레이어의 기본 공격 속도
     //public static float AttackPower = 100f; // 플레이어의 기본 공격력
 
@@ -48,7 +48,7 @@ public class PlayerStat : MonoBehaviour
     }
     public void AttackSpeedSet(float per)
     {
-        AttackSpeed *= (1f + per / 100f);
+        AttackSpeed /= (1f + per / 100f);
     }
     /*public void AttackPowerSet(float per)
     {

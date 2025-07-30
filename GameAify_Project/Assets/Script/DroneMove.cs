@@ -24,6 +24,31 @@ public class DroneMove : MonoBehaviour
     {
         SetDrone();
     }
+    private void SetDrone()
+    {
+        // 기존 드론 제거
+        if (normalDrones != null)
+            foreach (var d in normalDrones) Destroy(d);
+        if (upgradeDrones != null)
+            foreach (var d in upgradeDrones) Destroy(d);
+
+        switch (PlayerStat.DroneLevel)
+        {
+            case 1:
+                CreateNormalDrones(1);
+                break;
+            case 2:
+                CreateNormalDrones(2);
+                break;
+            case 3:
+                CreateNormalDrones(3);
+                break;
+            case 4:
+                CreateNormalDrones(3);
+                CreateUpgradeDrones(2);
+                break;
+        }
+    }
 
     void Update()
     {
@@ -59,28 +84,6 @@ public class DroneMove : MonoBehaviour
         }
     }
 
-    private void SetDrone()
-    {
-        // 기존 드론 제거
-        if (normalDrones != null)
-            foreach (var d in normalDrones) Destroy(d);
-        if (upgradeDrones != null)
-            foreach (var d in upgradeDrones) Destroy(d);
-
-        switch (PlayerStat.DroneLevel)
-        {
-            case 1:
-                CreateNormalDrones(2);
-                break;
-            case 2:
-                CreateNormalDrones(3);
-                break;
-            case 3:
-                CreateNormalDrones(3);
-                CreateUpgradeDrones(2);
-                break;
-        }
-    }
 
     private void CreateNormalDrones(int count)
     {

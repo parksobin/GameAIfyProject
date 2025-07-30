@@ -4449,7 +4449,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Vaccine  - F
 
-    Capcule - click
+    Capsule - click
 
     Mess - Space'
   m_isRightToLeft: 0
@@ -7730,6 +7730,7 @@ MonoBehaviour:
   SyringePrefab: {fileID: 1642362934980271500, guid: 16fa3ed957d2c744d9d036a1b6536546, type: 3}
   MessPrefab: {fileID: 8283444544461909553, guid: 485f5f7b568aac14184ee1151b2359af, type: 3}
   MessBulletPrefab: {fileID: 5943058326886495872, guid: c3984246bce4d84478fa36f4418674ef, type: 3}
+  UniqueBulletPrefab: {fileID: 936027254738174588, guid: 170150d142aa8af4d811895264d0e841, type: 3}
   vaccine: {fileID: 521822207882441309, guid: c33ef46c58496f54198a459f3171ac71, type: 3}
 --- !u!70 &1911230244
 CapsuleCollider2D:
