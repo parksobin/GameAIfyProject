@@ -1,58 +1,58 @@
 fileFormatVersion: 2
-guid: bd9b8af6b5b31054eb123687cd168e7f
+guid: d58aeaabb5dd49044af6a4fec5f4c7ad
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3609183334030957993
-    second: Mess Effect_0
+      213: 66123044919832109
+    second: MessBullet_0
   - first:
-      213: -6165149525419889880
-    second: Mess Effect_1
+      213: 3120895577449626249
+    second: MessBullet_1
   - first:
-      213: 3209092812122425971
-    second: Mess Effect_2
+      213: 217513793820607414
+    second: MessBullet_2
   - first:
-      213: -1524435669229901349
-    second: Mess Effect_3
+      213: -7538105136391124426
+    second: MessBullet_3
   - first:
-      213: -1743057089539550306
-    second: Mess Effect_4
+      213: -2277954070724754772
+    second: MessBullet_4
   - first:
-      213: 6695914019938892855
-    second: Mess Effect_5
+      213: -1874466500438352691
+    second: MessBullet_5
   - first:
-      213: -484995342555620075
-    second: Mess Effect_6
+      213: -7659357349739277860
+    second: MessBullet_6
   - first:
-      213: 8417466734168968236
-    second: Mess Effect_7
+      213: 1180572832611900092
+    second: MessBullet_7
   - first:
-      213: 5210935963190738363
-    second: Mess Effect_8
+      213: 5449194075068852909
+    second: MessBullet_8
   - first:
-      213: -6878757392094520635
-    second: Mess Effect_9
+      213: -766348160877465026
+    second: MessBullet_9
   - first:
-      213: 2175584495935936667
-    second: Mess Effect_10
+      213: -6162180847034953210
+    second: MessBullet_10
   - first:
-      213: -4473897733510410251
-    second: Mess Effect_11
+      213: -547032265940295379
+    second: MessBullet_11
   - first:
-      213: -5019641797735222024
-    second: Mess Effect_12
+      213: -7182058302343363531
+    second: MessBullet_12
   - first:
-      213: 5799289856755122444
-    second: Mess Effect_13
+      213: 222935407766333686
+    second: MessBullet_13
   - first:
-      213: 3510847945103740946
-    second: Mess Effect_14
+      213: -8310789946355295068
+    second: MessBullet_14
   - first:
-      213: -2369130180486126909
-    second: Mess Effect_15
+      213: 272568454648821592
+    second: MessBullet_15
   - first:
-      213: 7060722774285946608
-    second: Mess Effect_16
+      213: 5684516195993808075
+    second: MessBullet_16
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -161,13 +161,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mess Effect_0
+      name: MessBullet_0
       rect:
         serializedVersion: 2
-        x: 654
-        y: 883
-        width: 18
-        height: 16
+        x: 242
+        y: 595
+        width: 12
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,20 +176,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9addc2abe15661230800000000000000
-      internalID: 3609183334030957993
+      spriteID: d2ee9eb1f8aeae000800000000000000
+      internalID: 66123044919832109
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mess Effect_1
+      name: MessBullet_1
       rect:
         serializedVersion: 2
-        x: 745
-        y: 871
-        width: 15
-        height: 15
+        x: 346
+        y: 603
+        width: 20
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -198,20 +198,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 82bed26cb2df07aa0800000000000000
-      internalID: -6165149525419889880
+      spriteID: 98af8f21ef5af4b20800000000000000
+      internalID: 3120895577449626249
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mess Effect_2
+      name: MessBullet_2
       rect:
         serializedVersion: 2
-        x: 591
-        y: 857
-        width: 19
-        height: 19
+        x: 405
+        y: 585
+        width: 24
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -220,20 +220,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 37a01ddf8ecf88c20800000000000000
-      internalID: 3209092812122425971
+      spriteID: 6b3cc6e94a3c40300800000000000000
+      internalID: 217513793820607414
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mess Effect_3
+      name: MessBullet_3
       rect:
         serializedVersion: 2
-        x: 195
-        y: 676
-        width: 18
-        height: 18
+        x: 122
+        y: 124
+        width: 437
+        height: 457
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,129 +242,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bd9ed9ce5dd18dae0800000000000000
-      internalID: -1524435669229901349
+      spriteID: 63a0cd92155436790800000000000000
+      internalID: -7538105136391124426
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mess Effect_4
+      name: MessBullet_4
       rect:
         serializedVersion: 2
-        x: 233
-        y: 202
-        width: 620
-        height: 647
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e93d4caefca6fc7e0800000000000000
-      internalID: -1743057089539550306
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mess Effect_5
-      rect:
-        serializedVersion: 2
-        x: 230
-        y: 639
-        width: 18
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 73cf30d135aacec50800000000000000
-      internalID: 6695914019938892855
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mess Effect_6
-      rect:
-        serializedVersion: 2
-        x: 183
-        y: 587
-        width: 15
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 51dd0493e43f449f0800000000000000
-      internalID: -484995342555620075
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mess Effect_7
-      rect:
-        serializedVersion: 2
-        x: 204
-        y: 550
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c2c0fc6a569d0d470800000000000000
-      internalID: 8417466734168968236
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mess Effect_8
-      rect:
-        serializedVersion: 2
-        x: 181
-        y: 455
-        width: 33
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bbdba4956a6f05840800000000000000
-      internalID: 5210935963190738363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mess Effect_9
-      rect:
-        serializedVersion: 2
-        x: 851
-        y: 427
-        width: 10
+        x: 194
+        y: 574
+        width: 12
         height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -374,85 +264,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5ca1d1cd89eb980a0800000000000000
-      internalID: -6878757392094520635
+      spriteID: ca2cbcf77d41360e0800000000000000
+      internalID: -2277954070724754772
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mess Effect_10
+      name: MessBullet_5
       rect:
         serializedVersion: 2
-        x: 207
-        y: 410
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b98db13829a313e10800000000000000
-      internalID: 2175584495935936667
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mess Effect_11
-      rect:
-        serializedVersion: 2
-        x: 195
-        y: 371
-        width: 15
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5ffcfa017b589e1c0800000000000000
-      internalID: -4473897733510410251
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mess Effect_12
-      rect:
-        serializedVersion: 2
-        x: 229
-        y: 335
-        width: 32
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8f4f9425166a65ab0800000000000000
-      internalID: -5019641797735222024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mess Effect_13
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 163
-        width: 32
+        x: 538
+        y: 456
+        width: 24
         height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -462,18 +286,106 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c014a6516673b7050800000000000000
-      internalID: 5799289856755122444
+      spriteID: dcc900236ae8cf5e0800000000000000
+      internalID: -1874466500438352691
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mess Effect_14
+      name: MessBullet_6
       rect:
         serializedVersion: 2
-        x: 735
-        y: 194
+        x: 574
+        y: 450
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd15309421f74b590800000000000000
+      internalID: -7659357349739277860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessBullet_7
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 413
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cba1f4f7cbc326010800000000000000
+      internalID: 1180572832611900092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessBullet_8
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 422
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa64a4e32d6f9b40800000000000000
+      internalID: 5449194075068852909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessBullet_9
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 369
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e32ff9078626d55f0800000000000000
+      internalID: -766348160877465026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessBullet_10
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 321
         width: 15
         height: 15
       alignment: 0
@@ -484,20 +396,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2109154da9909b030800000000000000
-      internalID: 3510847945103740946
+      spriteID: 60214c21b298b7aa0800000000000000
+      internalID: -6162180847034953210
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mess Effect_15
+      name: MessBullet_11
       rect:
         serializedVersion: 2
-        x: 508
-        y: 152
-        width: 26
-        height: 16
+        x: 582
+        y: 297
+        width: 12
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -506,20 +418,86 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3c2a77d27a82f1fd0800000000000000
-      internalID: -2369130180486126909
+      spriteID: d21a3fb6d0d8868f0800000000000000
+      internalID: -547032265940295379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mess Effect_16
+      name: MessBullet_12
       rect:
         serializedVersion: 2
-        x: 667
-        y: 163
+        x: 547
+        y: 251
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 534cda4b604345c90800000000000000
+      internalID: -7182058302343363531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessBullet_13
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 233
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f8e4cb7296081300800000000000000
+      internalID: 222935407766333686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessBullet_14
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 98
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4acda9483942aac80800000000000000
+      internalID: -8310789946355295068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessBullet_15
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 105
         width: 15
-        height: 17
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -528,8 +506,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0fe03d234f9bcf160800000000000000
-      internalID: 7060722774285946608
+      spriteID: 857f15cb09b58c300800000000000000
+      internalID: 272568454648821592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessBullet_16
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 89
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcc6a26cc5573ee40800000000000000
+      internalID: 5684516195993808075
       vertices: []
       indices: 
       edges: []
@@ -547,24 +547,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Mess Effect_0: 3609183334030957993
-      Mess Effect_1: -6165149525419889880
-      Mess Effect_10: 2175584495935936667
-      Mess Effect_11: -4473897733510410251
-      Mess Effect_12: -5019641797735222024
-      Mess Effect_13: 5799289856755122444
-      Mess Effect_14: 3510847945103740946
-      Mess Effect_15: -2369130180486126909
-      Mess Effect_16: 7060722774285946608
-      Mess Effect_2: 3209092812122425971
-      Mess Effect_3: -1524435669229901349
-      Mess Effect_4: -1743057089539550306
-      Mess Effect_5: 6695914019938892855
-      Mess Effect_6: -484995342555620075
-      Mess Effect_7: 8417466734168968236
-      Mess Effect_8: 5210935963190738363
-      Mess Effect_9: -6878757392094520635
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
