@@ -10,16 +10,24 @@ public class EnemyState : MonoBehaviour
     private GameObject playerObj; //플레이어 오브젝트
     private Vector2 direction; //플레이어쪽 방향
     private float moveSpeed; //이동속도
+    private SpriteRenderer enemySR;
 
     void Start()
     {
         playerObj = GameObject.Find("Player");
         playerAttack = playerObj.GetComponent<PlayerAttack>();
         moveSpeed = Random.Range(2, 4);
+        enemySR = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
+        spriteFlip();
         PlayerFollow();
+    }
+    private void spriteFlip()
+    {
+        if (playerObj.transform.position.x >= gameObject.transform.position.x) enemySR.flipX = false;
+        else enemySR.flipX = true;
     }
 
 
