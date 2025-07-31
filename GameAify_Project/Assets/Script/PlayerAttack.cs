@@ -9,8 +9,9 @@ public class PlayerAttack : MonoBehaviour
     public CollisionHandler collisionHandler;
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
-    private float SyringeSpeed = 10f; // 주사기 속도
+    private float SyringeSpeed = 20f; // 주사기 속도
     private float timer = 0f; // 발사 시간 초기화
+    private float spawnDistance = 2f; // 주사기 생성 위치 조절
 
     // 메스 관련 멤버 변수
     public GameObject MessPrefab; // 메스 프리팹
@@ -69,10 +70,15 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator ShootSyringe()
     {
+        // 발사 시작 시 기준 위치/방향 고정
+        Vector3 originPos = transform.position;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
-        Vector3 direction = (mousePos - transform.position).normalized;
+        Vector3 direction = (mousePos - originPos).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // 발사 위치를 originPos에서 direction으로 일정 거리 이동한 위치로 설정
+        Vector3 spawnOrigin = originPos + direction * spawnDistance;
 
         int countPerRow = 1;
         int rows = 1;
@@ -96,27 +102,33 @@ public class PlayerAttack : MonoBehaviour
                 rows = 2;
                 break;
         }
-        float spacing = 1.5f; // 주사기 간의 위치 간격
+
+        float spacing = 1.25f;
+
         for (int r = 0; r < rows; r++)
         {
             for (int i = 0; i < countPerRow; i++)
             {
-                // 좌우로 간격을 둔 위치 계산
+                // originPos 기준으로 발사 위치 계산
                 float xOffset = (-(countPerRow - 1) / 2f + i) * spacing;
                 float yOffset = (rows == 2) ? (r == 0 ? 0.3f : -0.3f) : 0f;
-
-                // 발사 방향에 맞춰 오프셋 회전
                 Vector3 offset = Quaternion.Euler(0, 0, angle) * new Vector3(xOffset, yOffset, 0);
-                Vector3 spawnPos = transform.position + offset;
+                Vector3 spawnPos = spawnOrigin + offset;
 
+                // 주사기 생성 및 설정
                 GameObject proj = Instantiate(SyringePrefab, spawnPos, Quaternion.Euler(0, 0, angle + 90f));
+
                 Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
-                if (rb != null) rb.linearVelocity = direction * SyringeSpeed;
+                if (rb != null)
+                    rb.linearVelocity = direction * SyringeSpeed;
+
                 AttackRange AR = proj.GetComponent<AttackRange>();
-                if (AR != null) AR.SetStartPosition(transform.position);
+                if (AR != null)
+                    AR.SetStartPosition(originPos); // 발사 시작 위치도 originPos 기준으로
             }
         }
-        yield return null; // 또는 생략
+
+        yield return null;
     }
 
     private IEnumerator SpawnMessRotate(float direction)

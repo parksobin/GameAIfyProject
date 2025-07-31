@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class EnemyState : MonoBehaviour
+public class EnemyCommonState : MonoBehaviour
 {
     private int stamina = 100;
     private float VaccineFeildInTime = 0f;
@@ -26,8 +26,8 @@ public class EnemyState : MonoBehaviour
     }
     private void spriteFlip()
     {
-        if (playerObj.transform.position.x >= gameObject.transform.position.x) enemySR.flipX = false;
-        else enemySR.flipX = true;
+        if (playerObj.transform.position.x >= gameObject.transform.position.x) enemySR.flipX = true;
+        else enemySR.flipX = false;
     }
 
 

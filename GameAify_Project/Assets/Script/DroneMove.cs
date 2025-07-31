@@ -11,13 +11,13 @@ public class DroneMove : MonoBehaviour
     // 일반 드론
     private GameObject[] normalDrones;
     private float[] normalAngles;
-    private float normalRadius = 5f;
+    private float normalRadius = 3f;
     private float normalSpeed = 2f;
 
     // 업그레이드 드론
     private GameObject[] upgradeDrones;
     private float[] upgradeAngles;
-    private float upgradeRadius = 10f;
+    private float upgradeRadius = 6f;
     private float upgradeSpeed = 3f;
 
     void Start()

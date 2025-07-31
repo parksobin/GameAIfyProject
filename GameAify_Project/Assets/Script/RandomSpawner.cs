@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class RandomSpawner : MonoBehaviour
 {
     public Transform player;          // 중심이 될 플레이어
-    public GameObject spawnEnemyPrefab;    // 생성할 적 프리팹
+    public GameObject[] spawnEnemyPrefab;    // 생성할 적 프리팹
     public GameObject spawnItemPrefab;
     private float EnemyDistance = 20f; // 플레이어로부터의 적의 생성 거리
     private float ItemDistance = 15f;
@@ -49,8 +49,8 @@ public class RandomSpawner : MonoBehaviour
     {
         Vector2 randomDir = Random.insideUnitCircle.normalized;
         Vector3 spawnPos = player.position + new Vector3(randomDir.x, randomDir.y, 0) * EnemyDistance;
-
-        GameObject obj = Instantiate(spawnEnemyPrefab, spawnPos, Quaternion.identity);
+        int EnemyNum = Random.Range(0, 3);
+        GameObject obj = Instantiate(spawnEnemyPrefab[EnemyNum], spawnPos, Quaternion.identity);
         spawnedEnemies.Add(obj);
 
         obj.AddComponent<AutoRemove>().Init(spawnedEnemies, obj);
