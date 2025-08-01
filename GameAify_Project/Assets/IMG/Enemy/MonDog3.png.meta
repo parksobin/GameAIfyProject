@@ -247,7 +247,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MonDog3_0: 5174476439529437897
+      MonDog3_1: -3370878334590516715
+      MonDog3_2: -3384452768872191216
+      MonDog3_3: -3270360471283891324
+      MonDog3_4: 6034658240664390651
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
