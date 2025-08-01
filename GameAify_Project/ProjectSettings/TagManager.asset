@@ -13,6 +13,7 @@ TagManager:
   - Box
   - Guarditem
   - Vaccine
+  - MonDog
   layers:
   - Default
   - TransparentFX

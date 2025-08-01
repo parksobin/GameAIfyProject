@@ -9,14 +9,15 @@ public class EnemyCommonState : MonoBehaviour
     private PlayerAttack playerAttack;
     private GameObject playerObj; //플레이어 오브젝트
     private Vector2 direction; //플레이어쪽 방향
-    private float moveSpeed; //이동속도
+    private float DefaultEnemyMoveSpeed; //이동속도
+    private float MonDogSpeed = 5f;
     private SpriteRenderer enemySR;
 
     void Start()
     {
         playerObj = GameObject.Find("Player");
         playerAttack = playerObj.GetComponent<PlayerAttack>();
-        moveSpeed = Random.Range(2, 4);
+        DefaultEnemyMoveSpeed = Random.Range(2, 4);
         enemySR = GetComponent<SpriteRenderer>();
     }
     private void Update()
@@ -34,7 +35,8 @@ public class EnemyCommonState : MonoBehaviour
     private void PlayerFollow() //플레이어 방향으로 따라가는 함수
     {
         direction = (playerObj.transform.position - transform.position).normalized;
-        gameObject.transform.Translate(direction * moveSpeed * Time.deltaTime);
+        if(gameObject.CompareTag("MonDog")) gameObject.transform.Translate(direction * MonDogSpeed * Time.deltaTime);
+        else gameObject.transform.Translate(direction * DefaultEnemyMoveSpeed * Time.deltaTime);
     }
 
     private void CheckVaccineState() //백신 상태 체력 감소 함수

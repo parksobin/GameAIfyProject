@@ -6157,17 +6157,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634346478}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7994cdc04faac3d40b1b49a5b7bd0621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1911230239}
+  playerObj: {fileID: 1911230237}
   spawnEnemyPrefab:
   - {fileID: 3263401917564440933, guid: c80e6f48f03ecf845b88a15d579562b7, type: 3}
   - {fileID: 6988231481547907254, guid: 78548d87f6dae1341a1d59cd46ae0ea8, type: 3}
   - {fileID: 5694065198812006149, guid: 9ef96ae3248d03a4db4554e94943b8f7, type: 3}
   spawnItemPrefab: {fileID: 3793810913243761795, guid: 44dc331016ab38143928265786b442f8, type: 3}
+  dogPrefab: {fileID: 6931691900932593072, guid: 081504da6cb983741a6fa736407bc352, type: 3}
   applePrefabInspector: {fileID: 8779030364416994736, guid: 495bd9356a05f2849849531563bf9cba, type: 3}
   appleDamagePrefabInspector: {fileID: 6571307472699201355, guid: 7f16f65f30e88a64594ffa8c27969a39, type: 3}
 --- !u!114 &1634346482
