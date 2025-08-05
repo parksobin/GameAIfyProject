@@ -6163,7 +6163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1911230239}
-  playerObj: {fileID: 1911230237}
   spawnEnemyPrefab:
   - {fileID: 3263401917564440933, guid: c80e6f48f03ecf845b88a15d579562b7, type: 3}
   - {fileID: 6988231481547907254, guid: 78548d87f6dae1341a1d59cd46ae0ea8, type: 3}
