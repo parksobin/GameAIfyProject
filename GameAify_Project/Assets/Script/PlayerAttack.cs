@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
     private float vaccineWaitSeconds; //백신 생성주기 초수
 
     //캡슐 관련 변슈
-    private GameObject capsuleObj; //캡슐 오브젝트(플레이어 내에있음)
+    public GameObject capsuleObj; //캡슐 오브젝트(플레이어 내에있음)
     private float capsuleTimer;  //캡슐 쿨타임
     private CapsuleState capsuleState;
 
@@ -38,7 +38,8 @@ public class PlayerAttack : MonoBehaviour
     {
         //StartCoroutine(VaccineInject());
         capsuleObj = GameObject.Find("CapsuleiTem");
-        capsuleState = capsuleObj.GetComponent<CapsuleState>();
+       capsuleState = capsuleObj.GetComponent<CapsuleState>();
+        capsuleObj = null;
     }
 
     void Update()
@@ -279,11 +280,13 @@ public class PlayerAttack : MonoBehaviour
     //캡슐 활성화 함수
     private void CapsuleActiveOn()
     {
-        if (!capsuleState.CapsuleActive)
+        if(capsuleObj==null) capsuleObj = GameObject.Find("CapsuleiTem");
+
+        if (capsuleState != null &&!capsuleState.CapsuleActive )
         {
             capsuleTimer += Time.deltaTime;
 
-            switch (PlayerStat.CapsuleLevel)
+            switch (PlayerStat.CapsuleLevel )
             {
                 case 1:
                     //  타격 감소 관련 작성 예정
@@ -300,14 +303,25 @@ public class PlayerAttack : MonoBehaviour
                     break;
             }
         }
+        else { }
     }
     
     private void CapsuleTimerOn(float sec) //캡슐 재생성 쿨타임
     {
-        if (capsuleTimer > sec)
+        if (capsuleTimer > sec && capsuleObj!=null)
         {
             capsuleTimer = 0;
-            capsuleObj.SetActive(true);
+            //capsuleObj.SetActive(true);
+            capsuleState.ActiveDesignerEventArgs(1f); //캡슐존 활성화 설정 함수
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Capsule"))
+        {
+            Destroy(collision.gameObject); //획득한 캡슐 삭제
+            capsuleState.ActiveDesignerEventArgs(1f);
         }
     }
 }
