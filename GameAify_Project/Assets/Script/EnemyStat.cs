@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyStat : MonoBehaviour
@@ -14,7 +15,7 @@ public class EnemyStat : MonoBehaviour
 
     void Awake()
     {
-        // 이름 기반 HP 설정
+        // 이름 기반 maxHP 설정
         switch (gameObject.name.Replace("(Clone)", ""))
         {
             case "MonDog":
@@ -41,7 +42,7 @@ public class EnemyStat : MonoBehaviour
             hpText.text = currentHP.ToString();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHP -= damage;
         if (currentHP <= 0)
@@ -50,6 +51,15 @@ public class EnemyStat : MonoBehaviour
 
     void Die()
     {
+        PlayerStat.currentGauge += 1.0f;
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Weapon"))
+        {
+            TakeDamage(PlayerStat.AttackPower);
+        }
     }
 }

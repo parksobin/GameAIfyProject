@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class PlayerMove : MonoBehaviour
 
     public TextMeshProUGUI hpText;
     private Animator animator;
+    private float currentHP;
+    public Image fillImage; // HP바 오브젝트
+    public Image gaugeFillImage; // 정화게이지 오브젝트
 
     void Start()
     {
@@ -59,20 +63,36 @@ public class PlayerMove : MonoBehaviour
             walkAni("skill", true,false,false,true);
         }
         */
-        hpText.text = "HP : " + PlayerStat.HP.ToString("N1");
+        hpText.text = "HP : " + PlayerStat.HP.ToString("N1"); 
+        UpdateHPBar();
+        UpdateGauge();
     }
-
+    public void UpdateGauge()
+    {
+        if (gaugeFillImage != null)
+            gaugeFillImage.fillAmount = PlayerStat.currentGauge / PlayerStat.maxGauge;
+    }
+    void UpdateHPBar()
+    {
+        if (fillImage != null)
+        {
+            float ratio = (float)PlayerStat.HP / PlayerStat.maxHP;
+            fillImage.fillAmount = ratio;
+        }
+    }
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * PlayerStat.PlayerMoveSpeed * Time.fixedDeltaTime);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Enemy"))
-        {
-            PlayerStat.HP -= 50f;
-        }
+        string name = collision.gameObject.name;
+        if (name.StartsWith("MonDog")) PlayerStat.HP -= EnemyStat.MonDogAttack;
+        if (name.StartsWith("Spiker")) PlayerStat.HP -= EnemyStat.SpikerAttack;
+        if (name.StartsWith("Snailer")) PlayerStat.HP -= EnemyStat.SnailerAttack;
+        if (name.StartsWith("Virus")) PlayerStat.HP -= EnemyStat.VirusAttack;
+        UpdateHPBar();
     }
 
     private void walkAni(string aniName, bool state,bool ani1, bool ani2,bool ani3)

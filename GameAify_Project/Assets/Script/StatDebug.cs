@@ -44,7 +44,7 @@ public class StatDebug : MonoBehaviour
         if (int.TryParse(VaccineLev.text, out int Vac)) PlayerStat.VaccineLevel = Vac;
         if (int.TryParse(CapsuleLev.text, out int Cap)) PlayerStat.CapsuleLevel = Cap;
 
-        if (float.TryParse(HealthPoint.text, out float Hea)) PlayerStat.HP = Hea;
+        if (float.TryParse(HealthPoint.text, out float Hea)) PlayerStat.maxHP = Hea;
         if (float.TryParse(AttackRange.text, out float Ara)) PlayerStat.AttackRange = Ara;
         if (float.TryParse(PlayerSpeed.text, out float Spe)) PlayerStat.PlayerMoveSpeed = Spe;
         if (float.TryParse(AttackSpeed.text, out float Asp)) PlayerStat.AttackSpeed = Asp;
@@ -64,10 +64,10 @@ public class StatDebug : MonoBehaviour
         VacText.text = "Vaccine : " + PlayerStat.VaccineLevel.ToString();
         CapText.text = "Capsule : " + PlayerStat.CapsuleLevel.ToString();
 
-        HeaText.text = "HP : " + PlayerStat.HP.ToString("N1");
+        HeaText.text = "maxHP : " + PlayerStat.maxHP.ToString("N1");
         AraText.text = "Att Range : " + PlayerStat.AttackRange.ToString();
         SpeText.text = "Mov Speed : " + PlayerStat.PlayerMoveSpeed.ToString();
         AspText.text = "Att Speed : " + PlayerStat.AttackSpeed.ToString();
-        //AtpText.text = "HP : " + PlayerStat.AttackPower.ToString("N1");
+        //AtpText.text = "maxHP : " + PlayerStat.AttackPower.ToString("N1");
     }
 }

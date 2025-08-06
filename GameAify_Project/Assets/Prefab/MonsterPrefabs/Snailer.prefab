@@ -287,7 +287,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTags:
-  - Weapon
   - Player
 --- !u!114 &-444948312329741678
 MonoBehaviour:

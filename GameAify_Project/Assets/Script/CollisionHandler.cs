@@ -13,8 +13,8 @@ public class CollisionHandler : MonoBehaviour
         {
             if (other.CompareTag(tag))
             {
-                if (CompareTag("Apple") && other.CompareTag("Player")) PlayerStat.HP += 50f;
-                if (CompareTag("AppleDmg") && other.CompareTag("Player")) PlayerStat.HP -= 50f;
+                if (CompareTag("Apple") && other.CompareTag("Player")) PlayerStat.maxHP += 50f;
+                if (CompareTag("AppleDmg") && other.CompareTag("Player")) PlayerStat.maxHP -= 50f;
                 if (CompareTag("Box") && other.CompareTag("Weapon"))
                 {
                     RandomSpawner.isDropApple = true;
