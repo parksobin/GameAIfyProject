@@ -31,12 +31,16 @@ public class EnemyCommonState : MonoBehaviour
         else enemySR.flipX = false;
     }
 
-
     private void PlayerFollow() //플레이어 방향으로 따라가는 함수
     {
+        float distance = Vector2.Distance(playerObj.transform.position, transform.position);
+        if (distance <= 3f) return; // 거리가 3 이하이면 움직이지 않음
+
         direction = (playerObj.transform.position - transform.position).normalized;
-        if(gameObject.CompareTag("MonDog")) gameObject.transform.Translate(direction * MonDogSpeed * Time.deltaTime);
-        else gameObject.transform.Translate(direction * DefaultEnemyMoveSpeed * Time.deltaTime);
+        if (gameObject.CompareTag("MonDog"))
+            gameObject.transform.Translate(direction * MonDogSpeed * Time.deltaTime);
+        else
+            gameObject.transform.Translate(direction * DefaultEnemyMoveSpeed * Time.deltaTime);
     }
 
     private void CheckVaccineState() //백신 상태 체력 감소 함수
