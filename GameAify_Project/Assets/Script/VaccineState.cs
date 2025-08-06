@@ -8,6 +8,7 @@ public class VaccineState : MonoBehaviour
     private Vector3 destination;
     private PlayerAttack playerAttack;
 
+
     private bool downSign = false;
     private float timer = 0f;
     private Rigidbody2D rb;
@@ -34,6 +35,7 @@ public class VaccineState : MonoBehaviour
         // 낙하
         float forcePower = Random.Range(30,40);
         rb.AddForce(Vector2.down * forcePower, ForceMode2D.Impulse);
+
     }
 
 
