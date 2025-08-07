@@ -13,6 +13,11 @@ public class VaccineState : MonoBehaviour
     private float timer = 0f;
     private Rigidbody2D rb;
 
+    public SpriteRenderer VaccineRender;
+    public SpriteRenderer VaccineFeildRender;
+    public Sprite[] VaccineImg;
+    public Sprite[] VaccineFeildImg;
+
     void Start()
     {
         VaccineObj.SetActive(true);
@@ -36,6 +41,18 @@ public class VaccineState : MonoBehaviour
         float forcePower = Random.Range(30,40);
         rb.AddForce(Vector2.down * forcePower, ForceMode2D.Impulse);
 
+        if (PlayerStat.VaccineLevel == 4)
+        {
+            VaccineFeild.transform.localScale = new Vector3(3f, 3f,3f);
+            VaccineRender.sprite = VaccineImg[1];
+            VaccineFeildRender.sprite = VaccineFeildImg[1];
+        }
+        else
+        {
+            VaccineFeild.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            VaccineRender.sprite = VaccineImg[0];
+            VaccineFeildRender.sprite = VaccineFeildImg[0];
+        }
     }
 
 
