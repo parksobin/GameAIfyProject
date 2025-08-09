@@ -9,9 +9,9 @@ public class PlayerAttack : MonoBehaviour
     public CollisionHandler collisionHandler;
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
-    private float SyringeSpeed = 20f; // 주사기 속도
-    private float timer = 0f; // 발사 시간 초기화
-    private float spawnDistance = 2f; // 주사기 생성 위치 조절
+    private float SyringeSpeed = 20.0f; // 주사기 속도
+    private float SyringeTimer = 0f; // 발사 시간 초기화
+    private float spawnDistance = 2.0f; // 주사기 생성 위치 조절
 
     // 메스 관련 멤버 변수
     public GameObject MessPrefab; // 메스 프리팹
@@ -19,6 +19,8 @@ public class PlayerAttack : MonoBehaviour
     public GameObject UniqueBulletPrefab; // 유니티 발사체 프리팹
     private SpriteRenderer MessRend; // 메스 스프라이트 참조용
     private float rotationDuration = 0.25f; // 0도에서 최대각도까지 도는 데 걸리는 시간
+    private float MessTimer = 0f;
+    private float MessDelay = 5.0f;
     private bool MessRotating = false; // 메스가 생성 중인지 여부
     private float MessBulletSpeed = 15f; // 메스 발사체 속도
     private bool hasStarted = false;
@@ -26,8 +28,9 @@ public class PlayerAttack : MonoBehaviour
 
     //백신 관련 변수
     public GameObject vaccine;  //백신 투하 영역 프리팹 오브젝트
-    private int vaccineMaxCount; //백신 단계당 초당 생성 개수
-    private float vaccineWaitSeconds; //백신 생성주기 초수
+    private int VaccineMaxCount; //백신 단계당 초당 생성 개수
+    private float VaccineWaitSeconds = 8f; // 기본 백신 생성주기 초수
+    private float VaccineTimer = 0f;
 
     //캡슐 관련 변슈
     public GameObject capsuleObj; //캡슐 오브젝트(플레이어 내에있음)
@@ -38,35 +41,47 @@ public class PlayerAttack : MonoBehaviour
     {
         //StartCoroutine(VaccineInject());
         capsuleObj = GameObject.Find("CapsuleiTem");
-       capsuleState = capsuleObj.GetComponent<CapsuleState>();
+        capsuleState = capsuleObj.GetComponent<CapsuleState>();
         capsuleObj = null;
     }
 
     void Update()
     {
-        MakeVaccine();
         CapsuleActiveOn();
         AttackSyringeAndMess();        
     }
     void AttackSyringeAndMess()
     {
-        timer += Time.deltaTime;
-        if (timer >= PlayerStat.AttackSpeed)
+        TimerCount();
+        if (SyringeTimer >= PlayerStat.AttackSpeed)
         {
             StartCoroutine(ShootSyringe());
-            timer = 0f;
+            SyringeTimer = 0f;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !MessRotating)
+        if (MessTimer >= MessDelay && !MessRotating)
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float direction = mouseWorld.x < transform.position.x ? 1f : -1f;
             StartCoroutine(SpawnMessRotate(direction));
+            MessTimer = 0f;
         }
         if (PlayerStat.MessLevel == 4 && !hasStarted)
         {
             StartCoroutine(Explosion());
             hasStarted = true;
         }
+        else hasStarted = false;
+        if (VaccineTimer >= VaccineWaitSeconds)
+        {
+            MakeVaccine();
+            VaccineTimer = 0f;
+        }
+    }
+    void TimerCount()
+    {
+        SyringeTimer += Time.deltaTime;
+        MessTimer += Time.deltaTime;
+        VaccineTimer += Time.deltaTime;
     }
 
     IEnumerator ShootSyringe()
@@ -218,45 +233,34 @@ public class PlayerAttack : MonoBehaviour
         }
     }
     // 백신 생성 함수
-    IEnumerator VaccineInject()
-    {
-        vaccineWaitSeconds = 8f;
-       // yield return new WaitForSeconds(vaccineWaitSeconds); // 각 백신마다 간격
-        int vaccineCount = 0 ; //백신 단계당 생성된 개수
-        while (true)
-        {
-            switch (PlayerStat.VaccineLevel)
-            {
-                case 1: //1단계
-                    vaccineWaitSeconds = 8f;
-                    vaccineMaxCount = 1;
-                    break;
-                case 2: //2단계
-                    vaccineWaitSeconds = 8f;
-                    vaccineMaxCount = 3;
-                    break;
-                case 3: //3단계
-                    vaccineWaitSeconds = 5f;
-                    vaccineMaxCount = 3;
-                    break;
-                case 4: //유니크 단계
-                    vaccineWaitSeconds = 5f;
-                    vaccineMaxCount = 3;
-                    break;
-                default:
-                    yield break;
-            }
-            for (int i = 0; i < vaccineMaxCount; i++)
-            {
-                VaccineCoordinate();
-            }
-            // yield return new WaitForSeconds(vaccineWaitSeconds); // 각 백신마다 간격
-        }
-    }
     
     private void MakeVaccine()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        // VaccineWaitSeconds = 8f;
+        // yield return new WaitForSeconds(VaccineWaitSeconds); // 각 백신마다 간격
+        int vaccineCount = 0; //백신 단계당 생성된 개수
+        switch (PlayerStat.VaccineLevel)
+        {
+            case 1: //1단계
+                VaccineWaitSeconds = 8f;
+                VaccineMaxCount = 1;
+                break;
+            case 2: //2단계
+                VaccineWaitSeconds = 8f;
+                VaccineMaxCount = 3;
+                break;
+            case 3: //3단계
+                VaccineWaitSeconds = 5f;
+                VaccineMaxCount = 3;
+                break;
+            case 4: //유니크 단계
+                VaccineWaitSeconds = 5f;
+                VaccineMaxCount = 3;
+                break;
+            default:
+                break;
+        }
+        for (int i = 0; i < VaccineMaxCount; i++)
         {
             VaccineCoordinate();
         }

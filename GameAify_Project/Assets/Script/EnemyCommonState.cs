@@ -3,21 +3,16 @@ using UnityEngine;
 
 public class EnemyCommonState : MonoBehaviour
 {
+    public EnemyStat enemyStat;
     private int stamina = 100;
     private float VaccineFeildInTime = 0f;
-
-    private PlayerAttack playerAttack;
     private GameObject playerObj; //플레이어 오브젝트
     private Vector2 direction; //플레이어쪽 방향
-    private float DefaultEnemyMoveSpeed; //이동속도
-    private float MonDogSpeed = 5f;
     private SpriteRenderer enemySR;
 
     void Start()
     {
         playerObj = GameObject.Find("Player");
-        playerAttack = playerObj.GetComponent<PlayerAttack>();
-        DefaultEnemyMoveSpeed = Random.Range(2, 4);
         enemySR = GetComponent<SpriteRenderer>();
     }
     private void Update()
@@ -37,10 +32,7 @@ public class EnemyCommonState : MonoBehaviour
         if (distance <= 3f) return; // 거리가 3 이하이면 움직이지 않음
 
         direction = (playerObj.transform.position - transform.position).normalized;
-        if (gameObject.CompareTag("MonDog"))
-            gameObject.transform.Translate(direction * MonDogSpeed * Time.deltaTime);
-        else
-            gameObject.transform.Translate(direction * DefaultEnemyMoveSpeed * Time.deltaTime);
+        gameObject.transform.Translate(direction * enemyStat.EnemyMoveSpeed * Time.deltaTime);
     }
 
     private void CheckVaccineState() //백신 상태 체력 감소 함수

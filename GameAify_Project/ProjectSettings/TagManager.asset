@@ -13,8 +13,8 @@ TagManager:
   - Box
   - Guarditem
   - Vaccine
-  - MonDog
   - Capsule
+  - RunningDog
   layers:
   - Default
   - TransparentFX

@@ -6314,8 +6314,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1911230239}
   spawnEnemyPrefab:
-  - {fileID: 3263401917564440933, guid: c80e6f48f03ecf845b88a15d579562b7, type: 3}
   - {fileID: 6988231481547907254, guid: 78548d87f6dae1341a1d59cd46ae0ea8, type: 3}
+  - {fileID: 3263401917564440933, guid: c80e6f48f03ecf845b88a15d579562b7, type: 3}
   - {fileID: 5694065198812006149, guid: 9ef96ae3248d03a4db4554e94943b8f7, type: 3}
   spawnItemPrefab: {fileID: 3793810913243761795, guid: 44dc331016ab38143928265786b442f8, type: 3}
   dogPrefab: {fileID: 6931691900932593072, guid: 081504da6cb983741a6fa736407bc352, type: 3}

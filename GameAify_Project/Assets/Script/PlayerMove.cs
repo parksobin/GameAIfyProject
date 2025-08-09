@@ -87,11 +87,6 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        string name = collision.gameObject.name;
-        if (name.StartsWith("MonDog")) PlayerStat.HP -= EnemyStat.MonDogAttack;
-        if (name.StartsWith("Spiker")) PlayerStat.HP -= EnemyStat.SpikerAttack;
-        if (name.StartsWith("Snailer")) PlayerStat.HP -= EnemyStat.SnailerAttack;
-        if (name.StartsWith("Virus")) PlayerStat.HP -= EnemyStat.VirusAttack;
         UpdateHPBar();
     }
 

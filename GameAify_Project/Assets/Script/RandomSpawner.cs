@@ -133,8 +133,8 @@ public class RandomSpawner : MonoBehaviour
     public static void SetDropPosition(Vector2 pos)
     {
         lastDropPosition = pos;
-        int randomValue = Random.Range(0, 2);
-        if (randomValue == 0) Instantiate(ApplePrefab, lastDropPosition, Quaternion.identity);
+        int randomValue = Random.Range(0,100);
+        if (randomValue < 10) Instantiate(ApplePrefab, lastDropPosition, Quaternion.identity);
         else Instantiate(AppleDamagePrefab, lastDropPosition, Quaternion.identity);
         isDropApple = false;
     }

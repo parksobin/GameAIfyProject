@@ -5,7 +5,7 @@ public class SyringeCollision : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy") || collision.CompareTag("MonDog"))
+        if(collision.CompareTag("Enemy") || collision.CompareTag("RunningDog"))
         {
             if(PlayerStat.SyringeLevel <= 1) Destroy(gameObject);
         }

@@ -15,9 +15,14 @@ public class PlayerStat : MonoBehaviour
     public static float maxHP = 300f; // 플레이어의 기본 체력
     public static float HP = 300f; // 플레이어의 현재 체력
     public static float AttackRange = 10f; // 플레이어의 기본 공격 범위
-    public static float PlayerMoveSpeed = 5f; // 플레이어 기본 이동 속도
+    public static float PlayerMoveSpeed = 10f; // 플레이어 기본 이동 속도
     public static float AttackSpeed = 1.5f; // 플레이어의 기본 공격 속도
-    public static float AttackPower = 30f; // 플레이어의 기본 공격력
+    public static float AttackPower = 100f; // 플레이어의 기본 공격력
+
+    public static float DronePower = AttackPower / 3.0f; // 드론 : 플레이어 공격력의 3분의 1
+    public static float SyringePower = AttackPower / 4.0f; // 주사기 : 플레이어 공격력의 4분의 1
+    public static float VaccinePower = AttackPower / 10.0f; // 백신 : 플레이어 공격력의 10분의 1
+    public static float MessPower = AttackPower / 2.0f; // 메스 : 플레이어 공격력의 2분의 1
 
     public void SyringeLevelUp()
     {

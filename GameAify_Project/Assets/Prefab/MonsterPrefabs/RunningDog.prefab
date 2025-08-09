@@ -256,8 +256,8 @@ GameObject:
   - component: {fileID: -8536441984586772426}
   - component: {fileID: 5114077724824540779}
   m_Layer: 0
-  m_Name: MonDog
-  m_TagString: MonDog
+  m_Name: RunningDog
+  m_TagString: RunningDog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,7 +321,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: -3384452768872191216, guid: b1449ada27803b549bac0f439fbf505f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6931691900932593072}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dfa9613b8cdd1b4facd732a19e64b1b, type: 3}
   m_Name: 
@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6753eb0c6d87b20499959f572ef0bd55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyStat: {fileID: 5114077724824540779}
 --- !u!114 &5114077724824540779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,3 +440,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6a1a070e3f6664d845d1c7489d4fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyAttack: 0
+  EnemyMoveSpeed: 0

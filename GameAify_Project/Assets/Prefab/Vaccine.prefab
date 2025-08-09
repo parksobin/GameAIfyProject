@@ -50,12 +50,6 @@ MonoBehaviour:
   speed: 8
   VaccineObj: {fileID: 2830904574445840554}
   VaccineFeild: {fileID: 7434792636638831328}
-  vaccineRender:
-  - {fileID: 0}
-  - {fileID: 0}
-  vaccineZoneRender:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!50 &7546114162898245546
 Rigidbody2D:
   serializedVersion: 5
@@ -182,7 +176,7 @@ GameObject:
   - component: {fileID: 5139339694985521937}
   - component: {fileID: 1799307672273264198}
   m_Layer: 0
-  m_Name: VacineFeild
+  m_Name: VaccineFeild
   m_TagString: Vaccine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
