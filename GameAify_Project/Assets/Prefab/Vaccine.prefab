@@ -50,6 +50,14 @@ MonoBehaviour:
   speed: 8
   VaccineObj: {fileID: 2830904574445840554}
   VaccineFeild: {fileID: 7434792636638831328}
+  VaccineRender: {fileID: 9199444276721434803}
+  VaccineFeildRender: {fileID: 5139339694985521937}
+  VaccineImg:
+  - {fileID: 798056608137831586, guid: 8c2d8e78fcc56874fa1f4fb2e9a65111, type: 3}
+  - {fileID: -7875141436726175941, guid: 3d3575306c3723f448200d5224bd1e90, type: 3}
+  VaccineFeildImg:
+  - {fileID: 21300000, guid: e91c1b811e71724419679b16ef4c30b9, type: 3}
+  - {fileID: -91119451224009016, guid: bb77e9fb4ed458b4a88e762e6d35a359, type: 3}
 --- !u!50 &7546114162898245546
 Rigidbody2D:
   serializedVersion: 5
@@ -191,7 +199,7 @@ Transform:
   m_GameObject: {fileID: 7434792636638831328}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00000047684, z: 0}
+  m_LocalPosition: {x: 0, y: 4.7, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
