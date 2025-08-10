@@ -24,25 +24,25 @@ public class PlayerStat : MonoBehaviour
     public static float VaccinePower = AttackPower / 10.0f; // 백신 : 플레이어 공격력의 10분의 1
     public static float MessPower = AttackPower / 2.0f; // 메스 : 플레이어 공격력의 2분의 1
 
-    public void SyringeLevelUp()
+    public void SyringeLevelUp(int Stat)
     {
-        SyringeLevel += 1;
+        SyringeLevel += Stat;
     }
-    public void MessLevelUp()
+    public void MessLevelUp(int Stat)
     {
-        MessLevel += 1;
+        MessLevel += Stat;
     }
-    public void DroneLevelUp()
+    public void DroneLevelUp(int Stat)
     {
-        DroneLevel += 1;
+        DroneLevel += Stat;
     }
-    public void VaccineLevelUp()
+    public void VaccineLevelUp(int Stat)
     {
-        VaccineLevel += 1;
+        VaccineLevel += Stat;
     }
-    public void CapsuleLevelUp()
+    public void CapsuleLevelUp(int Stat)
     {
-        CapsuleLevel += 1;
+        CapsuleLevel += Stat;
     }
     public void HealthPointSet(float per)
     {

@@ -60,8 +60,6 @@ public class MainSpawnerAndTimer : MonoBehaviour
     public static bool isDropApple = false;
     public static Vector2 lastDropPosition; // 사과를 생성할 위치 확인
 
-    
-
     void Awake()
     {
         ApplePrefab = applePrefabInspector;
