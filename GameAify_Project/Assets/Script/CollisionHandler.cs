@@ -15,12 +15,12 @@ public class CollisionHandler : MonoBehaviour
             {
                 if (CompareTag("Apple") && other.CompareTag("Player")) PlayerStat.HP += 50f;
                 if (CompareTag("AppleDmg") && other.CompareTag("Player")) PlayerStat.HP -= 50f;
-                if (CompareTag("Box") && other.CompareTag("Weapon"))
-                {
-                    RandomSpawner.isDropApple = true;
-                    Vector2 collisionPosition = other.transform.position;
-                    RandomSpawner.SetDropPosition(collisionPosition); // 위치 전달
-                }
+                //if (CompareTag("Box") && other.CompareTag("Weapon"))
+                //{
+                //    SubSpawner.isDropApple = true;
+                //    Vector2 collisionPosition = other.transform.position;
+                //    SubSpawner.SetDropPosition(collisionPosition); // 위치 전달
+                //}
                 alreadyHit = true; // 회전체의 이중 충돌 처리 방지용
                 Destroy(gameObject);
                 break;

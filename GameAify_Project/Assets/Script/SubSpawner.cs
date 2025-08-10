@@ -2,18 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class RandomSpawner : MonoBehaviour
+public class SubSpawner : MonoBehaviour
 {
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     private List<GameObject> spawnedMonDog = new List<GameObject>();
     private List<GameObject> spawnedItems = new List<GameObject>();
 
-    public Transform player;          // 중심이 될 플레이어
-    public GameObject[] spawnEnemyPrefab;    // 생성할 적 프리팹
-    public GameObject spawnItemPrefab;
-    
-    private float EnemySpawnDistance = 20f; // 플레이어로부터의 적의 생성 거리
-    
     private float ItemDistance = 15f;
     private int maxEnemy = 200;       // 최대 적 수
     private int maxItem = 20;
@@ -28,47 +22,18 @@ public class RandomSpawner : MonoBehaviour
     private float spreadRadius = 4f; // 첫 개 기준 확산 반경
 
 
-    public GameObject applePrefabInspector;     // 인스펙터에서 할당
-    public GameObject appleDamagePrefabInspector;
-    public static GameObject ApplePrefab;
-    public static GameObject AppleDamagePrefab;
-    public static bool isDropApple = false;
-    public static Vector2 lastDropPosition; // 사과를 생성할 위치 확인
-
-    void Awake()
-    {
-        ApplePrefab = applePrefabInspector;
-        AppleDamagePrefab = appleDamagePrefabInspector;
-    }
-
     void Start()
     {
         InvokeRepeating(nameof(SpawnEnemyCheck), 0f, EnemySpawnDelay);
-        InvokeRepeating(nameof(SpawnitemCheck), 0f, itemSpawnDelay);
-        StartCoroutine(SpawnDogsRoutine());
+        //StartCoroutine(SpawnDogsRoutine());
     }
 
     void SpawnEnemyCheck()
     {
-        if (spawnedEnemies.Count < maxEnemy) SpawnDefaultEnemy();
+        //if (spawnedEnemies.Count < maxEnemy) SpawnDefaultEnemy();
     }
 
-    void SpawnitemCheck()
-    {
-        if(spawnedItems.Count < maxItem) SpawnItem();
-    }
-
-    void SpawnDefaultEnemy()
-    {
-        Vector2 randomDir = Random.insideUnitCircle.normalized;
-        Vector3 spawnPos = player.position + new Vector3(randomDir.x, randomDir.y, 0) * EnemySpawnDistance;
-        int EnemyNum = Random.Range(0, 3);
-        GameObject obj = Instantiate(spawnEnemyPrefab[EnemyNum], spawnPos, Quaternion.identity);
-        spawnedEnemies.Add(obj);
-
-        obj.AddComponent<AutoRemove>().Init(spawnedEnemies, obj);
-    }
-    IEnumerator SpawnDogsRoutine()
+    /*IEnumerator SpawnDogsRoutine()
     {
         while (true)
         {
@@ -117,25 +82,18 @@ public class RandomSpawner : MonoBehaviour
             if (created < MonDogCount)
                 Debug.LogWarning("일부 개를 생성하지 못했습니다. 간격이나 반경을 늘리세요.");
         }
-    }
+    }*/
 
-    void SpawnItem()
-    {
-        Vector2 randomDir = Random.insideUnitCircle.normalized;
-        Vector3 spawnPos = player.position + new Vector3(randomDir.x, randomDir.y, 0) * ItemDistance;
+    //void SpawnItem()
+    //{
+    //    Vector2 randomDir = Random.insideUnitCircle.normalized;
+    //    Vector3 spawnPos = player.position + new Vector3(randomDir.x, randomDir.y, 0) * ItemDistance;
 
-        GameObject obj = Instantiate(spawnItemPrefab, spawnPos, Quaternion.identity);
-        spawnedItems.Add(obj);
+    //    GameObject obj = Instantiate(spawnItemPrefab, spawnPos, Quaternion.identity);
+    //    spawnedItems.Add(obj);
 
-        obj.AddComponent<AutoRemove>().Init(spawnedItems, obj);
-    }
+    //    obj.AddComponent<AutoRemove>().Init(spawnedItems, obj);
+    //}
 
-    public static void SetDropPosition(Vector2 pos)
-    {
-        lastDropPosition = pos;
-        int randomValue = Random.Range(0,100);
-        if (randomValue < 10) Instantiate(ApplePrefab, lastDropPosition, Quaternion.identity);
-        else Instantiate(AppleDamagePrefab, lastDropPosition, Quaternion.identity);
-        isDropApple = false;
-    }
+    
 }

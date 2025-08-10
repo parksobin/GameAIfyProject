@@ -79,7 +79,16 @@ public class EnemyStat : MonoBehaviour
 
     public void isDead()
     {
-        if (currentHP <= 0) Die();
+        if (currentHP <= 0)
+        {
+            Die();
+            if (gameObject.name.StartsWith("AppleBomber"))
+            {
+                MainSpawnerAndTimer.isDropApple = true;
+                Vector2 collisionPosition = transform.position;
+                MainSpawnerAndTimer.SetDropPosition(collisionPosition); // 위치 전달
+            }
+        }
     }
 
     void Die()

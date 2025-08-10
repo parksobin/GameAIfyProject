@@ -70,7 +70,7 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(Explosion());
             hasStarted = true;
         }
-        else hasStarted = false;
+        else if (PlayerStat.MessLevel != 4) hasStarted = false;
         if (VaccineTimer >= VaccineWaitSeconds)
         {
             MakeVaccine();
