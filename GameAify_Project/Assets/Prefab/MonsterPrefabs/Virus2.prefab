@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStat: {fileID: 3543110372781975737}
+  Square: {fileID: 4181344681350325309, guid: ffac805cb829c254b8c91bf5d0dc0f77, type: 3}
 --- !u!114 &3543110372781975737
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,6 +33,8 @@ public class PlayerAttack : MonoBehaviour
     private float VaccineTimer = 0f;
 
     //캡슐 관련 변슈
+    private bool GetCapsule =false; //캡슐 획득 판정 -> tre시 재생성 쿨타임 시작
+    public GameObject Capsule; // 생성되는 캡슐 프리팹
     public GameObject capsuleObj; //캡슐 오브젝트(플레이어 내에있음)
     private float capsuleTimer;  //캡슐 쿨타임
     private CapsuleState capsuleState;
@@ -286,14 +288,13 @@ public class PlayerAttack : MonoBehaviour
     {
         if(capsuleObj==null) capsuleObj = GameObject.Find("CapsuleiTem");
 
-        if (capsuleState != null &&!capsuleState.CapsuleActive )
+        if(GetCapsule)
         {
             capsuleTimer += Time.deltaTime;
-
+        }
             switch (PlayerStat.CapsuleLevel )
             {
                 case 1:
-                    //  타격 감소 관련 작성 예정
                     CapsuleTimerOn(20);
                     break;
                 case 2:
@@ -306,17 +307,21 @@ public class PlayerAttack : MonoBehaviour
                     CapsuleTimerOn(15);
                     break;
             }
+        if (capsuleState != null &&!capsuleState.CapsuleActive )
+        {
+                    //  레벨별 타격 감소 관련 작성 예정
         }
         else { }
     }
     
     private void CapsuleTimerOn(float sec) //캡슐 재생성 쿨타임
     {
-        if (capsuleTimer > sec && capsuleObj!=null)
+        if (capsuleTimer >= sec && capsuleObj!=null&&GetCapsule)
         {
-            capsuleTimer = 0;
-            //capsuleObj.SetActive(true);
-            capsuleState.ActiveDesignerEventArgs(1f); //캡슐존 활성화 설정 함수
+            Vector3 CapsulePos = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
+            Instantiate(Capsule, CapsulePos, Quaternion.identity);
+            GetCapsule= false;
+            capsuleTimer = 0f;
         }
     }
 
@@ -325,6 +330,7 @@ public class PlayerAttack : MonoBehaviour
         if(collision.CompareTag("Capsule"))
         {
             Destroy(collision.gameObject); //획득한 캡슐 삭제
+            GetCapsule = true;
             capsuleState.ActiveDesignerEventArgs(1f);
         }
     }
