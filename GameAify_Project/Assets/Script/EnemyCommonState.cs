@@ -29,7 +29,7 @@ public class EnemyCommonState : MonoBehaviour
     private void PlayerFollow() //플레이어 방향으로 따라가는 함수
     {
         float distance = Vector2.Distance(playerObj.transform.position, transform.position);
-        if (gameObject.name.StartsWith("Virus2") && distance <= 10f) return; // 거리가 3 이하이면 움직이지 않음
+        if (gameObject.name.StartsWith("RunningDog") && distance <= 10f) return; // 거리가 3 이하이면 움직이지 않음
 
         direction = (playerObj.transform.position - transform.position).normalized;
         gameObject.transform.Translate(direction * enemyStat.EnemyMoveSpeed * Time.deltaTime);

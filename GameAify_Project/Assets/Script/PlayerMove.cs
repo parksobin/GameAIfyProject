@@ -13,7 +13,6 @@ public class PlayerMove : MonoBehaviour
 
     public TextMeshProUGUI hpText;
     private Animator animator;
-    private float currentHP;
     public Image fillImage; // HP바 오브젝트
     public Image gaugeFillImage; // 정화게이지 오브젝트
 
@@ -79,6 +78,7 @@ public class PlayerMove : MonoBehaviour
             float ratio = (float)PlayerStat.HP / PlayerStat.maxHP;
             fillImage.fillAmount = ratio;
         }
+        if(PlayerStat.HP <= 0) PlayerStat.HP = 0;
     }
     void FixedUpdate()
     {
