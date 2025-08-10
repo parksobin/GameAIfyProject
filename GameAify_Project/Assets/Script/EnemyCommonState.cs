@@ -9,6 +9,10 @@ public class EnemyCommonState : MonoBehaviour
     private GameObject playerObj; //플레이어 오브젝트
     private Vector2 direction; //플레이어쪽 방향
     private SpriteRenderer enemySR;
+    public GameObject Square=null; //몬스터무기
+    private SpriteRenderer SquareRender;
+    private bool wait=false; 
+    float SpawnSquareTime;
 
     void Start()
     {
@@ -17,8 +21,12 @@ public class EnemyCommonState : MonoBehaviour
     }
     private void Update()
     {
-        spriteFlip();
-        PlayerFollow();
+        if(gameObject.name.StartsWith("Virus2"))
+        {
+            Spawn();
+            spriteFlip();
+            PlayerFollow();
+        }
     }
     private void spriteFlip()
     {
@@ -29,10 +37,30 @@ public class EnemyCommonState : MonoBehaviour
     private void PlayerFollow() //플레이어 방향으로 따라가는 함수
     {
         float distance = Vector2.Distance(playerObj.transform.position, transform.position);
-        if (gameObject.name.StartsWith("Virus2") && distance <= 10f) return; // 거리가 3 이하이면 움직이지 않음
+        if (gameObject.name.StartsWith("Virus2") && distance <= 10f)
+        {
+            wait = true;
+            return; // 거리가 3 이하이면 움직이지 않음
+        }
+        else
+        {
+            wait=false;
+            direction = (playerObj.transform.position - transform.position).normalized;
+            gameObject.transform.Translate(direction * enemyStat.EnemyMoveSpeed * Time.deltaTime);
+        }
+    }
 
-        direction = (playerObj.transform.position - transform.position).normalized;
-        gameObject.transform.Translate(direction * enemyStat.EnemyMoveSpeed * Time.deltaTime);
+    private void Spawn()
+    {
+        if(wait)
+        {
+            SpawnSquareTime += Time.deltaTime;
+            if(SpawnSquareTime >=2.0f)
+            {
+                GameObject squareInstance = Instantiate(Square, transform.position, Quaternion.identity);
+                SpawnSquareTime = 0.0f;
+            }
+        }
     }
 
     private void CheckVaccineState() //백신 상태 체력 감소 함수
