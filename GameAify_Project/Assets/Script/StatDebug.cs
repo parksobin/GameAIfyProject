@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class StatDebug : MonoBehaviour
 {
+    public TMP_InputField Wave;
+    private float wave;
     // 플레이어 아이템 관련
     public TMP_InputField SyringeLev;
     public TMP_InputField MessLev;
@@ -17,8 +19,9 @@ public class StatDebug : MonoBehaviour
     public TMP_InputField AttackRange;
     public TMP_InputField PlayerSpeed;
     public TMP_InputField AttackSpeed;
-    //public TMP_InputField AttackPower;
+    public TMP_InputField AttackPower;
 
+    public TextMeshProUGUI waveText;
     public TextMeshProUGUI SyrText;
     public TextMeshProUGUI MesText;
     public TextMeshProUGUI DroText;
@@ -29,7 +32,7 @@ public class StatDebug : MonoBehaviour
     public TextMeshProUGUI AraText;
     public TextMeshProUGUI SpeText;
     public TextMeshProUGUI AspText;
-    //public TextMeshProUGUI AtpText;
+    public TextMeshProUGUI AtpText;
 
     public void Start()
     {
@@ -48,7 +51,14 @@ public class StatDebug : MonoBehaviour
         if (float.TryParse(AttackRange.text, out float Ara)) PlayerStat.AttackRange = Ara;
         if (float.TryParse(PlayerSpeed.text, out float Spe)) PlayerStat.PlayerMoveSpeed = Spe;
         if (float.TryParse(AttackSpeed.text, out float Asp)) PlayerStat.AttackSpeed = Asp;
-        //if (float.TryParse(AttackPower.text, out float Apo)) PlayerStat.AttackPower = Apo;
+        if (float.TryParse(AttackPower.text, out float Apo)) PlayerStat.AttackPower = Apo;
+
+        if (float.TryParse(Wave.text, out float wav))
+        {
+            MainSpawnerAndTimer.timeRemaining = 900f;
+            MainSpawnerAndTimer.timeRemaining -= (wav - 1) * 45.0f;
+            wave = wav;
+        }
 
         UpdateStatus();
 
@@ -58,6 +68,8 @@ public class StatDebug : MonoBehaviour
 
     public void UpdateStatus()
     {
+        waveText.text = "Wave : " + wave.ToString("N0");
+
         SyrText.text = "Syringe : " + PlayerStat.SyringeLevel.ToString();
         MesText.text = "Mess : " + PlayerStat.MessLevel.ToString();
         DroText.text = "Drone : " + PlayerStat.DroneLevel.ToString();
@@ -68,6 +80,6 @@ public class StatDebug : MonoBehaviour
         AraText.text = "Att Range : " + PlayerStat.AttackRange.ToString();
         SpeText.text = "Mov Speed : " + PlayerStat.PlayerMoveSpeed.ToString();
         AspText.text = "Att Speed : " + PlayerStat.AttackSpeed.ToString();
-        //AtpText.text = "maxHP : " + PlayerStat.AttackPower.ToString("N1");
+        AtpText.text = "maxHP : " + PlayerStat.AttackPower.ToString("N1");
     }
 }

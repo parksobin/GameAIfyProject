@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,14 +12,17 @@ public class MainSpawnerAndTimer : MonoBehaviour
     public List<GameObject> spawnEnemyPrefab; // 0~4 타입 프리팹
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     private float EnemySpawnDistance = 20f; // 플레이어로부터의 적의 생성 거리
-    private int waveIndex = -1;   // -1이면 웨이브 없음(대기)
+    public static int waveIndex = -1;   // -1이면 웨이브 없음(대기)
     private bool waveActive = false;
     private float timeInWave = 0f; // 웨이브별 진행된 시간
     private readonly int[] remain = new int[5]; // 웨이브동안 생성해야 하는 남은 몬스터 수
     private readonly float[] rate = new float[5]; // 초당 몬스터 스폰 속도
     private readonly float[] acc = new float[5]; // 현재 쌓여있는 몬스터 수
-    public static float[,] SpawnRate = // 웨이브별 스폰률
+    public float[,] SpawnRate = // 웨이브별 스폰률
     {
+        // 0 ~ 4번 : 몬스터 총 스폰 수
+        // 5 ~ 9번 : 초당 스폰 수
+        // Virus1, Virus2, RunningDog, AppleBomber, Snailer 순서
         {158, 0, 0, 0, 0, 3.51f, 0, 0, 0, 0}, // 1
         {186, 0, 0, 0, 0, 4.13f, 0, 0, 0, 0}, // 2
         {213, 0, 0, 0, 0, 4.73f, 0, 0, 0, 0}, // 3
@@ -45,7 +49,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
     private float waveDuration = 45.0f; // 웨이브별 진행시간
     private float SpawnPercentCheckTime = 45.0f; // 아이템 선택창 출력
     public TextMeshProUGUI timerText; // Text 사용 시에는 Text로 변경
-    private float timeRemaining = 15 * 60; // 15분 = 900초
+    public static float timeRemaining = 15 * 60; // 15분 = 900초
     private bool timerRunning = true;
 
     // 사과 아이템 관련 멤버 변수들
@@ -55,6 +59,8 @@ public class MainSpawnerAndTimer : MonoBehaviour
     public static GameObject AppleDamagePrefab;
     public static bool isDropApple = false;
     public static Vector2 lastDropPosition; // 사과를 생성할 위치 확인
+
+    
 
     void Awake()
     {
@@ -96,29 +102,47 @@ public class MainSpawnerAndTimer : MonoBehaviour
             }
         }
 
+        // 웨이브가 진행 중인 동안에만 스폰 로직을 돌린다.
         if (waveActive)
         {
-            timeInWave += Time.deltaTime; // 0초부터 45초까지 연산
+            timeInWave += Time.deltaTime; // 0초부터 waveDuration초까지 누적
 
-            // 각 타입 누적→정수만큼 스폰
+            // 몬스터 타입 0~4까지 각각에 대해 스폰 계산을 수행한다.
             for (int i = 0; i < 5; i++)
             {
                 if (remain[i] <= 0 || rate[i] <= 0f) continue;
 
+                // 이번 프레임 동안 자란 수량을 누적치에 더한다.
+                // 예: rate=2.5, deltaTime=0.02면 acc += 0.05 → 몇 프레임 지나면 1을 넘고, 그때 실제로 스폰한다.
                 acc[i] += rate[i] * Time.deltaTime;
+
+                // acc의 "정수 부분"만큼 실제로 스폰할 수 있다.
+                // 다만 이번 웨이브에서 남은 마릿수(remain[i])를 넘지 않도록 최소값을 취한다.
                 int toSpawn = Mathf.Min(remain[i], Mathf.FloorToInt(acc[i]));
+
+                // 정수로 꺼낼 게 없다면(아직 1 미만 누적) 다음 타입으로 넘어간다.
                 if (toSpawn <= 0) continue;
 
+                // 방금 계산된 toSpawn 만큼 실제로 생성한다.
+                // 프레임 누락/저fps 등으로 acc가 많이 쌓였을 경우, 한 프레임에 여러 마리가 나올 수 있다(의도된 동작).
                 for (int k = 0; k < toSpawn; k++)
                     SpawnOne(i);
 
+                // 스폰으로 변환한 만큼 누적치에서 빼 준다.
+                // (예: acc가 1.7이고 toSpawn=1이면 acc는 0.7이 남아서 다음 프레임에 이어서 누적된다.)
                 acc[i] -= toSpawn;
+
+                // 실제로 뽑은 만큼 남은 마릿수도 줄인다.
+                // 이 값이 0이 되면 다음 프레임부터는 위의 continue에 걸려 더 이상 뽑지 않는다.
                 remain[i] -= toSpawn;
             }
 
-            // 웨이브 종료(시간 만료 or 목표 소진)
+            // 웨이브 종료 조건:
+            // 1) 시간이 다 지났거나(timeInWave가 waveDuration 이상),
+            // 2) 모든 타입의 남은치 합이 0(목표량을 모두 소진)인 경우.
+            // 둘 중 하나라도 참이면 이번 웨이브를 종료한다.
             if (timeInWave >= waveDuration || (remain[0] + remain[1] + remain[2] + remain[3] + remain[4]) == 0)
-                waveActive = false;
+                waveActive = false; // 다음 웨이브 트리거가 들어올 때까지 대기 상태로 전환
         }
     }
     void SpawnOne(int enemyIdx)
@@ -154,6 +178,9 @@ public class MainSpawnerAndTimer : MonoBehaviour
         // 디버그용(원하면)
         Debug.Log($"Wave {waveIndex+1} 시작 - counts: {remain[0]},{remain[1]},{remain[2]},{remain[3]},{remain[4]} / rates: {rate[0]},{rate[1]},{rate[2]},{rate[3]},{rate[4]}");
     }
+
+    // 개무리 구현 함수
+    
 
     public static void SetDropPosition(Vector2 pos)
     {

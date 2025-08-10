@@ -29,7 +29,7 @@ public class EnemyStat : MonoBehaviour
             case "RunningDog":
                 maxHP = 100f;
                 EnemyAttack = 20f;
-                EnemyMoveSpeed = 15f;
+                EnemyMoveSpeed = 15f/2;
                 break;
             case "AppleBomber":
                 maxHP = 200f;
