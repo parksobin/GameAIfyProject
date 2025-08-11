@@ -21,12 +21,9 @@ public class EnemyCommonState : MonoBehaviour
     }
     private void Update()
     {
-        if(gameObject.name.StartsWith("Virus2"))
-        {
-            Spawn();
-            spriteFlip();
-            PlayerFollow();
-        }
+        Spawn();
+        spriteFlip();
+        PlayerFollow();
     }
     private void spriteFlip()
     {
@@ -44,7 +41,7 @@ public class EnemyCommonState : MonoBehaviour
         }
         else
         {
-            wait=false;
+            wait = false;
             direction = (playerObj.transform.position - transform.position).normalized;
             gameObject.transform.Translate(direction * enemyStat.EnemyMoveSpeed * Time.deltaTime);
         }
