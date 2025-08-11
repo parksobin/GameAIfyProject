@@ -1,46 +1,61 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemSpawnManager : MonoBehaviour
 {
     public GameObject ItemPanel;
-    public bool isChoose = false;
-    private float[] ItemSelectOn =
+
+    private readonly int[] ItemSelectOn =
     {
         10, 25, 50, 100, 250, 400, 500, 650, 850,
         1000, 1250, 1500, 1850, 2200, 2500, 3000,
-        3500, 4100, 4650, 4950 
+        3500, 4100, 4650, 4950
     };
 
-
-    void Start()
-    {
-        
-    }
+    private int index = 0;
+    private bool panelOpen = false;
 
     void Update()
     {
-        Debug.Log("Count : " + PlayerStat.currentGauge);
-        for(int i = 0; i < 20; i++)
+        //디버그용
+        //Debug.Log("Count : " + PlayerStat.currentGauge + ", index : " + index);
+        
+        // 패널이 닫혀있을 때만 다음 임계값 체크
+        if (!panelOpen && index < ItemSelectOn.Length)
         {
-            if (PlayerStat.currentGauge == ItemSelectOn[i] && !isChoose)
+            if (PlayerStat.currentGauge >= ItemSelectOn[index])   // 핵심: >=
             {
-                ItemSelect();
-                isChoose = true;
+                OpenPanel();
+                index++; // 이 임계값은 소비
+            }
+        }
+
+        // 선택 완료 시 닫기
+        if (panelOpen && ClickChecker.SelectedItem)
+        {
+            ClickChecker.SelectedItem = false; // 재진입 방지
+            ClosePanel();
+
+            // 닫자마자 "이미 넘은" 다음 임계값이 있으면 바로 또 띄움
+            while (!panelOpen && index < ItemSelectOn.Length &&
+                   PlayerStat.currentGauge >= ItemSelectOn[index])
+            {
+                OpenPanel();
+                index++;
             }
         }
     }
 
-    private void ItemSelect()
+    private void OpenPanel()
     {
-        Time.timeScale = 0.0f;
+        panelOpen = true;
         ItemPanel.SetActive(true);
-        if(ClickChecker.SelectedItem)
-        {
-            Time.timeScale = 1.0f;
-            ItemPanel.SetActive(false);
-            isChoose = false;
-        }
+        Time.timeScale = 0f;
+    }
+
+    private void ClosePanel()
+    {
+        Time.timeScale = 1f;
+        ItemPanel.SetActive(false);
+        panelOpen = false;
     }
 }

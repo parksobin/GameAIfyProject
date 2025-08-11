@@ -93,7 +93,7 @@ public class EnemyStat : MonoBehaviour
 
     void Die()
     {
-        PlayerStat.currentGauge += 1.0f;
+        PlayerStat.currentGauge++;
         Destroy(gameObject);
     }
 }

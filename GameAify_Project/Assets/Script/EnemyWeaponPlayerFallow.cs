@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerFlow : MonoBehaviour
+public class EnemyWeaponPlayerFallow : MonoBehaviour
 {
     private Vector2 moveDir; // 발사 방향 
     public float speed = 7f; // 이동 속도   
