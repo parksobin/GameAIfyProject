@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class PlayerStat : MonoBehaviour
 {
-    public static float maxGauge = 5000f;
-    public static float currentGauge = 0f;
+    public static int maxGauge = 5000;
+    public static int currentGauge = 0;
 
     public static int SyringeLevel = 1; // 주사기 단계
     public static int MessLevel = 1; // 메스 단계
