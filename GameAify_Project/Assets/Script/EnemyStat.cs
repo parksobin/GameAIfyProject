@@ -19,27 +19,27 @@ public class EnemyStat : MonoBehaviour
             case "Virus1":
                 maxHP = 100f;
                 EnemyAttack = 20f;
-                EnemyMoveSpeed = 6.0f/2;
+                EnemyMoveSpeed = 3.0f;
                 break;
             case "Virus2":
                 maxHP = 150f;
                 EnemyAttack = 30f;
-                EnemyMoveSpeed = 10.0f/2;
+                EnemyMoveSpeed = 3.0f;
                 break;
             case "RunningDog":
-                maxHP = 100f;
+                maxHP = 50f;
                 EnemyAttack = 20f;
-                EnemyMoveSpeed = 15f/2;
+                EnemyMoveSpeed = 5.0f;
                 break;
             case "AppleBomber":
                 maxHP = 200f;
                 EnemyAttack = 40f;
-                EnemyMoveSpeed = 7.0f/2;
+                EnemyMoveSpeed = 2.0f;
                 break;
             case "Snailer":
                 maxHP = 600f;
                 EnemyAttack = 60f;
-                EnemyMoveSpeed = 3.0f/2;
+                EnemyMoveSpeed = 1.0f;
                 break;
         }
 
