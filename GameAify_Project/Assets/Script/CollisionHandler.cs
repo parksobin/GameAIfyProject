@@ -22,7 +22,7 @@ public class CollisionHandler : MonoBehaviour
                 //    SubSpawner.SetDropPosition(collisionPosition); // 위치 전달
                 //}
                 alreadyHit = true; // 회전체의 이중 충돌 처리 방지용
-                Destroy(gameObject);
+                //Destroy(gameObject);
                 break;
             }
         }

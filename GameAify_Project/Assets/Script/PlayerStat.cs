@@ -15,7 +15,7 @@ public class PlayerStat : MonoBehaviour
     public static float maxHP = 300f; // 플레이어의 기본 체력
     public static float HP = 300f; // 플레이어의 현재 체력
     public static float AttackRange = 10f; // 플레이어의 기본 공격 범위
-    public static float PlayerMoveSpeed = 10f; // 플레이어 기본 이동 속도
+    public static float PlayerMoveSpeed = 10f/2; // 플레이어 기본 이동 속도
     public static float AttackSpeed = 1.5f; // 플레이어의 기본 공격 속도
     public static float AttackPower = 100f; // 플레이어의 기본 공격력
 
