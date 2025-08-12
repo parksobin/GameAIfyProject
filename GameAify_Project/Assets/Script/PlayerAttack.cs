@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public CollisionHandler collisionHandler;
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
     private float SyringeSpeed = 20.0f; // 주사기 속도
@@ -60,6 +59,7 @@ public class PlayerAttack : MonoBehaviour
         CapsuleActiveOn();
         AttackSyringeAndMess();        
     }
+
     void AttackSyringeAndMess()
     {
         TimerCount();
@@ -131,7 +131,6 @@ public class PlayerAttack : MonoBehaviour
             for (int i = 0; i < countPerRow; i++)
             {
                 float xOffset = (-(countPerRow - 1) / 2f) * SyringeSpacing;
-
                 // 한 세트(위/아래) 동시 생성
                 SpawnOne(xOffset, +SyringeRowGap);
                 SpawnOne(xOffset, -SyringeRowGap);
@@ -269,18 +268,13 @@ public class PlayerAttack : MonoBehaviour
     {
         float playerX = transform.position.x;
         float playerY = transform.position.y;
-
         // X축: -5 ~ +5 사이 랜덤
         float randomX = playerX + Random.Range(-5f, 5f);
-
         // Y축: +10 고정
         float randomY = playerY + 10f;
-
         Instantiate(vaccine, new Vector3(randomX, randomY, -0.5f), Quaternion.identity);
     }
 
-
-    
     //캡슐 활성화 함수
     private void CapsuleActiveOn()
     {
@@ -290,13 +284,13 @@ public class PlayerAttack : MonoBehaviour
         {
             capsuleTimer += Time.deltaTime;
         }
-            switch (PlayerStat.CapsuleLevel )
-            {
-                case 1: CapsuleTimerOn(20); break;
-                case 2: CapsuleTimerOn(20); break;
-                case 3: CapsuleTimerOn(20); break;
-                case 4: CapsuleTimerOn(15); break;
-            }
+        switch (PlayerStat.CapsuleLevel)
+        {
+            case 1: CapsuleTimerOn(20); break;
+            case 2: CapsuleTimerOn(20); break;
+            case 3: CapsuleTimerOn(20); break;
+            case 4: CapsuleTimerOn(15); break;
+        }
         if (capsuleState != null &&!capsuleState.CapsuleActive )
         {
                     //  레벨별 타격 감소 관련 작성 예정

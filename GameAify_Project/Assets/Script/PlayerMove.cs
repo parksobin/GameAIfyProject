@@ -88,6 +88,16 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         UpdateHPBar();
+        if (collision.CompareTag("Apple"))
+        {
+            PlayerStat.HP += 50;
+            Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("AppleDmg")) 
+        {
+            PlayerStat.HP -= 50;
+            Destroy(collision.gameObject);
+        }
     }
 
     private void walkAni(string aniName, bool state,bool ani1, bool ani2,bool ani3)

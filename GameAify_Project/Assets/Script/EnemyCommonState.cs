@@ -9,7 +9,7 @@ public class EnemyCommonState : MonoBehaviour
     private GameObject playerObj; //플레이어 오브젝트
     private Vector2 direction; //플레이어쪽 방향
     private SpriteRenderer enemySR;
-    public GameObject Square=null; //몬스터무기
+    public GameObject Square = null; //몬스터무기
     private SpriteRenderer SquareRender;
     private bool wait=false; 
     float SpawnSquareTime;

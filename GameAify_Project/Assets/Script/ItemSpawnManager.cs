@@ -17,7 +17,7 @@ public class ItemSpawnManager : MonoBehaviour
     void Update()
     {
         //디버그용
-        //Debug.Log("Count : " + PlayerStat.currentGauge + ", index : " + index);
+        Debug.Log("Gauge : " + PlayerStat.currentGauge + ", index : " + index);
         
         // 패널이 닫혀있을 때만 다음 임계값 체크
         if (!panelOpen && index < ItemSelectOn.Length)
