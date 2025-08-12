@@ -10,9 +10,9 @@ public class StartSelect : MonoBehaviour
 
     void Start()
     {
-        StartSelectPannel.SetActive(true);
+        StartSelectPannel.SetActive(false);
         StartBtn.SetActive(false);
-        Time.timeScale = 0.0f;
+        //Time.timeScale = 0.0f;
     }
 
     void Update()

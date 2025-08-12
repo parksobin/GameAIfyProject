@@ -11872,6 +11872,9 @@ MonoBehaviour:
   vaccine: {fileID: 521822207882441309, guid: c33ef46c58496f54198a459f3171ac71, type: 3}
   Capsule: {fileID: 4159325352282298641, guid: e2a1ed05221d2274c903bf081fddb1c3, type: 3}
   capsuleObj: {fileID: 1389821976}
+  UniqueImg:
+  - {fileID: 21300000, guid: f847d8af38d7276499c85e7f85e953af, type: 3}
+  - {fileID: 21300000, guid: 006563c3d597a5147bebdfa1e908d49e, type: 3}
 --- !u!70 &1911230244
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
