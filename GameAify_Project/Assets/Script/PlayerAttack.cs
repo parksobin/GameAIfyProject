@@ -11,7 +11,10 @@ public class PlayerAttack : MonoBehaviour
     public GameObject SyringePrefab; // 주사기 프리팹
     private float SyringeSpeed = 20.0f; // 주사기 속도
     private float SyringeTimer = 0f; // 발사 시간 초기화
-    private float spawnDistance = 2.0f; // 주사기 생성 위치 조절
+    private float spawnDistance; // 주사기 생성 위치 조절
+    private float SyringeSpacing = 1f;    // 가로 간격
+    private float SyringeRowGap = 0.3f;     // 두 줄 세로 간격(위/아래)
+    private float SyringSpawnTick = 0.15f;     // 간격(요구사항)
 
     // 메스 관련 멤버 변수
     public GameObject MessPrefab; // 메스 프리팹
@@ -25,6 +28,8 @@ public class PlayerAttack : MonoBehaviour
     private float MessBulletSpeed = 15f; // 메스 발사체 속도
     private bool hasStarted = false;
     private float ShootDelay = 5f;
+    private int radian; // 메스 발사체 각도 설정
+    private int totalRadian; // 메스 발사체 최종 각도
 
     //백신 관련 변수
     public GameObject vaccine;  //백신 투하 영역 프리팹 오브젝트
@@ -67,12 +72,12 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(SpawnMessRotate(direction));
             MessTimer = 0f;
         }
-        if (PlayerStat.MessLevel == 4 && !hasStarted)
+        if (PlayerStat.MessLevel >= 3 && !hasStarted)
         {
             StartCoroutine(Explosion());
             hasStarted = true;
         }
-        else if (PlayerStat.MessLevel != 4) hasStarted = false;
+        else if (PlayerStat.MessLevel < 3) hasStarted = false;
         if (VaccineTimer >= VaccineWaitSeconds)
         {
             MakeVaccine();
@@ -88,65 +93,71 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator ShootSyringe()
     {
-        // 발사 시작 시 기준 위치/방향 고정
-        Vector3 originPos = transform.position;
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0f;
-        Vector3 direction = (mousePos - originPos).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // 발사 위치를 originPos에서 direction으로 일정 거리 이동한 위치로 설정
-        Vector3 spawnOrigin = originPos + direction * spawnDistance;
-
-        int countPerRow = 1;
-        int rows = 1;
+        int countPerRow;
+        int rows;
 
         switch (PlayerStat.SyringeLevel)
         {
-            case 1:
-                countPerRow = 1;
-                rows = 1;
-                break;
-            case 2:
-                countPerRow = 3;
-                rows = 1;
-                break;
-            case 3:
-                countPerRow = 5;
-                rows = 1;
-                break;
-            default:
-                countPerRow = 5;
-                rows = 2;
-                break;
+            case 1: countPerRow = 1; rows = 1; spawnDistance = 1.25f; break;
+            case 2: countPerRow = 3; rows = 1; spawnDistance = 2.0f; break; // 한 발씩 0.2초 간격
+            case 3: countPerRow = 5; rows = 1; spawnDistance = 3.0f; break; // 한 발씩 0.2초 간격
+            default: countPerRow = 5; rows = 2; spawnDistance = 3.0f; break; // 두 줄(위/아래)을 한 세트로 0.2초 간격
         }
-
-        float spacing = 1.25f;
-
-        for (int r = 0; r < rows; r++)
+        
+        // === 1단계: 즉시 1발 ===
+        if (rows == 1 && countPerRow == 1)
+        {
+            SpawnOne(0f, 0f);
+            yield break;
+        }
+        // === 2·3단계: 한 줄에서 "한 발씩" 0.2s 간격 ===
+        if (rows == 1 && countPerRow > 1)
         {
             for (int i = 0; i < countPerRow; i++)
             {
-                // originPos 기준으로 발사 위치 계산
-                float xOffset = (-(countPerRow - 1) / 2f + i) * spacing;
-                float yOffset = (rows == 2) ? (r == 0 ? 0.3f : -0.3f) : 0f;
-                Vector3 offset = Quaternion.Euler(0, 0, angle) * new Vector3(xOffset, yOffset, 0);
-                Vector3 spawnPos = spawnOrigin + offset;
+                float xOffset = (-(countPerRow - 1) / 2f) * SyringeSpacing;
+                SpawnOne(xOffset, 0f);             // 매번 SpawnOne 내부에서 마우스 방향 재계산
+                if (i < countPerRow - 1) yield return new WaitForSeconds(SyringSpawnTick);
+            }
+            yield break;
+        }
+        // === 4단계: 두 줄을 '한 세트'로 컬럼(열) 단위 0.2s 간격 ===
+        // i열마다 위/아래 2발 동시 생성 → 0.2s → 다음 열 …
+        if (rows == 2)
+        {
+            for (int i = 0; i < countPerRow; i++)
+            {
+                float xOffset = (-(countPerRow - 1) / 2f) * SyringeSpacing;
 
-                // 주사기 생성 및 설정
-                GameObject proj = Instantiate(SyringePrefab, spawnPos, Quaternion.Euler(0, 0, angle + 90f));
+                // 한 세트(위/아래) 동시 생성
+                SpawnOne(xOffset, +SyringeRowGap);
+                SpawnOne(xOffset, -SyringeRowGap);
 
-                Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                    rb.linearVelocity = direction * SyringeSpeed;
-
-                AttackRange AR = proj.GetComponent<AttackRange>();
-                if (AR != null)
-                    AR.SetStartPosition(originPos); // 발사 시작 위치도 originPos 기준으로
+                if (i < countPerRow - 1) yield return new WaitForSeconds(SyringSpawnTick);
             }
         }
+        // ---- 지역 함수: 매 호출 시점의 마우스 방향으로 1발 생성 ----
+        void SpawnOne(float xOffset, float yOffset)
+        {
+            Vector3 originPos = transform.position;
 
-        yield return null;
+            // 마우스 방향을 "지금 시점"에 다시 계산
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f;
+            Vector3 direction = (mousePos - originPos).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            // 플레이어 앞쪽으로 약간 띄워서 생성
+            Vector3 spawnOrigin = originPos + direction * spawnDistance;
+            // 오프셋을 발사 각도에 맞춰 회전
+            Vector3 offset = Quaternion.Euler(0, 0, angle) * new Vector3(xOffset, yOffset, 0f);
+            Vector3 spawnPos = spawnOrigin + offset;
+            // 생성 및 초기 설정
+            GameObject proj = Instantiate(SyringePrefab, spawnPos, Quaternion.Euler(0, 0, angle + 90f));
+            var rb = proj.GetComponent<Rigidbody2D>();
+            if (rb != null) rb.linearVelocity = direction * SyringeSpeed;
+            var AR = proj.GetComponent<AttackRange>();
+            if (AR != null) AR.SetStartPosition(originPos);
+        }
     }
 
     private IEnumerator SpawnMessRotate(float direction)
@@ -163,16 +174,10 @@ public class PlayerAttack : MonoBehaviour
         bool isBulletShoot = false;
         switch (PlayerStat.MessLevel)
         {
-            case 1:
-                endAngle = 90f * direction;
-                break;
-            case 3:
-                endAngle = 180f * direction;
-                isBulletShoot = true;
-                break;
-            default:
-                endAngle = 180f * direction;
-                break;
+            case 2: endAngle = 180f * direction; isBulletShoot = true; break;
+            case 3: endAngle = 180f * direction; radian = 90; totalRadian = 270; break;
+            case 4: endAngle = 180f * direction; radian = 45; totalRadian = 315; break;
+            default: endAngle = 180f * direction; break;
         }
         
         while (elapsed < rotationDuration)
@@ -220,7 +225,9 @@ public class PlayerAttack : MonoBehaviour
     {
         while (true)
         {
-            for (int i = 0; i <= 270; i += 90)
+            yield return new WaitForSeconds(ShootDelay); // 5초 기다리고 다시 발사             
+
+            for (int i = 0; i <= totalRadian; i += radian)
             {
                 float rad = i * Mathf.Deg2Rad;
                 Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
@@ -229,9 +236,7 @@ public class PlayerAttack : MonoBehaviour
                 if (rb != null) rb.linearVelocity = direction * MessBulletSpeed;
                 AttackRange AR = proj.GetComponent<AttackRange>();
                 if (AR != null) AR.SetStartPosition(transform.position);
-            }
-
-            yield return new WaitForSeconds(ShootDelay); // 5초 기다리고 다시 발사
+            }    
         }
     }
     // 백신 생성 함수
@@ -243,24 +248,11 @@ public class PlayerAttack : MonoBehaviour
         int vaccineCount = 0; //백신 단계당 생성된 개수
         switch (PlayerStat.VaccineLevel)
         {
-            case 1: //1단계
-                VaccineWaitSeconds = 8f;
-                VaccineMaxCount = 1;
-                break;
-            case 2: //2단계
-                VaccineWaitSeconds = 8f;
-                VaccineMaxCount = 3;
-                break;
-            case 3: //3단계
-                VaccineWaitSeconds = 5f;
-                VaccineMaxCount = 3;
-                break;
-            case 4: //유니크 단계
-                VaccineWaitSeconds = 5f;
-                VaccineMaxCount = 3;
-                break;
-            default:
-                break;
+            case 1: VaccineWaitSeconds = 8f; VaccineMaxCount = 1; break;// 1단계          
+            case 2: VaccineWaitSeconds = 8f; VaccineMaxCount = 3; break;// 2단계
+            case 3: VaccineWaitSeconds = 5f; VaccineMaxCount = 3; break;// 3단계         
+            case 4: VaccineWaitSeconds = 5f; VaccineMaxCount = 3; break;// 유니크 단계
+            default: break;
         }
         for (int i = 0; i < VaccineMaxCount; i++)
         {
@@ -294,18 +286,10 @@ public class PlayerAttack : MonoBehaviour
         }
             switch (PlayerStat.CapsuleLevel )
             {
-                case 1:
-                    CapsuleTimerOn(20);
-                    break;
-                case 2:
-                    CapsuleTimerOn(20);
-                    break;
-                case 3:
-                    CapsuleTimerOn(20);
-                    break;
-                case 4:
-                    CapsuleTimerOn(15);
-                    break;
+                case 1: CapsuleTimerOn(20); break;
+                case 2: CapsuleTimerOn(20); break;
+                case 3: CapsuleTimerOn(20); break;
+                case 4: CapsuleTimerOn(15); break;
             }
         if (capsuleState != null &&!capsuleState.CapsuleActive )
         {

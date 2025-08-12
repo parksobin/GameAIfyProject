@@ -81,7 +81,7 @@ public class DogPatternManager : MonoBehaviour
             created++;
         }
         if (created < RunningDogCount)
-            Debug.LogWarning("일부 개를 생성하지 못했습니다. spacing 또는 spreadRadius를 늘려보세요.");
+            Debug.LogWarning("일부 개를 생성하지 못했습니다. SyringeSpacing 또는 spreadRadius를 늘려보세요.");
     }
 
     // 모든 개무리 개체가 '완전히' 사라졌는지(파괴되었거나 비활성화되었는지) 확인
