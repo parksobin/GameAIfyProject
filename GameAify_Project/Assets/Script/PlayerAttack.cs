@@ -39,6 +39,9 @@ public class PlayerAttack : MonoBehaviour
     private float capsuleTimer;  //캡슐 쿨타임
     private CapsuleState capsuleState;
 
+    //모든 무기유니크 단계 이미지 
+    public Sprite[] UniqueImg;  //  (0 매스, 1 매스 총알 )  / 백신은 따로 프리팹 안에 되어 잇음
+
     void Start()
     {
         //StartCoroutine(VaccineInject());
@@ -153,6 +156,7 @@ public class PlayerAttack : MonoBehaviour
     {
         MessRotating = true;
         GameObject obj = Instantiate(MessPrefab, transform.position, Quaternion.identity);
+        ChangeUniqueImg(obj, 0);
         Transform MessTarget = obj.transform.Find("Square");
         MessRend = MessTarget.GetComponent<SpriteRenderer>();
         if (direction > 0f) MessRend.flipX = true;
@@ -201,7 +205,7 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(PlayerStat.AttackSpeed);
         MessRotating = false;
     }
-    void MessBulletShoot()
+    void MessBulletShoot() //매스 총알
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
@@ -209,6 +213,7 @@ public class PlayerAttack : MonoBehaviour
         float angle = Mathf.Atan2(fireDir.y, fireDir.x) * Mathf.Rad2Deg;
         
         GameObject proj = Instantiate(MessBulletPrefab, transform.position, Quaternion.Euler(0, 0, angle));
+        ChangeUniqueImg(proj, 1);
         Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
 
         if (rb != null) rb.linearVelocity = fireDir * MessBulletSpeed;
@@ -225,6 +230,7 @@ public class PlayerAttack : MonoBehaviour
                 float rad = i * Mathf.Deg2Rad;
                 Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
                 GameObject proj = Instantiate(UniqueBulletPrefab, transform.position, Quaternion.Euler(0, 0, i));
+                ChangeUniqueImg(proj, 1);
                 Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
                 if (rb != null) rb.linearVelocity = direction * MessBulletSpeed;
                 AttackRange AR = proj.GetComponent<AttackRange>();
@@ -334,4 +340,11 @@ public class PlayerAttack : MonoBehaviour
             capsuleState.ActiveDesignerEventArgs(1f);
         }
     }
+
+    private void ChangeUniqueImg(GameObject obj,int num)
+    {
+        SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = UniqueImg[num];
+    }
+
 }
