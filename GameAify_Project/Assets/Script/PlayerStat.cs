@@ -24,44 +24,63 @@ public class PlayerStat : MonoBehaviour
     public static float VaccinePower = AttackPower / 10.0f; // 백신 : 플레이어 공격력의 10분의 1
     public static float MessPower = AttackPower / 2.0f; // 메스 : 플레이어 공격력의 2분의 1
 
-    public void SyringeLevelUp(int Stat)
+    public void SyringeLevelUp()
     {
-        SyringeLevel += Stat;
+        SyringeLevel++;
+        ItemChecker.NowCount--;
     }
-    public void MessLevelUp(int Stat)
+    public void MessLevelUp()
     {
-        MessLevel += Stat;
+        MessLevel++;
+        ItemChecker.NowCount--;
     }
-    public void DroneLevelUp(int Stat)
+    public void DroneLevelUp()
     {
-        DroneLevel += Stat;
+        DroneLevel++;
+        ItemChecker.NowCount--;
     }
-    public void VaccineLevelUp(int Stat)
+    public void VaccineLevelUp()
     {
-        VaccineLevel += Stat;
+        VaccineLevel++;
+        ItemChecker.NowCount--;
     }
-    public void CapsuleLevelUp(int Stat)
+    public void CapsuleLevelUp()
     {
-        CapsuleLevel += Stat;
+        CapsuleLevel++;
+        ItemChecker.NowCount--;
     }
     public void HealthPointSet(float per)
     {
         maxHP *= (1f + per / 100f);
+        ItemChecker.NowCount--;
     }
     public void AttackRangeSet(float per)
     {
         AttackRange *= (1f + per / 100f);
+        ItemChecker.NowCount--;
     }
     public void PlayerSpeedSet(float per)
     {
         PlayerMoveSpeed *= (1f + per / 100f);
+        ItemChecker.NowCount--;
     }
     public void AttackSpeedSet(float per)
     {
         AttackSpeed /= (1f + per / 100f);
+        ItemChecker.NowCount--;
     }
     public void AttackPowerSet(float per)
     {
         AttackPower *= (1f + per / 100f);
+        ItemChecker.NowCount--;
+    }
+
+    public static void CheckUniqueLevel()
+    {
+        int[] levels = { SyringeLevel, MessLevel, DroneLevel, VaccineLevel, CapsuleLevel };
+        foreach (int level in levels)
+        {
+            if (level == 4) ItemChecker.NowCount++;
+        }
     }
 }

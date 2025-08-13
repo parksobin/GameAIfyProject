@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -94,6 +95,8 @@ public class EnemyStat : MonoBehaviour
     void Die()
     {
         PlayerStat.currentGauge++;
+        //디버그용
+        Debug.Log("Gauge : " + PlayerStat.currentGauge);
         Destroy(gameObject);
     }
 }
