@@ -16,11 +16,12 @@ public class ItemSelectManager : MonoBehaviour
 
     void Start()
     {
-        UpgradeCountText.text = "Count : " + ItemChecker.NowCount;        
+         
     }
 
     void Update()
-    {  
+    {
+        UpgradeCountText.text = "Count : " + PlayerAttack.NowCount;
         // 패널이 닫혀있을 때만 다음 임계값 체크
         if (!panelOpen && StepIndex < ItemSelectOn.Length)
         {
@@ -50,6 +51,7 @@ public class ItemSelectManager : MonoBehaviour
     private void OpenPanel()
     {
         panelOpen = true;
+        PlayerAttack.NowCount++;
         ItemPanel.SetActive(true);
         PlayerStat.CheckUniqueLevel();
         Time.timeScale = 0f;

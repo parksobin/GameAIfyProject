@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Apple-removebg_0: -5922025078474505678
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

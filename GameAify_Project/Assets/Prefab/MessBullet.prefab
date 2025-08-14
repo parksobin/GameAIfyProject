@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1308474927925822438}
   - component: {fileID: 3567427037380866171}
+  - component: {fileID: 8455081658907715126}
   - component: {fileID: 1932732968327433194}
   - component: {fileID: 2822619172708511640}
-  - component: {fileID: 8455081658907715126}
   m_Layer: 6
   m_Name: MessBullet
   m_TagString: Weapon
@@ -90,6 +90,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8455081658907715126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943058326886495872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61769bf273926434ca7d662db0b54586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &1932732968327433194
 Rigidbody2D:
   serializedVersion: 5
@@ -153,15 +165,3 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 3.235
---- !u!114 &8455081658907715126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5943058326886495872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61769bf273926434ca7d662db0b54586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

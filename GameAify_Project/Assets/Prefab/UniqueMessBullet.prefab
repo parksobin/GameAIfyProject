@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5035234390299318749}
   - component: {fileID: 7925020971857918068}
+  - component: {fileID: 6262945461716132587}
   - component: {fileID: 835105969474065699}
   - component: {fileID: -340753301621895547}
-  - component: {fileID: 6262945461716132587}
   m_Layer: 6
   m_Name: UniqueMessBullet
   m_TagString: Weapon
@@ -79,17 +79,29 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1069206293110165712, guid: 006563c3d597a5147bebdfa1e908d49e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 006563c3d597a5147bebdfa1e908d49e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.38, y: 4.41}
+  m_Size: {x: 8.4, y: 8.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6262945461716132587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936027254738174588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61769bf273926434ca7d662db0b54586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &835105969474065699
 Rigidbody2D:
   serializedVersion: 5
@@ -153,15 +165,3 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.20561934, y: 0}
   m_Radius: 2.263748
---- !u!114 &6262945461716132587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 936027254738174588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61769bf273926434ca7d662db0b54586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

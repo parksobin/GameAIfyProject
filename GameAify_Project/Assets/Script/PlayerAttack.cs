@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     // 주사기 관련 멤버 변수
     public GameObject SyringePrefab; // 주사기 프리팹
     private float SyringeSpeed = 20.0f; // 주사기 속도
-    private float SyringeTimer = 0f; // 발사 시간 초기화
+    public static float SyringeTimer = 0f; // 발사 시간 초기화
     private float spawnDistance; // 주사기 생성 위치 조절
     private float SyringeSpacing = 1f;    // 가로 간격
     private float SyringeRowGap = 0.3f;     // 두 줄 세로 간격(위/아래)
@@ -22,7 +23,6 @@ public class PlayerAttack : MonoBehaviour
     private SpriteRenderer MessRend; // 메스 스프라이트 참조용
     private float rotationDuration = 0.25f; // 0도에서 최대각도까지 도는 데 걸리는 시간
     private float MessTimer = 0f;
-    private float MessDelay = 5.0f;
     private bool MessRotating = false; // 메스가 생성 중인지 여부
     private float MessBulletSpeed = 15f; // 메스 발사체 속도
     private bool hasStarted = false;
@@ -33,18 +33,20 @@ public class PlayerAttack : MonoBehaviour
     //백신 관련 변수
     public GameObject vaccine;  //백신 투하 영역 프리팹 오브젝트
     private int VaccineMaxCount; //백신 단계당 초당 생성 개수
-    private float VaccineWaitSeconds = 8f; // 기본 백신 생성주기 초수
+    public static float VaccineWaitSeconds = 8f; // 기본 백신 생성주기 초수
     private float VaccineTimer = 0f;
 
     //캡슐 관련 변슈
     private bool GetCapsule =false; //캡슐 획득 판정 -> tre시 재생성 쿨타임 시작
     public GameObject Capsule; // 생성되는 캡슐 프리팹
     public GameObject capsuleObj; //캡슐 오브젝트(플레이어 내에있음)
-    private float capsuleTimer;  //캡슐 쿨타임
+    public static float CapsuleTime; // 캡슐 쿨타임
+    private float capsuleTimer;  //캡슐 쿨타임 계산을 위한 변수
     private CapsuleState capsuleState;
 
     //모든 무기유니크 단계 이미지 
     public Sprite[] UniqueImg;  //  (0 매스, 1 매스 총알 )  / 백신은 따로 프리팹 안에 되어 잇음
+    public static int NowCount = 0; // 아이템 업그레이드 가능 횟수
 
     void Start()
     {
@@ -68,7 +70,7 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(ShootSyringe());
             SyringeTimer = 0f;
         }
-        if (MessTimer >= MessDelay && !MessRotating)
+        if (MessTimer >= PlayerStat.AttackSpeed && !MessRotating)
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float direction = mouseWorld.x < transform.position.x ? 1f : -1f;
@@ -286,10 +288,8 @@ public class PlayerAttack : MonoBehaviour
         }
         switch (PlayerStat.CapsuleLevel)
         {
-            case 1: CapsuleTimerOn(20); break;
-            case 2: CapsuleTimerOn(20); break;
-            case 3: CapsuleTimerOn(20); break;
-            case 4: CapsuleTimerOn(15); break;
+            case 4: CapsuleTime = 15.0f; CapsuleTimerOn(CapsuleTime); break;
+            default: CapsuleTime = 20.0f; CapsuleTimerOn(CapsuleTime); break;
         }
         if (capsuleState != null &&!capsuleState.CapsuleActive )
         {

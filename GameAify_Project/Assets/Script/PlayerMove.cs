@@ -62,14 +62,14 @@ public class PlayerMove : MonoBehaviour
             walkAni("skill", true,false,false,true);
         }
         */
-        hpText.text = "HP : " + PlayerStat.HP.ToString("N1"); 
+        hpText.text = PlayerStat.HP.ToString("N0"); 
         UpdateHPBar();
         UpdateGauge();
     }
     public void UpdateGauge()
     {
         if (gaugeFillImage != null)
-            gaugeFillImage.fillAmount = PlayerStat.currentGauge / PlayerStat.maxGauge;
+            gaugeFillImage.fillAmount = (float)PlayerStat.currentGauge / PlayerStat.maxGauge;
     }
     void UpdateHPBar()
     {

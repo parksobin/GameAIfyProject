@@ -96,7 +96,7 @@ public class EnemyStat : MonoBehaviour
     {
         PlayerStat.currentGauge++;
         //디버그용
-        Debug.Log("Gauge : " + PlayerStat.currentGauge);
+        Debug.Log("Gauge : " + PlayerStat.currentGauge + ", Upgrade : " + PlayerAttack.NowCount);
         Destroy(gameObject);
     }
 }

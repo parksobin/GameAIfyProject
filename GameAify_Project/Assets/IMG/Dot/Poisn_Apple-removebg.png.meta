@@ -185,7 +185,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Poisn_Apple-removebg_0: -9183453237515906186
+      Poisn_Apple-removebg_1: 478685671208190335
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

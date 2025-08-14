@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.VFX;
 
 public class VaccineState : MonoBehaviour
 {
     public float speed = 10f;
     public GameObject VaccineObj; // 떨어지는 백신
-    public GameObject VaccineFeild;  // 백신 구역
+    public GameObject VaccineFeild;  // 백신 구역 
     private Vector3 destination;
     private PlayerAttack playerAttack;
-
 
     private bool downSign = false;
     private float timer = 0f;
@@ -43,13 +43,15 @@ public class VaccineState : MonoBehaviour
 
         if (PlayerStat.VaccineLevel == 4)
         {
-            VaccineFeild.transform.localScale = new Vector3(3f, 3f,3f);
+            if (PlayerStat.VCFS < 3.3f) PlayerStat.VCFS = 3.0f; // 기본 수치의 백신 구역 생성
+            VaccineFeild.transform.localScale = new Vector3(PlayerStat.VCFS, PlayerStat.VCFS, PlayerStat.VCFS);
             VaccineRender.sprite = VaccineImg[1];
             VaccineFeildRender.sprite = VaccineFeildImg[1];
         }
         else
         {
-            VaccineFeild.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            if (PlayerStat.VCFS < 1.65f) PlayerStat.VCFS = 1.5f; // 기본 수치의 백신 구역 생성
+            VaccineFeild.transform.localScale = new Vector3(PlayerStat.VCFS, PlayerStat.VCFS, PlayerStat.VCFS);
             VaccineRender.sprite = VaccineImg[0];
             VaccineFeildRender.sprite = VaccineFeildImg[0];
         }

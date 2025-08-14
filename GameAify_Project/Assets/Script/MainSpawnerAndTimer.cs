@@ -193,6 +193,6 @@ public class MainSpawnerAndTimer : MonoBehaviour
     {
         int minutes = Mathf.FloorToInt(timeRemaining / 60);
         int seconds = Mathf.FloorToInt(timeRemaining % 60);
-        timerText.text = $"Timer [{minutes:00}:{seconds:00}]";
+        timerText.text = $"[{minutes:00}:{seconds:00}]";
     }
 }
