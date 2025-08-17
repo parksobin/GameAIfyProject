@@ -1,7 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
+    public StageSetting StageSetting;
     public Transform target;
     private Vector3 offset;
 
@@ -12,6 +13,13 @@ public class CameraMove : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.position = target.position + offset;
+        if (!StageSetting.InbossStage) //보스맵 아닐 때만 카메라 이동
+        {
+            transform.position = target.position + offset;
+        }
+        else
+        {
+            gameObject.transform.position = new Vector3(0,0, -10);    
+        }
     }
 }

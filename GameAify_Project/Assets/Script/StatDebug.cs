@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class StatDebug : MonoBehaviour
 {
     public TMP_InputField Wave;
+    public TMP_InputField Purification;
     private float wave;
     // 플레이어 아이템 관련
     public TMP_InputField SyringeLev;
@@ -21,6 +22,7 @@ public class StatDebug : MonoBehaviour
     public TMP_InputField AttackSpeed;
     public TMP_InputField AttackPower;
 
+    public TextMeshProUGUI purificationText; //정화게이지
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI SyrText;
     public TextMeshProUGUI MesText;
@@ -41,6 +43,7 @@ public class StatDebug : MonoBehaviour
 
     public void ApplySettings()
     {
+        if (int.TryParse(Purification.text, out int pur)) PlayerStat.purificationGauge = pur;
         if (int.TryParse(SyringeLev.text, out int Syr)) PlayerStat.SyringeLevel = Syr;
         if (int.TryParse(MessLev.text, out int Mes)) PlayerStat.MessLevel = Mes;
         if (int.TryParse(DroneLev.text, out int Dro)) PlayerStat.DroneLevel = Dro;
@@ -81,5 +84,6 @@ public class StatDebug : MonoBehaviour
         SpeText.text = "Mov Speed : " + PlayerStat.PlayerMoveSpeed.ToString();
         AspText.text = "Att Speed : " + PlayerStat.AttackSpeed.ToString();
         AtpText.text = "maxHP : " + PlayerStat.AttackPower.ToString("N1");
+        purificationText.text = "정화게이지(%) : "+PlayerStat.purificationGauge.ToString();
     }
 }

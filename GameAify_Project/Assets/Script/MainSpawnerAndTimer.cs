@@ -79,68 +79,71 @@ public class MainSpawnerAndTimer : MonoBehaviour
 
     void Update()
     {
-        if (timerRunning)
+        if (!PlayerStat.purificationClearposSign)
         {
-            if (timeRemaining > 0)
+            if (timerRunning)
             {
-                timeRemaining -= Time.deltaTime;
-                if (timeRemaining > 0f && timeRemaining <= (15f * 60f) - SpawnPercentCheckTime)
+                if (timeRemaining > 0)
                 {
-                    SpawnCheck(); // 이벤트 실행
-                    SpawnPercentCheckTime += waveDuration; // 다음 이벤트 시간 갱신
+                    timeRemaining -= Time.deltaTime;
+                    if (timeRemaining > 0f && timeRemaining <= (15f * 60f) - SpawnPercentCheckTime)
+                    {
+                        SpawnCheck(); // 이벤트 실행
+                        SpawnPercentCheckTime += waveDuration; // 다음 이벤트 시간 갱신
+                    }
+                    UpdateTimerDisplay();
                 }
-                UpdateTimerDisplay();
+                else
+                {
+                    timeRemaining = 0;
+                    timerRunning = false;
+                    UpdateTimerDisplay();
+                    // 여기에 타이머 종료 시 이벤트 추가
+                }
             }
-            else
+
+            // 웨이브가 진행 중인 동안에만 스폰 로직을 돌린다.
+            if (waveActive)
             {
-                timeRemaining = 0;
-                timerRunning = false;
-                UpdateTimerDisplay();
-                // 여기에 타이머 종료 시 이벤트 추가
+                timeInWave += Time.deltaTime; // 0초부터 waveDuration초까지 누적
+
+                // 몬스터 타입 0~4까지 각각에 대해 스폰 계산을 수행한다.
+                for (int i = 0; i < 5; i++)
+                {
+                    if (remain[i] <= 0 || rate[i] <= 0f) continue;
+
+                    // 이번 프레임 동안 자란 수량을 누적치에 더한다.
+                    // 예: rate=2.5, deltaTime=0.02면 acc += 0.05 → 몇 프레임 지나면 1을 넘고, 그때 실제로 스폰한다.
+                    acc[i] += rate[i] * Time.deltaTime;
+
+                    // acc의 "정수 부분"만큼 실제로 스폰할 수 있다.
+                    // 다만 이번 웨이브에서 남은 마릿수(remain[i])를 넘지 않도록 최소값을 취한다.
+                    int toSpawn = Mathf.Min(remain[i], Mathf.FloorToInt(acc[i]));
+
+                    // 정수로 꺼낼 게 없다면(아직 1 미만 누적) 다음 타입으로 넘어간다.
+                    if (toSpawn <= 0) continue;
+
+                    // 방금 계산된 toSpawn 만큼 실제로 생성한다.
+                    // 프레임 누락/저fps 등으로 acc가 많이 쌓였을 경우, 한 프레임에 여러 마리가 나올 수 있다(의도된 동작).
+                    for (int k = 0; k < toSpawn; k++)
+                        SpawnOne(i);
+
+                    // 스폰으로 변환한 만큼 누적치에서 빼 준다.
+                    // (예: acc가 1.7이고 toSpawn=1이면 acc는 0.7이 남아서 다음 프레임에 이어서 누적된다.)
+                    acc[i] -= toSpawn;
+
+                    // 실제로 뽑은 만큼 남은 마릿수도 줄인다.
+                    // 이 값이 0이 되면 다음 프레임부터는 위의 continue에 걸려 더 이상 뽑지 않는다.
+                    remain[i] -= toSpawn;
+                }
+
+                // 웨이브 종료 조건:
+                // 1) 시간이 다 지났거나(timeInWave가 waveDuration 이상),
+                // 2) 모든 타입의 남은치 합이 0(목표량을 모두 소진)인 경우.
+                // 둘 중 하나라도 참이면 이번 웨이브를 종료한다.
+                if (timeInWave >= waveDuration || (remain[0] + remain[1] + remain[2] + remain[3] + remain[4]) == 0)
+                    waveActive = false; // 다음 웨이브 트리거가 들어올 때까지 대기 상태로 전환
             }
-        }
-
-        // 웨이브가 진행 중인 동안에만 스폰 로직을 돌린다.
-        if (waveActive)
-        {
-            timeInWave += Time.deltaTime; // 0초부터 waveDuration초까지 누적
-
-            // 몬스터 타입 0~4까지 각각에 대해 스폰 계산을 수행한다.
-            for (int i = 0; i < 5; i++)
-            {
-                if (remain[i] <= 0 || rate[i] <= 0f) continue;
-
-                // 이번 프레임 동안 자란 수량을 누적치에 더한다.
-                // 예: rate=2.5, deltaTime=0.02면 acc += 0.05 → 몇 프레임 지나면 1을 넘고, 그때 실제로 스폰한다.
-                acc[i] += rate[i] * Time.deltaTime;
-
-                // acc의 "정수 부분"만큼 실제로 스폰할 수 있다.
-                // 다만 이번 웨이브에서 남은 마릿수(remain[i])를 넘지 않도록 최소값을 취한다.
-                int toSpawn = Mathf.Min(remain[i], Mathf.FloorToInt(acc[i]));
-
-                // 정수로 꺼낼 게 없다면(아직 1 미만 누적) 다음 타입으로 넘어간다.
-                if (toSpawn <= 0) continue;
-
-                // 방금 계산된 toSpawn 만큼 실제로 생성한다.
-                // 프레임 누락/저fps 등으로 acc가 많이 쌓였을 경우, 한 프레임에 여러 마리가 나올 수 있다(의도된 동작).
-                for (int k = 0; k < toSpawn; k++)
-                    SpawnOne(i);
-
-                // 스폰으로 변환한 만큼 누적치에서 빼 준다.
-                // (예: acc가 1.7이고 toSpawn=1이면 acc는 0.7이 남아서 다음 프레임에 이어서 누적된다.)
-                acc[i] -= toSpawn;
-
-                // 실제로 뽑은 만큼 남은 마릿수도 줄인다.
-                // 이 값이 0이 되면 다음 프레임부터는 위의 continue에 걸려 더 이상 뽑지 않는다.
-                remain[i] -= toSpawn;
-            }
-
-            // 웨이브 종료 조건:
-            // 1) 시간이 다 지났거나(timeInWave가 waveDuration 이상),
-            // 2) 모든 타입의 남은치 합이 0(목표량을 모두 소진)인 경우.
-            // 둘 중 하나라도 참이면 이번 웨이브를 종료한다.
-            if (timeInWave >= waveDuration || (remain[0] + remain[1] + remain[2] + remain[3] + remain[4]) == 0)
-                waveActive = false; // 다음 웨이브 트리거가 들어올 때까지 대기 상태로 전환
         }
     }
     void SpawnOne(int enemyIdx)

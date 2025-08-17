@@ -24,8 +24,9 @@ public class EnemyCommonState : MonoBehaviour
         Spawn();
         spriteFlip();
         PlayerFollow();
+        Destroyobj();
     }
-    private void spriteFlip()
+    private void spriteFlip() // 스프라이트 방향 반전
     {
         if (playerObj.transform.position.x >= gameObject.transform.position.x) enemySR.flipX = true;
         else enemySR.flipX = false;
@@ -81,7 +82,7 @@ public class EnemyCommonState : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision) //백신 필드 1초뒤 삭제
     {
         if (collision.gameObject.CompareTag("Vaccine"))
         {
@@ -94,4 +95,8 @@ public class EnemyCommonState : MonoBehaviour
         }
     }
 
+    private void Destroyobj() //정화 단계 100 달성시 모두 삭제
+    {
+        if(PlayerStat.purificationClearposSign) Destroy(gameObject);
+    }
 }

@@ -1,10 +1,10 @@
-using NUnit.Framework.Internal;
+ï»¿using NUnit.Framework.Internal;
 using TMPro;
 using UnityEngine;
 
 public class PlayerStat : MonoBehaviour
 {
-    public TextMeshProUGUI Syringe; // ¾ÆÀÌÅÛ ¼±ÅÃÃ¢ÀÇ ±Û¾¾
+    public TextMeshProUGUI Syringe; // ì•„ì´í…œ ì„ íƒì°½ì˜ ê¸€ì”¨
     public TextMeshProUGUI Mess;
     public TextMeshProUGUI Drone;
     public TextMeshProUGUI Vaccine;
@@ -19,29 +19,32 @@ public class PlayerStat : MonoBehaviour
     public static int maxGauge = 5000;
     public static int currentGauge = 0;
 
-    public static int SyringeLevel = 1; // ÁÖ»ç±â ´Ü°è
-    public static int MessLevel = 1; // ¸Ş½º ´Ü°è
-    public static int DroneLevel = 1; // µå·Ğ ´Ü°è
-    public static int VaccineLevel = 1;  // ¹é½Å ÅõÇÏ ´Ü°è
-    public static int CapsuleLevel = 1; // Ä¸½¶ ´Ü°è
+    public static int purificationGauge = 0; //ì •í™” ê²Œì´ì§€ í¼ì„¼íŠ¸
+    public static bool purificationClearposSign = false; // ì •í™” ì™„ë£Œ ì—¬ë¶€ í™•ì¸ 
+
+    public static int SyringeLevel = 1; // ì£¼ì‚¬ê¸° ë‹¨ê³„
+    public static int MessLevel = 1; // ë©”ìŠ¤ ë‹¨ê³„
+    public static int DroneLevel = 1; // ë“œë¡  ë‹¨ê³„
+    public static int VaccineLevel = 1;  // ë°±ì‹  íˆ¬í•˜ ë‹¨ê³„
+    public static int CapsuleLevel = 1; // ìº¡ìŠ ë‹¨ê³„
 
     public int HpLevel = 0, AttRangeLevel = 0, PlayerSpeedLevel = 0, 
-         AttSpeedLevel = 0, AttPowerLevel = 0; // ¾Ë¾à ¼öÄ¡ Á¶Á¤À» À§ÇÑ º¯¼ö ¼±¾ğ
-    public static float VCFS = 0f; // ¹é½Å ±¸¿ªÀÇ Å©±â
+         AttSpeedLevel = 0, AttPowerLevel = 0; // ì•Œì•½ ìˆ˜ì¹˜ ì¡°ì •ì„ ìœ„í•œ ë³€ìˆ˜ ì„ ì–¸
+    public static float VCFS = 0f; // ë°±ì‹  êµ¬ì—­ì˜ í¬ê¸°
 
-    public static float maxHP = 300f; // ÇÃ·¹ÀÌ¾îÀÇ ±âº» Ã¼·Â
-    public static float HP = 300f; // ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç Ã¼·Â
-    public static float AttackRange = 10f; // ÇÃ·¹ÀÌ¾îÀÇ ±âº» °ø°İ ¹üÀ§
-    public static float PlayerMoveSpeed = 5f; // ÇÃ·¹ÀÌ¾î ±âº» ÀÌµ¿ ¼Óµµ
-    public static float AttackSpeed = 5.0f; // ÇÃ·¹ÀÌ¾îÀÇ ±âº» °ø°İ ¼Óµµ
-    public static float AttackPower = 100f; // ÇÃ·¹ÀÌ¾îÀÇ ±âº» °ø°İ·Â
+    public static float maxHP = 300f; // í”Œë ˆì´ì–´ì˜ ê¸°ë³¸ ì²´ë ¥
+    public static float HP = 300f; // í”Œë ˆì´ì–´ì˜ í˜„ì¬ ì²´ë ¥
+    public static float AttackRange = 10f; // í”Œë ˆì´ì–´ì˜ ê¸°ë³¸ ê³µê²© ë²”ìœ„
+    public static float PlayerMoveSpeed = 5f; // í”Œë ˆì´ì–´ ê¸°ë³¸ ì´ë™ ì†ë„
+    public static float AttackSpeed = 5.0f; // í”Œë ˆì´ì–´ì˜ ê¸°ë³¸ ê³µê²© ì†ë„
+    public static float AttackPower = 100f; // í”Œë ˆì´ì–´ì˜ ê¸°ë³¸ ê³µê²©ë ¥
 
-    public static float DronePower = AttackPower / 3.0f; // µå·Ğ : ÇÃ·¹ÀÌ¾î °ø°İ·ÂÀÇ 3ºĞÀÇ 1
-    public static float SyringePower = AttackPower / 4.0f; // ÁÖ»ç±â : ÇÃ·¹ÀÌ¾î °ø°İ·ÂÀÇ 4ºĞÀÇ 1
-    public static float VaccinePower = AttackPower / 10.0f; // ¹é½Å : ÇÃ·¹ÀÌ¾î °ø°İ·ÂÀÇ 10ºĞÀÇ 1
-    public static float MessPower = AttackPower / 2.0f; // ¸Ş½º : ÇÃ·¹ÀÌ¾î °ø°İ·ÂÀÇ 2ºĞÀÇ 1
+    public static float DronePower = AttackPower / 3.0f; // ë“œë¡  : í”Œë ˆì´ì–´ ê³µê²©ë ¥ì˜ 3ë¶„ì˜ 1
+    public static float SyringePower = AttackPower / 4.0f; // ì£¼ì‚¬ê¸° : í”Œë ˆì´ì–´ ê³µê²©ë ¥ì˜ 4ë¶„ì˜ 1
+    public static float VaccinePower = AttackPower / 10.0f; // ë°±ì‹  : í”Œë ˆì´ì–´ ê³µê²©ë ¥ì˜ 10ë¶„ì˜ 1
+    public static float MessPower = AttackPower / 2.0f; // ë©”ìŠ¤ : í”Œë ˆì´ì–´ ê³µê²©ë ¥ì˜ 2ë¶„ì˜ 1
 
-    public void SyringeLevelUp() // ÁÖ»ç±â ·¹º§¾÷
+    public void SyringeLevelUp() // ì£¼ì‚¬ê¸° ë ˆë²¨ì—…
     {
         if(SyringeLevel < 4)
         {
@@ -50,7 +53,7 @@ public class PlayerStat : MonoBehaviour
             CheckisSelected();
         }
     }
-    public void MessLevelUp() // ¸Ş½º ·¹º§¾÷
+    public void MessLevelUp() // ë©”ìŠ¤ ë ˆë²¨ì—…
     {
         if(MessLevel < 4)
         {
@@ -59,7 +62,7 @@ public class PlayerStat : MonoBehaviour
             CheckisSelected();
         }
     }
-    public void DroneLevelUp() // µå·Ğ ·¹º§¾÷
+    public void DroneLevelUp() // ë“œë¡  ë ˆë²¨ì—…
     {
         if(DroneLevel < 4)
         {
@@ -68,7 +71,7 @@ public class PlayerStat : MonoBehaviour
             CheckisSelected();
         }
     }
-    public void VaccineLevelUp() // ¹é½Å ·¹º§¾÷
+    public void VaccineLevelUp() // ë°±ì‹  ë ˆë²¨ì—…
     {
         if(VaccineLevel < 4)
         {
@@ -77,7 +80,7 @@ public class PlayerStat : MonoBehaviour
             CheckisSelected();
         }
     }
-    public void CapsuleLevelUp() // Ä¸½¶ ·¹º§¾÷
+    public void CapsuleLevelUp() // ìº¡ìŠ ë ˆë²¨ì—…
     {
         if(CapsuleLevel < 4)
         {
@@ -86,7 +89,7 @@ public class PlayerStat : MonoBehaviour
             CheckisSelected();
         }
     }
-    public void HealthPointSet() // Ã¼·Â Áõ°¡
+    public void HealthPointSet() // ì²´ë ¥ ì¦ê°€
     {
         if(HpLevel < 5)
         {
@@ -96,7 +99,7 @@ public class PlayerStat : MonoBehaviour
             CheckisSelected();
         }
     }
-    public void AttackRangeSet() // °ø°İ ¹üÀ§ Áõ°¡(¹é½Å ±¸¿ª ¹üÀ§µµ °°ÀÌ Áõ°¡)
+    public void AttackRangeSet() // ê³µê²© ë²”ìœ„ ì¦ê°€(ë°±ì‹  êµ¬ì—­ ë²”ìœ„ë„ ê°™ì´ ì¦ê°€)
     {
         if(AttRangeLevel < 5)
         {
@@ -109,7 +112,7 @@ public class PlayerStat : MonoBehaviour
         }
         Debug.Log("VCFS : " + VCFS);
     }
-    public void PlayerSpeedSet() // ÀÌµ¿ ¼Óµµ Áõ°¡
+    public void PlayerSpeedSet() // ì´ë™ ì†ë„ ì¦ê°€
     {
         if (PlayerSpeedLevel < 5)
         {
@@ -119,7 +122,7 @@ public class PlayerStat : MonoBehaviour
             CheckisSelected();
         }      
     }
-    public void AttackSpeedSet() // °ø°İ ¼Óµµ Áõ°¡ (¹é½Å ÄğÅ¸ÀÓ, Ä¸½¶ ÄğÅ¸ÀÓ °¨¼Ò)
+    public void AttackSpeedSet() // ê³µê²© ì†ë„ ì¦ê°€ (ë°±ì‹  ì¿¨íƒ€ì„, ìº¡ìŠ ì¿¨íƒ€ì„ ê°ì†Œ)
     {
         if(AttSpeedLevel < 5)
         {
@@ -130,7 +133,7 @@ public class PlayerStat : MonoBehaviour
             CheckisSelected();
         }
     }
-    public void AttackPowerSet() // °ø°İ·Â Áõ°¡
+    public void AttackPowerSet() // ê³µê²©ë ¥ ì¦ê°€
     {
         if(AttPowerLevel < 5)
         {
@@ -141,7 +144,7 @@ public class PlayerStat : MonoBehaviour
         }
     }
 
-    void VaccineAndCapsuleCheck() // ¹é½Å, Ä¸½¶ °ø°İ¼Óµµ ÇÔ¼ö
+    void VaccineAndCapsuleCheck() // ë°±ì‹ , ìº¡ìŠ ê³µê²©ì†ë„ í•¨ìˆ˜
     {
         if (VaccineLevel <= 2) PlayerAttack.VaccineWaitSeconds -= 0.8f * (AttSpeedLevel + 1);
         else PlayerAttack.VaccineWaitSeconds -= 0.5f * (AttSpeedLevel + 1);
@@ -149,13 +152,13 @@ public class PlayerStat : MonoBehaviour
         else PlayerAttack.CapsuleTime -= 2.0f * (AttSpeedLevel + 1);
     }
 
-    void CheckisSelected() // ¾ÆÀÌÅÛÀ» ¼±ÅÃÇß´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+    void CheckisSelected() // ì•„ì´í…œì„ ì„ íƒí–ˆëŠ”ì§€ í™•ì¸í•˜ëŠ” í•¨ìˆ˜
     {
         PlayerAttack.NowCount--;
         if(PlayerAttack.NowCount <= 0) ItemChecker.SelectedItem = true;
     }
 
-    public static void CheckUniqueLevel() // À¯´ÏÅ© ·¹º§ ´Ş¼º ¼ö ¸¸Å­ ¾÷±×·¹ÀÌµå +1
+    public static void CheckUniqueLevel() // ìœ ë‹ˆí¬ ë ˆë²¨ ë‹¬ì„± ìˆ˜ ë§Œí¼ ì—…ê·¸ë ˆì´ë“œ +1
     {
         int[] levels = { SyringeLevel, MessLevel, DroneLevel, VaccineLevel, CapsuleLevel };
         foreach (int level in levels)
