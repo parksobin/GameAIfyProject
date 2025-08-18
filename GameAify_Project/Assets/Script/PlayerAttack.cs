@@ -1,7 +1,7 @@
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Timeline.Actions;
+using UnityEngine.Timeline;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,9 +17,9 @@ public class PlayerAttack : MonoBehaviour
     private float SyringSpawnTick = 0.15f;     // 간격(요구사항)
 
     // 메스 관련 멤버 변수
-    public GameObject MessPrefab; // 메스 프리팹
-    public GameObject MessBulletPrefab; // 메스 발사체 프리팹
-    public GameObject UniqueBulletPrefab; // 유니티 발사체 프리팹
+    public GameObject[] MessPrefab; // 메스 프리팹
+    public GameObject[] MessBulletPrefab; // 메스 발사체 프리팹
+    //public GameObject UniqueBulletPrefab; // 유니티 발사체 프리팹
     private SpriteRenderer MessRend; // 메스 스프라이트 참조용
     private float rotationDuration = 0.25f; // 0도에서 최대각도까지 도는 데 걸리는 시간
     private float MessTimer = 0f;
@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
     private int totalRadian; // 메스 발사체 최종 각도
 
     //백신 관련 변수
-    public GameObject vaccine;  //백신 투하 영역 프리팹 오브젝트
+    public GameObject VaccinePrefab;  //백신 투하 영역 프리팹 오브젝트
     private int VaccineMaxCount; //백신 단계당 초당 생성 개수
     public static float VaccineWaitSeconds = 8f; // 기본 백신 생성주기 초수
     private float VaccineTimer = 0f;
@@ -45,7 +45,7 @@ public class PlayerAttack : MonoBehaviour
     private CapsuleState capsuleState;
 
     //모든 무기유니크 단계 이미지 
-    public Sprite[] UniqueImg;  //  (0 매스, 1 매스 총알 )  / 백신은 따로 프리팹 안에 되어 잇음
+    //public Sprite[] UniqueImg;  //  (0 매스, 1 매스 총알 )  / 백신은 따로 프리팹 안에 되어 잇음
     public static int NowCount = 0; // 아이템 업그레이드 가능 횟수
 
     void Start()
@@ -166,13 +166,6 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator SpawnMessRotate(float direction)
     {
-        MessRotating = true;
-        GameObject obj = Instantiate(MessPrefab, transform.position, Quaternion.identity);
-        ChangeUniqueImg(obj, 0);
-        Transform MessTarget = obj.transform.Find("Square");
-        MessRend = MessTarget.GetComponent<SpriteRenderer>();
-        if (direction > 0f) MessRend.flipX = true;
-        else MessRend.flipX = false;
         float elapsed = 0f;
         float startAngle = 0f;
         float endAngle;
@@ -184,6 +177,13 @@ public class PlayerAttack : MonoBehaviour
             case 4: endAngle = 180f * direction; radian = 45; totalRadian = 315; break;
             default: endAngle = 180f * direction; break;
         }
+        MessRotating = true;
+        GameObject obj = Instantiate(MessPrefab[ChangeUniqueImg(PlayerStat.MessLevel)], transform.position, Quaternion.identity);
+        Transform MessTarget = obj.transform.Find("Square");
+        MessRend = MessTarget.GetComponent<SpriteRenderer>();
+        if (direction > 0f) MessRend.flipX = true;
+        else MessRend.flipX = false;
+        
         
         while (elapsed < rotationDuration)
         {
@@ -212,14 +212,13 @@ public class PlayerAttack : MonoBehaviour
         MessRotating = false;
     }
     void MessBulletShoot() //매스 총알
-    {
+    { 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
         Vector3 fireDir = (mousePos - transform.position).normalized;
         float angle = Mathf.Atan2(fireDir.y, fireDir.x) * Mathf.Rad2Deg;
-        
-        GameObject proj = Instantiate(MessBulletPrefab, transform.position, Quaternion.Euler(0, 0, angle));
-        ChangeUniqueImg(proj, 1);
+
+        GameObject proj = Instantiate(MessBulletPrefab[0], transform.position, Quaternion.Euler(0, 0, angle));
         Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
 
         if (rb != null) rb.linearVelocity = fireDir * MessBulletSpeed;
@@ -237,8 +236,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 float rad = i * Mathf.Deg2Rad;
                 Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-                GameObject proj = Instantiate(UniqueBulletPrefab, transform.position, Quaternion.Euler(0, 0, i));
-                ChangeUniqueImg(proj, 1);
+                GameObject proj = Instantiate(MessBulletPrefab[1], transform.position, Quaternion.Euler(0, 0, i));
                 Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
                 if (rb != null) rb.linearVelocity = direction * MessBulletSpeed;
                 AttackRange AR = proj.GetComponent<AttackRange>();
@@ -274,7 +272,7 @@ public class PlayerAttack : MonoBehaviour
         float randomX = playerX + Random.Range(-5f, 5f);
         // Y축: +10 고정
         float randomY = playerY + 10f;
-        Instantiate(vaccine, new Vector3(randomX, randomY, -0.5f), Quaternion.identity);
+        Instantiate(VaccinePrefab, new Vector3(randomX, randomY, -0.5f), Quaternion.identity);
     }
 
     //캡슐 활성화 함수
@@ -319,10 +317,16 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void ChangeUniqueImg(GameObject obj,int num)
-    {
-        SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = UniqueImg[num];
-    }
+    //private void ChangeUniqueImg(GameObject obj,int num)
+    //{
+    //    SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+    //    spriteRenderer.sprite = UniqueImg[num];
+    //}
 
+    static int ChangeUniqueImg(int level)
+    {
+       int value = 0;
+       if (level == 4) value = 1;
+       return value;
+    }
 }

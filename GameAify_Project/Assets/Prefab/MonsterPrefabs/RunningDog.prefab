@@ -187,3 +187,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyAttack: 0
   EnemyMoveSpeed: 0
+  hpImages:
+  - {fileID: 0}
+  fillImage: {fileID: 0}
