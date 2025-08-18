@@ -8,16 +8,20 @@ public class StageSetting : MonoBehaviour
     public GameObject BossStage; //보스맵
     public GameObject BossStageDoor; // 보스 스테이지 출입문
     public bool InbossStage =false; //보스맵 스테이지에 들어간 상태인지 확인
+    public GameObject BossVideo;
+    private float videoTime;
     
     void Start()
     {
         Boss.SetActive(false);
         BossStageDoor.SetActive(false);
+        BossVideo.SetActive(false);
     }
 
     void Update()
     {
         purificationClear();
+        VideoStartTime();
     }
 
     private void purificationClear() //정화게이지 100달성 후 보스 문 표시
@@ -32,13 +36,31 @@ public class StageSetting : MonoBehaviour
         }
     }
 
-    public void InBossStage()
+    public void InBossStage() //보스맵 들어가면 가장 기본 설정
     {
+        BossVideo.SetActive(true) ;
         InbossStage = true;
         BossStageDoor.SetActive(false );
         BossStage.SetActive(true );
         OriginalStage.SetActive(false);
-        Boss.transform.position = new Vector3(0,0,0);
-        Player.transform.position=new Vector3(0,-4,0);
+        Boss.transform.position = new Vector3(0,10,0); // 보스 초기위치
+        Player.transform.position=new Vector3(0,-7.5f,0); //플레이어 초기위치
+    }
+
+    private void VideoStartTime() //영상길기 (7초) 뒤에 꺼지도록 설정
+    {
+        if (BossVideo.active==true)
+        {
+            videoTime += Time.deltaTime;
+            if (videoTime > 7)
+            {
+                BossVideo.SetActive(false);
+            }
+        }
+    }
+
+    private void StartBossAnimation() //보스맵 도입 보스 애니메이션
+    {
+
     }
 }
