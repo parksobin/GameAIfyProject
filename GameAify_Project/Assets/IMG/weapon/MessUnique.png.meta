@@ -1,0 +1,676 @@
+fileFormatVersion: 2
+guid: ae841ae6daa23794896ff5b027d1f1b5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2398880384579013341
+    second: MessUnique_0
+  - first:
+      213: 5881120860888688460
+    second: MessUnique_1
+  - first:
+      213: 6187461573235100949
+    second: MessUnique_2
+  - first:
+      213: -4658811575864505
+    second: MessUnique_3
+  - first:
+      213: 585074655396546975
+    second: MessUnique_4
+  - first:
+      213: 2989025936615379711
+    second: MessUnique_5
+  - first:
+      213: -7531546447695867290
+    second: MessUnique_6
+  - first:
+      213: -969524448867633422
+    second: MessUnique_7
+  - first:
+      213: -306542198906077277
+    second: MessUnique_8
+  - first:
+      213: -1032026762371011987
+    second: MessUnique_9
+  - first:
+      213: 2563475002878605556
+    second: MessUnique_10
+  - first:
+      213: -778629549229787181
+    second: MessUnique_11
+  - first:
+      213: 3978666333758843958
+    second: MessUnique_12
+  - first:
+      213: -640296546907588769
+    second: MessUnique_13
+  - first:
+      213: 4168899510893628018
+    second: MessUnique_14
+  - first:
+      213: -3605485064305061406
+    second: MessUnique_15
+  - first:
+      213: 2937539751972902674
+    second: MessUnique_16
+  - first:
+      213: -8482316318922962576
+    second: MessUnique_17
+  - first:
+      213: 3162459604002226093
+    second: MessUnique_18
+  - first:
+      213: -3263301161599996220
+    second: MessUnique_19
+  - first:
+      213: -7181107016862626870
+    second: MessUnique_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MessUnique_0
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 167
+        width: 208
+        height: 694
+      alignment: 9
+      pivot: {x: 0.20418094, y: 0.49632403}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 325f382000775bed0800000000000000
+      internalID: -2398880384579013341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_1
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 649
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c47e8627340fd9150800000000000000
+      internalID: 5881120860888688460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_2
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 585
+        width: 57
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51dce0ea4874ed550800000000000000
+      internalID: 6187461573235100949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_3
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 630
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 743f1f6e5d27feff0800000000000000
+      internalID: -4658811575864505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_4
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 610
+        width: 34
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f99cef99c4a9e1800800000000000000
+      internalID: 585074655396546975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_5
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 584
+        width: 34
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff29368b0472b7920800000000000000
+      internalID: 2989025936615379711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_6
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 568
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6629bbfd8629a7790800000000000000
+      internalID: -7531546447695867290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_7
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 561
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f6303886ae8b82f0800000000000000
+      internalID: -969524448867633422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_8
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 572
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3af39858e71febbf0800000000000000
+      internalID: -306542198906077277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_9
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 547
+        width: 42
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6aed26a0218da1f0800000000000000
+      internalID: -1032026762371011987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_10
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 523
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f83c29eeea439320800000000000000
+      internalID: 2563475002878605556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_11
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 518
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d73982ec80c135f0800000000000000
+      internalID: -778629549229787181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_12
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 519
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c608f53ff073730800000000000000
+      internalID: 3978666333758843958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_13
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 499
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f57f9aadea53d17f0800000000000000
+      internalID: -640296546907588769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_14
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 518
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27a4d137408ead930800000000000000
+      internalID: 4168899510893628018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_15
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 509
+        width: 156
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e1de1bcf6eb6fdc0800000000000000
+      internalID: -3605485064305061406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_16
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 491
+        width: 330
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2171fe537dc34c820800000000000000
+      internalID: 2937539751972902674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_17
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 473
+        width: 11
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 079091acf32c84a80800000000000000
+      internalID: -8482316318922962576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_18
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 426
+        width: 46
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daf3311214053eb20800000000000000
+      internalID: 3162459604002226093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_19
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 484
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ce66bb12ec66b2d0800000000000000
+      internalID: -3263301161599996220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessUnique_20
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 456
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acb86dd1735975c90800000000000000
+      internalID: -7181107016862626870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 26cbd87b28183434c931f6fadaca5dab
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MessUnique_0: -2398880384579013341
+      MessUnique_1: 5881120860888688460
+      MessUnique_10: 2563475002878605556
+      MessUnique_11: -778629549229787181
+      MessUnique_12: 3978666333758843958
+      MessUnique_13: -640296546907588769
+      MessUnique_14: 4168899510893628018
+      MessUnique_15: -3605485064305061406
+      MessUnique_16: 2937539751972902674
+      MessUnique_17: -8482316318922962576
+      MessUnique_18: 3162459604002226093
+      MessUnique_19: -3263301161599996220
+      MessUnique_2: 6187461573235100949
+      MessUnique_20: -7181107016862626870
+      MessUnique_3: -4658811575864505
+      MessUnique_4: 585074655396546975
+      MessUnique_5: 2989025936615379711
+      MessUnique_6: -7531546447695867290
+      MessUnique_7: -969524448867633422
+      MessUnique_8: -306542198906077277
+      MessUnique_9: -1032026762371011987
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

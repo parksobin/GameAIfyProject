@@ -33,22 +33,23 @@ public class PlayerStat : MonoBehaviour
     public static float HP = 300f; // 플레이어의 현재 체력
     public static float AttackRange = 10f; // 플레이어의 기본 공격 범위
     public static float PlayerMoveSpeed = 5f; // 플레이어 기본 이동 속도
-    public static float AttackSpeed = 5.0f; // 플레이어의 기본 공격 속도
+    public static float AttackSpeed = 2.0f; // 플레이어의 기본 공격 속도
     public static float AttackPower = 100f; // 플레이어의 기본 공격력
 
     public static float DronePower = AttackPower / 3.0f; // 드론 : 플레이어 공격력의 3분의 1
     public static float SyringePower = AttackPower / 4.0f; // 주사기 : 플레이어 공격력의 4분의 1
-    public static float VaccinePower = AttackPower / 10.0f; // 백신 : 플레이어 공격력의 10분의 1
+    public static float VaccinePower = AttackPower / 5.0f; // 백신 : 플레이어 공격력의 10분의 1
     public static float MessPower = AttackPower / 2.0f; // 메스 : 플레이어 공격력의 2분의 1
 
     public void SyringeLevelUp() // 주사기 레벨업
     {
-        if(SyringeLevel < 4)
+        if (SyringeLevel < 4)
         {
             SyringeLevel++;
             Syringe.text = "Level : " + SyringeLevel;
             CheckisSelected();
         }
+        if(SyringeLevel == 4) Syringe.text = "Clear";
     }
     public void MessLevelUp() // 메스 레벨업
     {
@@ -58,6 +59,7 @@ public class PlayerStat : MonoBehaviour
             Mess.text = "Level : " + MessLevel;
             CheckisSelected();
         }
+        if (MessLevel == 4) Mess.text = "Clear";
     }
     public void DroneLevelUp() // 드론 레벨업
     {
@@ -67,24 +69,27 @@ public class PlayerStat : MonoBehaviour
             Drone.text = "Level : " + DroneLevel;
             CheckisSelected();
         }
+        if (DroneLevel == 4) Drone.text = "Clear";
     }
     public void VaccineLevelUp() // 백신 레벨업
     {
-        if(VaccineLevel < 4)
+        if (VaccineLevel < 4)
         {
             VaccineLevel++;
             Vaccine.text = "Level : " + VaccineLevel;
             CheckisSelected();
         }
+        if (VaccineLevel == 4) Vaccine.text = "Clear";
     }
     public void CapsuleLevelUp() // 캡슐 레벨업
     {
-        if(CapsuleLevel < 4)
+        if (CapsuleLevel < 4)
         {
             CapsuleLevel++;
             Capsule.text = "Level : " + CapsuleLevel;
             CheckisSelected();
         }
+        if (CapsuleLevel == 4) Capsule.text = "Clear";
     }
     public void HealthPointSet() // 체력 증가
     {
@@ -95,6 +100,7 @@ public class PlayerStat : MonoBehaviour
             HpLevel++;
             CheckisSelected();
         }
+        if (HpLevel == 5) Hp.text = "Clear";
     }
     public void AttackRangeSet() // 공격 범위 증가(백신 구역 범위도 같이 증가)
     {
@@ -107,7 +113,8 @@ public class PlayerStat : MonoBehaviour
             AttRangeLevel++;
             CheckisSelected();
         }
-        Debug.Log("VCFS : " + VCFS);
+        if (AttRangeLevel == 5) AttRange.text = "Clear";
+        //Debug.Log("VCFS : " + VCFS);
     }
     public void PlayerSpeedSet() // 이동 속도 증가
     {
@@ -117,11 +124,12 @@ public class PlayerStat : MonoBehaviour
             PlayerSpeed.text = " + %" + ((PlayerSpeedLevel + 1) * 10).ToString();
             PlayerSpeedLevel++;
             CheckisSelected();
-        }      
+        }
+        if (PlayerSpeedLevel == 5) PlayerSpeed.text = "Clear";
     }
     public void AttackSpeedSet() // 공격 속도 증가 (백신 쿨타임, 캡슐 쿨타임 감소)
     {
-        if(AttSpeedLevel < 5)
+        if (AttSpeedLevel < 5)
         {
             AttackSpeed = 5.0f - (0.5f * (AttSpeedLevel + 1));
             AttSpeed.text = " + %" + ((AttSpeedLevel + 1) * 10).ToString();
@@ -129,16 +137,18 @@ public class PlayerStat : MonoBehaviour
             AttSpeedLevel++;
             CheckisSelected();
         }
+        if (AttSpeedLevel == 5) AttSpeed.text = "Clear";
     }
     public void AttackPowerSet() // 공격력 증가
     {
-        if(AttPowerLevel < 5)
+        if (AttPowerLevel < 5)
         {
             AttackPower += AttackPower * 0.1f - AttPowerLevel;
             AttPower.text = " + %" + ((AttPowerLevel + 1) * 10).ToString();
             AttPowerLevel++;
             CheckisSelected();
         }
+        if(AttPowerLevel == 5) AttPower.text = "Clear";
     }
 
     void VaccineAndCapsuleCheck() // 백신, 캡슐 공격속도 함수

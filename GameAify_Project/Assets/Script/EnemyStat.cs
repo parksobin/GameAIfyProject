@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Playables;
 
 public class EnemyStat : MonoBehaviour
@@ -10,8 +11,9 @@ public class EnemyStat : MonoBehaviour
     public float EnemyMoveSpeed; // 적 이동속도
     private float maxHP; // 적 기본체력
     private float currentHP; // 적 현재체력
-    private TextMeshProUGUI hpText;
     private bool OnVaccineDamage = false;
+
+    public Image fillImage;
     void Awake()
     {
         // 이름 기반 maxHP 설정
@@ -45,26 +47,36 @@ public class EnemyStat : MonoBehaviour
         }
 
         currentHP = maxHP;
-        hpText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     void Update()
     {
-        if (hpText != null) hpText.text = currentHP.ToString("N0");
         if (OnVaccineDamage)
         {
             currentHP -= PlayerStat.VaccinePower * Time.deltaTime;
+            UpdateHPBar();
             isDead();
         }
     }
+    void UpdateHPBar()
+    {
+        if (fillImage != null)
+        {
+            float ratio = (float) currentHP / maxHP;
+            fillImage.fillAmount = ratio;
+        }
+        if (currentHP <= 0) currentHP = 0;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name.StartsWith("Syringe")) TakeDamage(PlayerStat.SyringePower);
         else if (collision.gameObject.name.StartsWith("Drone")) TakeDamage(PlayerStat.DronePower);
         else if (collision.gameObject.name.StartsWith("Mess") || 
-            collision.gameObject.name.StartsWith("UniqueMess")) TakeDamage(PlayerStat.MessPower);
+            collision.gameObject.name.StartsWith("MessUnique")) TakeDamage(PlayerStat.MessPower);
         else if (collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = true;
         if (collision.CompareTag("Player")) PlayerStat.HP -= EnemyAttack;
+        UpdateHPBar();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
