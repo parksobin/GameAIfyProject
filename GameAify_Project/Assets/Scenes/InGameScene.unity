@@ -14188,6 +14188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Wave: {fileID: 1902584292}
   Purification: {fileID: 893186030}
+  BossHealth: {fileID: 37146663}
   SyringeLev: {fileID: 927401795}
   MessLev: {fileID: 197176416}
   DroneLev: {fileID: 1779996425}
@@ -14198,6 +14199,7 @@ MonoBehaviour:
   PlayerSpeed: {fileID: 1484031998}
   AttackSpeed: {fileID: 2135018914}
   AttackPower: {fileID: 1221121278}
+  BossHealthText: {fileID: 422468280}
   purificationText: {fileID: 654906530}
   waveText: {fileID: 479735065}
   SyrText: {fileID: 1051505984}
@@ -14273,6 +14275,7 @@ MonoBehaviour:
   laserPreFab: {fileID: 3692756144343133757, guid: 2e7bb1331796e8341b3e0bd064130843, type: 3}
   VirusPreFab: {fileID: 5217271937961881748, guid: 60cfb4c502cdd7245b70cfd3715d86b7, type: 3}
   InbossStage: 0
+  bossVideoEnd: 0
   BossLevel2: 0
 --- !u!1 &1638734190
 GameObject:
@@ -17906,7 +17909,6 @@ GameObject:
   - component: {fileID: 1911230241}
   - component: {fileID: 1911230244}
   - component: {fileID: 1911230245}
-  - component: {fileID: 1911230246}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -18111,22 +18113,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!111 &1911230246
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911230237}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 8968e0b7ee4b20f45b756a173a655ecb, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0
 --- !u!114 &1911230247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18134,7 +18120,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911230237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7ec055f779935947b4edfab725884ad, type: 3}
   m_Name: 
@@ -19507,6 +19493,7 @@ GameObject:
   - component: {fileID: 2126516349}
   - component: {fileID: 2126516348}
   - component: {fileID: 2126516347}
+  - component: {fileID: 2126516351}
   - component: {fileID: 2126516350}
   m_Layer: 0
   m_Name: boss
@@ -19580,7 +19567,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 7
   m_Sprite: {fileID: -4210603279101473682, guid: 89c68008d18fad848bf0f5b03ce7ebd1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19607,22 +19594,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1682259208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &2126516350
-Animation:
+--- !u!114 &2126516350
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126516345}
   m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: b8410bee2be49e24fac9e9f593ec9464, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec252e5512e1ce640a514a68639be0c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StageSetting: {fileID: 0}
+--- !u!114 &2126516351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126516345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ec055f779935947b4edfab725884ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warningPrefab: {fileID: 720503735663951142, guid: 2bef57c5e83ca2d418c21d7ed355ad13, type: 3}
+  laserPrefab: {fileID: 3692756144343133757, guid: 2e7bb1331796e8341b3e0bd064130843, type: 3}
+  firePoint: {fileID: 1911230239}
+  warningTime: 1.5
+  laserTime: 2
 --- !u!1 &2135018912
 GameObject:
   m_ObjectHideFlags: 0
