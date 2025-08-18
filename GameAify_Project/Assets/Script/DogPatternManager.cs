@@ -1,18 +1,18 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DogPatternManager : MonoBehaviour
 {
-    // °³¹«¸® ÆĞÅÏ °ü·Ã ¸â¹ö º¯¼öµé
+    // ê°œë¬´ë¦¬ íŒ¨í„´ ê´€ë ¨ ë©¤ë²„ ë³€ìˆ˜ë“¤
     public Transform player;
     public GameObject RunningDogPrefab;
     private readonly List<GameObject> RunningDogList = new List<GameObject>();
-    private float RunningDogSpawnDistance = 30f; // °³¹«¸® »ı¼º °Å¸®
-    private int RunningDogCount = 10;   // ¹«¸®´ç °³ ¼ö
-    private float RunningDogSpawnDelay = 20f;  // ¹«¸®¸¦ Ãâ·Â½ÃÅ³ °£°İ
-    private float spacing = 2.0f; // °³Ã¼ °£ ÃÖ¼Ò °£°İ
-    private float spreadRadius = 5f;   // Ã¹ °³ ±âÁØ È®»ê ¹İ°æ
+    private float RunningDogSpawnDistance = 30f; // ê°œë¬´ë¦¬ ìƒì„± ê±°ë¦¬
+    private int RunningDogCount = 10;   // ë¬´ë¦¬ë‹¹ ê°œ ìˆ˜
+    private float RunningDogSpawnDelay = 20f;  // ë¬´ë¦¬ë¥¼ ì¶œë ¥ì‹œí‚¬ ê°„ê²©
+    private float spacing = 2.0f; // ê°œì²´ ê°„ ìµœì†Œ ê°„ê²©
+    private float spreadRadius = 5f;   // ì²« ê°œ ê¸°ì¤€ í™•ì‚° ë°˜ê²½
     private bool isRoutineRunning;
 
     void Start()
@@ -26,25 +26,28 @@ public class DogPatternManager : MonoBehaviour
 
     IEnumerator SpawnDogsRoutine()
     {
-        while (true)
+        if (!PlayerStat.purificationClearposSign)
         {
-            // wave 10 ÀÌ»óÀÌ µÉ ¶§±îÁö ´ë±â
-            yield return new WaitUntil(() => MainSpawnerAndTimer.waveIndex + 1 >= 10);
-            // Á÷Àü ¹«¸®°¡ ¾ÆÁ÷ ³²¾Æ ÀÖ´Ù¸é ÀüºÎ »ç¶óÁú ¶§±îÁö ´ë±â (Áßº¹ ½ºÆù ¹æÁö)
-            yield return new WaitUntil(AllDogsCleared);
-            // 20ÃÊ Ä«¿îÆ®
-            yield return new WaitForSeconds(RunningDogSpawnDelay);
-            // ½ºÆù ½ÃÀÛ
-            SpawnOneHorde();
+            while (true)
+            {
+                // wave 10 ì´ìƒì´ ë  ë•Œê¹Œì§€ ëŒ€ê¸°
+                yield return new WaitUntil(() => MainSpawnerAndTimer.waveIndex + 1 >= 10);
+                // ì§ì „ ë¬´ë¦¬ê°€ ì•„ì§ ë‚¨ì•„ ìˆë‹¤ë©´ ì „ë¶€ ì‚¬ë¼ì§ˆ ë•Œê¹Œì§€ ëŒ€ê¸° (ì¤‘ë³µ ìŠ¤í° ë°©ì§€)
+                yield return new WaitUntil(AllDogsCleared);
+                // 20ì´ˆ ì¹´ìš´íŠ¸
+                yield return new WaitForSeconds(RunningDogSpawnDelay);
+                // ìŠ¤í° ì‹œì‘
+                SpawnOneHorde();
+            }
         }
     }
 
     void SpawnOneHorde()
     {
-        RunningDogList.Clear(); // È¤½Ã ³²¾ÆÀÖ´ø null ÂüÁ¶ Á¤¸®
+        RunningDogList.Clear(); // í˜¹ì‹œ ë‚¨ì•„ìˆë˜ null ì°¸ì¡° ì •ë¦¬
         PruneDeadDogs();
 
-        // 1) Ã¹ ¸¶¸®: ÇÃ·¹ÀÌ¾î ±âÁØ 30À¯´Ö °Å¸®, ·£´ı ¹æÇâ
+        // 1) ì²« ë§ˆë¦¬: í”Œë ˆì´ì–´ ê¸°ì¤€ 30ìœ ë‹› ê±°ë¦¬, ëœë¤ ë°©í–¥
         float randomAngle = Random.Range(0f, 360f);
         Vector3 dir = new Vector3(Mathf.Cos(randomAngle * Mathf.Deg2Rad), Mathf.Sin(randomAngle * Mathf.Deg2Rad), 0f);
         Vector3 firstDogPos = player.position + dir * RunningDogSpawnDistance;
@@ -53,14 +56,14 @@ public class DogPatternManager : MonoBehaviour
         var firstDog = Instantiate(RunningDogPrefab, firstDogPos, Quaternion.identity);
         RunningDogList.Add(firstDog);
 
-        // 2) ³ª¸ÓÁö 9¸¶¸®: Ã¹ ¸¶¸® ÁÖº¯À¸·Î °ãÄ¡Áö ¾Ê°Ô ºĞ»ê
+        // 2) ë‚˜ë¨¸ì§€ 9ë§ˆë¦¬: ì²« ë§ˆë¦¬ ì£¼ë³€ìœ¼ë¡œ ê²¹ì¹˜ì§€ ì•Šê²Œ ë¶„ì‚°
         int created = 1;
         int attempt = 0;
 
         while (created < RunningDogCount && attempt < 1000)
         {
             attempt++;
-            // ¿ø ¹üÀ§ ³» ·£´ı À§Ä¡
+            // ì› ë²”ìœ„ ë‚´ ëœë¤ ìœ„ì¹˜
             Vector2 rand = Random.insideUnitCircle.normalized * Random.Range(spacing, spreadRadius);
             Vector3 newPos = firstDogPos + new Vector3(rand.x, rand.y, 0f);
 
@@ -81,17 +84,17 @@ public class DogPatternManager : MonoBehaviour
             created++;
         }
         if (created < RunningDogCount)
-            Debug.LogWarning("ÀÏºÎ °³¸¦ »ı¼ºÇÏÁö ¸øÇß½À´Ï´Ù. SyringeSpacing ¶Ç´Â spreadRadius¸¦ ´Ã·Áº¸¼¼¿ä.");
+            Debug.LogWarning("ì¼ë¶€ ê°œë¥¼ ìƒì„±í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤. SyringeSpacing ë˜ëŠ” spreadRadiusë¥¼ ëŠ˜ë ¤ë³´ì„¸ìš”.");
     }
 
-    // ¸ğµç °³¹«¸® °³Ã¼°¡ '¿ÏÀüÈ÷' »ç¶óÁ³´ÂÁö(ÆÄ±«µÇ¾ú°Å³ª ºñÈ°¼ºÈ­µÇ¾ú´ÂÁö) È®ÀÎ
+    // ëª¨ë“  ê°œë¬´ë¦¬ ê°œì²´ê°€ 'ì™„ì „íˆ' ì‚¬ë¼ì¡ŒëŠ”ì§€(íŒŒê´´ë˜ì—ˆê±°ë‚˜ ë¹„í™œì„±í™”ë˜ì—ˆëŠ”ì§€) í™•ì¸
     private bool AllDogsCleared()
     {
         PruneDeadDogs();
         return RunningDogList.Count == 0;
     }
 
-    // ¸®½ºÆ®¿¡¼­ DestroyµÇ¾ú°Å³ª SetActive(false)µÈ °³Ã¼ Á¦°Å
+    // ë¦¬ìŠ¤íŠ¸ì—ì„œ Destroyë˜ì—ˆê±°ë‚˜ SetActive(false)ëœ ê°œì²´ ì œê±°
     private void PruneDeadDogs()
     {
         RunningDogList.RemoveAll(go => go == null || !go.activeInHierarchy);

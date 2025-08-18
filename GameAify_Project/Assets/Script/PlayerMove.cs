@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour
     public Image fillImage; // HP바 오브젝트
     public Image gaugeFillImage; // 정화게이지 오브젝트
 
+    public StageSetting stageSetting;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -97,6 +98,10 @@ public class PlayerMove : MonoBehaviour
         {
             PlayerStat.HP -= 50;
             Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.name== "BossDoor") //보스맵으로 이동
+        {
+            stageSetting.InBossStage();
         }
     }
 
