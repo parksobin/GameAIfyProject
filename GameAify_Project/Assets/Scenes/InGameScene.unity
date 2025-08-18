@@ -12132,6 +12132,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339316425}
   m_CullTransparentMesh: 1
+--- !u!1 &1354739674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1354739676}
+  - component: {fileID: 1354739675}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1354739675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354739674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16fb9595e49b6c49ba3c14a880d2af2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5217271937961881748, guid: 60cfb4c502cdd7245b70cfd3715d86b7, type: 3}
+  radius: 4
+  pointsPerSide: 5
+  diamondRotationDeg: 0
+  moveTime: 0.6
+  faceOutwards: 0
+--- !u!4 &1354739676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354739674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1362276951
 GameObject:
   m_ObjectHideFlags: 0
@@ -19235,7 +19285,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 53126294}
+  - {fileID: 387881422}
   m_Father: {fileID: 1774499394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -19789,6 +19841,7 @@ GameObject:
   - component: {fileID: 2126516347}
   - component: {fileID: 2126516351}
   - component: {fileID: 2126516350}
+  - component: {fileID: 2126516352}
   m_Layer: 0
   m_Name: boss
   m_TagString: Untagged
@@ -19919,6 +19972,24 @@ MonoBehaviour:
   firePoint: {fileID: 1911230239}
   warningTime: 1.5
   laserTime: 2
+--- !u!114 &2126516352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126516345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16fb9595e49b6c49ba3c14a880d2af2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5217271937961881748, guid: 60cfb4c502cdd7245b70cfd3715d86b7, type: 3}
+  radius: 4
+  pointsPerSide: 5
+  diamondRotationDeg: 0
+  moveTime: 0.6
+  faceOutwards: 0
 --- !u!1 &2135018912
 GameObject:
   m_ObjectHideFlags: 0
@@ -20112,3 +20183,4 @@ SceneRoots:
   - {fileID: 609488099}
   - {fileID: 1467621761}
   - {fileID: 1682259208}
+  - {fileID: 1354739676}
