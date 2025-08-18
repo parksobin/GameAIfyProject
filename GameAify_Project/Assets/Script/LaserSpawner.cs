@@ -9,7 +9,7 @@ public class LaserSpawner : MonoBehaviour
     public GameObject laserPrefab;    // 실제 레이저 프리팹
     public Transform firePoint;       // 레이저 시작 위치
     public float warningTime = 1.5f;  // 경고 후 발사까지 대기
-    public float laserTime = 2f;      // 레이저 유지 시간
+    public float laserTime = 3f;      // 레이저 유지 시간
 
     private Vector2[][] directionGroups = new Vector2[][] // 레이저 방향 설정
     {
@@ -49,7 +49,9 @@ public class LaserSpawner : MonoBehaviour
         GameObject warning = Instantiate(warningPrefab, firePos, Quaternion.identity);
         warning.transform.right = dir;
 
-        yield return new WaitForSeconds(warningTime);
+        // 깜빡임 실행 (총 1초)
+        yield return StartCoroutine(BlinkWarning(warning, 1f));
+        //yield return new WaitForSeconds(warningTime);
 
         // 경고 제거 및 레이저 발사
         Destroy(warning);
@@ -58,5 +60,22 @@ public class LaserSpawner : MonoBehaviour
 
         // 2초 뒤 레이저 제거
         Destroy(laser, laserTime);
+    }
+
+    IEnumerator BlinkWarning(GameObject obj, float totalTime)  //레이저 깜빡임 함수
+    {
+        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+        float half = totalTime / 2f;
+
+
+        //깜빡거리는 레이저
+        sr.enabled = true;
+        yield return new WaitForSeconds(half * 0.5f);  //0.25 켜짐
+         
+        sr.enabled = false;
+        yield return new WaitForSeconds(half * 0.5f);  //0.25 꺼짐
+
+        sr.enabled = true;
+        yield return new WaitForSeconds(half);  //0.5 켜짐
     }
 }

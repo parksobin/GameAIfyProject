@@ -18137,7 +18137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   warningPrefab: {fileID: 720503735663951142, guid: 2bef57c5e83ca2d418c21d7ed355ad13, type: 3}
-  laserPrefab: {fileID: 3030562215403568189, guid: 3b10422f4098e1648bead1e9a4fe42e3, type: 3}
+  laserPrefab: {fileID: 3692756144343133757, guid: 2e7bb1331796e8341b3e0bd064130843, type: 3}
   firePoint: {fileID: 1911230239}
   warningTime: 1.5
   laserTime: 2
