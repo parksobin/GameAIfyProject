@@ -53,6 +53,7 @@ public class PlayerStat : MonoBehaviour
             Syringe.text = "Level : " + SyringeLevel;
             CheckisSelected();
         }
+        if (SyringeLevel == 4) Syringe.text = "Clear";
     }
     public void MessLevelUp() // 메스 레벨업
     {
@@ -62,6 +63,7 @@ public class PlayerStat : MonoBehaviour
             Mess.text = "Level : " + MessLevel;
             CheckisSelected();
         }
+        if (MessLevel == 4) Mess.text = "Clear";
     }
     public void DroneLevelUp() // 드론 레벨업
     {
@@ -71,6 +73,7 @@ public class PlayerStat : MonoBehaviour
             Drone.text = "Level : " + DroneLevel;
             CheckisSelected();
         }
+        if (DroneLevel == 4) Drone.text = "Clear";
     }
     public void VaccineLevelUp() // 백신 레벨업
     {
@@ -80,6 +83,7 @@ public class PlayerStat : MonoBehaviour
             Vaccine.text = "Level : " + VaccineLevel;
             CheckisSelected();
         }
+        if (VaccineLevel == 4) Vaccine.text = "Clear";
     }
     public void CapsuleLevelUp() // 캡슐 레벨업
     {
@@ -89,6 +93,7 @@ public class PlayerStat : MonoBehaviour
             Capsule.text = "Level : " + CapsuleLevel;
             CheckisSelected();
         }
+        if (CapsuleLevel == 4) Capsule.text = "Clear";
     }
     public void HealthPointSet() // 체력 증가
     {
@@ -99,6 +104,7 @@ public class PlayerStat : MonoBehaviour
             HpLevel++;
             CheckisSelected();
         }
+        if (HpLevel == 5) Hp.text = "Clear";
     }
     public void AttackRangeSet() // 공격 범위 증가(백신 구역 범위도 같이 증가)
     {
@@ -111,6 +117,7 @@ public class PlayerStat : MonoBehaviour
             AttRangeLevel++;
             CheckisSelected();
         }
+        if (AttRangeLevel == 5) AttRange.text = "Clear";
         Debug.Log("VCFS : " + VCFS);
     }
     public void PlayerSpeedSet() // 이동 속도 증가
@@ -121,7 +128,8 @@ public class PlayerStat : MonoBehaviour
             PlayerSpeed.text = " + %" + ((PlayerSpeedLevel + 1) * 10).ToString();
             PlayerSpeedLevel++;
             CheckisSelected();
-        }      
+        }
+        if (PlayerSpeedLevel == 5) PlayerSpeed.text = "Clear";
     }
     public void AttackSpeedSet() // 공격 속도 증가 (백신 쿨타임, 캡슐 쿨타임 감소)
     {
@@ -133,6 +141,7 @@ public class PlayerStat : MonoBehaviour
             AttSpeedLevel++;
             CheckisSelected();
         }
+        if (AttSpeedLevel == 5) AttSpeed.text = "Clear";
     }
     public void AttackPowerSet() // 공격력 증가
     {
@@ -143,6 +152,7 @@ public class PlayerStat : MonoBehaviour
             AttPowerLevel++;
             CheckisSelected();
         }
+        if (AttPowerLevel == 5) AttPower.text = "Clear";
     }
 
     void VaccineAndCapsuleCheck() // 백신, 캡슐 공격속도 함수

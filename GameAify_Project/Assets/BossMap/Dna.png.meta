@@ -322,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Dna_0: -7128546087577637364
+      Dna_1: 1062851585594734616
+      Dna_2: -5812231087426084598
+      Dna_3: -5372178353839647891
+      Dna_4: -2219043448866398907
+      Dna_5: -2905081669382582713
+      Dna_6: 2993149850887969646
+      Dna_7: 7079666298387943783
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
