@@ -7,6 +7,7 @@ public class StatDebug : MonoBehaviour
 {
     public TMP_InputField Wave;
     public TMP_InputField Purification;
+    public TMP_InputField BossHealth;
     private float wave;
     // 플레이어 아이템 관련
     public TMP_InputField SyringeLev;
@@ -22,6 +23,7 @@ public class StatDebug : MonoBehaviour
     public TMP_InputField AttackSpeed;
     public TMP_InputField AttackPower;
 
+    public TextMeshProUGUI BossHealthText; //보스체력
     public TextMeshProUGUI purificationText; //정화게이지
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI SyrText;
@@ -43,6 +45,7 @@ public class StatDebug : MonoBehaviour
 
     public void ApplySettings()
     {
+        if (int.TryParse(BossHealth.text, out int bos)) PlayerStat.BossStamina = bos;
         if (int.TryParse(Purification.text, out int pur)) PlayerStat.purificationGauge = pur;
         if (int.TryParse(SyringeLev.text, out int Syr)) PlayerStat.SyringeLevel = Syr;
         if (int.TryParse(MessLev.text, out int Mes)) PlayerStat.MessLevel = Mes;
@@ -85,5 +88,6 @@ public class StatDebug : MonoBehaviour
         AspText.text = "Att Speed : " + PlayerStat.AttackSpeed.ToString();
         AtpText.text = "maxHP : " + PlayerStat.AttackPower.ToString("N1");
         purificationText.text = "정화게이지(%) : "+PlayerStat.purificationGauge.ToString();
+        BossHealthText.text = "보스체력 : "+PlayerStat.BossStamina.ToString();
     }
 }

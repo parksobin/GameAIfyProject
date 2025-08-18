@@ -14,7 +14,8 @@ public class StageSetting : MonoBehaviour
     public GameObject VirusPreFab; //3단계 바이러스 프리팹
 
     public bool InbossStage =false; //보스맵 스테이지에 들어간 상태인지 확인
-    public bool BossLevel2 =false; //보스맵 스테이지에 들어간 상태인지 확인
+    public bool bossVideoEnd =false; //보스 영상 끝난지 판단 -> 다른 스크립트에서 사용
+    public bool BossLevel2 =false; 
     private float videoTime; //재생시간
     private float RotateSpeed = 30f; // 보스 2차 회전 속도
     Vector3 bosspos;
@@ -35,7 +36,7 @@ public class StageSetting : MonoBehaviour
     {
         purificationClear();
         VideoStartTime();
-        BossLevel2_Rotate();
+        //BossLevel2_Rotate();
     }
 
     private void purificationClear() //정화게이지 100달성 후 보스 문 표시
@@ -70,6 +71,7 @@ public class StageSetting : MonoBehaviour
             {
                 BossVideo.SetActive(false);
                 Boss.SetActive(true);
+                bossVideoEnd=true;
             }
         }
     }

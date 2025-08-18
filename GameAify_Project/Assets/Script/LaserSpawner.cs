@@ -10,6 +10,12 @@ public class LaserSpawner : MonoBehaviour
     public Transform firePoint;       // 레이저 시작 위치
     public float warningTime = 1.5f;  // 경고 후 발사까지 대기
     public float laserTime = 3f;      // 레이저 유지 시간
+    private BossMove bossMove;
+
+    private void Start()
+    {
+        bossMove = gameObject.GetComponent<BossMove>();   
+    }
 
     private Vector2[][] directionGroups = new Vector2[][] // 레이저 방향 설정
     {
@@ -21,26 +27,29 @@ public class LaserSpawner : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+    }
+
+    public  void SponLevel1_Laser()
+    {
+        Vector2 firePos = transform.position;
+
+        // 그룹 중 3개 랜덤 선택
+        List<Vector2[]> chosenGroups = directionGroups.OrderBy(_ => Random.value).Take(3).ToList();
+
+        // 각 그룹에서 1개씩 랜덤하게 방향 선택
+        List<Vector2> selectedDirs = new List<Vector2>();
+        foreach (var group in chosenGroups)
         {
-            Vector2 firePos = transform.position;
-
-            // 그룹 중 3개 랜덤 선택
-            List<Vector2[]> chosenGroups = directionGroups.OrderBy(_ => Random.value).Take(3).ToList();
-
-            // 각 그룹에서 1개씩 랜덤하게 방향 선택
-            List<Vector2> selectedDirs = new List<Vector2>();
-            foreach (var group in chosenGroups)
-            {
-                selectedDirs.Add(group[Random.Range(0, group.Length)]);
-            }
-
-            // 레이저 출력
-            foreach (var dir in selectedDirs)
-            {
-                StartCoroutine(WarningAndFire(firePos, dir));
-            }
+            selectedDirs.Add(group[Random.Range(0, group.Length)]);
         }
+
+        // 레이저 출력
+        foreach (var dir in selectedDirs)
+        {
+            StartCoroutine(WarningAndFire(firePos, dir));
+        }
+
+        bossMove.DelayTimeReset();
     }
 
     private IEnumerator WarningAndFire(Vector2 firePos, Vector2 dir)
@@ -78,4 +87,5 @@ public class LaserSpawner : MonoBehaviour
         sr.enabled = true;
         yield return new WaitForSeconds(half);  //0.5 켜짐
     }
+
 }
