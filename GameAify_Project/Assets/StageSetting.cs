@@ -69,6 +69,7 @@ public class StageSetting : MonoBehaviour
             if (videoTime > 7)
             {
                 BossVideo.SetActive(false);
+                Boss.SetActive(true);
             }
         }
     }

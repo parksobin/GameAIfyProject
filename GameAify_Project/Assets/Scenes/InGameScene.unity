@@ -14273,6 +14273,7 @@ MonoBehaviour:
   laserPreFab: {fileID: 3692756144343133757, guid: 2e7bb1331796e8341b3e0bd064130843, type: 3}
   VirusPreFab: {fileID: 5217271937961881748, guid: 60cfb4c502cdd7245b70cfd3715d86b7, type: 3}
   InbossStage: 0
+  BossLevel2: 0
 --- !u!1 &1638734190
 GameObject:
   m_ObjectHideFlags: 0
@@ -19600,7 +19601,7 @@ Transform:
   m_GameObject: {fileID: 2126516345}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.36, z: 0}
+  m_LocalPosition: {x: 0, y: 10.11, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
