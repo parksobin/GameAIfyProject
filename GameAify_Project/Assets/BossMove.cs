@@ -12,8 +12,8 @@ public class BossMove : MonoBehaviour
     private float DelayTime=0f;
     public bool HitSign =true;
     int count = 0;
-
-    private float Lv3DelayTime = 10f;
+    private bool lv3PatternRunning = false;
+    private float Lv3DelayTime = 10.0f;
 
     void Start()
     {
@@ -63,26 +63,31 @@ public class BossMove : MonoBehaviour
 
     private void Level3_Hit()
     {
-        // 한번에 5번
-        // 쿨타임 10초
-        Lv3DelayTime += Time.deltaTime;
-        if(Lv3DelayTime > 10f)
-        {
-            count++;
-            StartCoroutine(Wait1s());
-            virusSet.SpawnCenterBoss3_Hit();
-            if(count>=5)
-            {
-                count = 0;
-                Lv3DelayTime = 0;
-            }
-        }
+        // 쿨타임 축적
+        if (Lv3DelayTime < 10f)
+            Lv3DelayTime += Time.deltaTime;
+
+        // 쿨타임 끝났고 아직 패턴 실행 중이 아니면 시작
+        if (!lv3PatternRunning && Lv3DelayTime >= 10f)
+            StartCoroutine(Level3Pattern());
     }
 
-    public static IEnumerator Wait1s()
+    private IEnumerator Level3Pattern()
     {
-        yield return new WaitForSeconds(1f);
+        lv3PatternRunning = true;
+        Lv3DelayTime = 0f; // 쿨타임 리셋
+
+        // 1초 간격으로 5번
+        for (int i = 0; i < 5; i++)
+        {
+            virusSet.SpawnCenterBoss3_Hit();   // 실행
+            if (i < 4)                          // 마지막에는 대기 없음
+                yield return new WaitForSeconds(1f);
+        }
+
+        lv3PatternRunning = false; // 다음 쿨타임 후 다시 가능
     }
+
 
 
     public void DelayTimeReset()
