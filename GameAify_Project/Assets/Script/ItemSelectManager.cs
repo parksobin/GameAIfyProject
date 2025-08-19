@@ -12,6 +12,7 @@ public class ItemSelectManager : MonoBehaviour
         3500, 4100, 4650, 4950
     };
     public static int StepIndex = 0;
+    public static int allUpgrade = 0;
     private bool panelOpen = false;
 
     void Start()

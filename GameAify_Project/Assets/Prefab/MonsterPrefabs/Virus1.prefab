@@ -408,4 +408,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyAttack: 0
   EnemyMoveSpeed: 0
+  DieEffect: {fileID: 8872594557615173302, guid: 329f6a0dc3c6c4349a6d779a890789c1, type: 3}
   fillImage: {fileID: 7008090561015849273}

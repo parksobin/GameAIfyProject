@@ -41,7 +41,7 @@ public class StageSetting : MonoBehaviour
 
     private void purificationClear() //정화게이지 100달성 후 보스 문 표시
     {
-        if(PlayerStat.purificationGauge ==100 && !PlayerStat.purificationClearposSign)
+        if(PlayerStat.currentGauge >= 5000 && !PlayerStat.purificationClearposSign)
         {
             Player = GameObject.Find("Player");
             Vector3 PYpos = Player.transform.position;

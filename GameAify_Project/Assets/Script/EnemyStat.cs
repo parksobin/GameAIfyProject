@@ -12,6 +12,7 @@ public class EnemyStat : MonoBehaviour
     private float maxHP; // 적 기본체력
     private float currentHP; // 적 현재체력
     private bool OnVaccineDamage = false;
+    public GameObject DieEffect;
 
     public Image fillImage;
     void Awake()

@@ -16,8 +16,8 @@ public class PlayerStat : MonoBehaviour
     public TextMeshProUGUI AttSpeed;
     public TextMeshProUGUI AttPower;
 
-    public static int maxGauge = 5000;
-    public static int currentGauge = 0;
+    public static int maxGauge = 5000; // 전체 정화 게이지
+    public static int currentGauge = 0; // 현재 정화 게이지
 
     public static int purificationGauge = 0; //정화 게이지 퍼센트
     public static bool purificationClearposSign = false; // 정화 완료 여부 확인 
