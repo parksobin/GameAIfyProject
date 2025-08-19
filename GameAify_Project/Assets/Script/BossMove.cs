@@ -14,7 +14,8 @@ public class BossMove : MonoBehaviour
     int count = 0;
     private bool lv3PatternRunning = false;
     private float Lv3DelayTime = 10.0f;
-
+    // 추가: Lv1 코루틴 중복 방지용
+    private bool lv1PatternRunning = false;
     void Start()
     {
         StageSetting = GameObject.Find("MainManager").GetComponent<StageSetting>();
@@ -50,16 +51,41 @@ public class BossMove : MonoBehaviour
         
     }
 
+    //  Level1 공격 패턴
     private void Level1_Hit()
     {
+        // 이미 공격 패턴 수행 중이면 대기
+        if (lv1PatternRunning) return;
+
+        // 쿨타임 5초 누적
         DelayTime += Time.deltaTime;
-        if(DelayTime >=5f&& HitSign)
-        {
-            animator.SetBool("Level1",true);
-            spawner.SponLevel1_Laser();
-            HitSign = !HitSign;
-        }
+
+        // 쿨타임 끝나면 공격 패턴 실행
+        if (DelayTime >= 5f)
+            StartCoroutine(Level1Pattern());
     }
+
+    private IEnumerator Level1Pattern()
+    {
+        lv1PatternRunning = true;
+
+        // 공격 시작: 애니 켜고 레이저 발사
+        animator.SetBool("basic", false);
+        animator.SetBool("Level1", true);
+        spawner.SponLevel1_Laser();
+
+        // 공격 연출 포함 대기 3초
+        yield return new WaitForSeconds(5f);
+
+        // 공격 종료: 애니 끔
+        animator.SetBool("Level1", false);
+        animator.SetBool("basic", true);
+
+        // 쿨타임 타이머 리셋
+        DelayTime = 0f;
+        lv1PatternRunning = false;
+    }
+
 
     private void Level3_Hit()
     {
@@ -84,7 +110,6 @@ public class BossMove : MonoBehaviour
             if (i < 4)                          // 마지막에는 대기 없음
                 yield return new WaitForSeconds(1f);
         }
-
         lv3PatternRunning = false; // 다음 쿨타임 후 다시 가능
     }
 

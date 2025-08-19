@@ -18151,6 +18151,7 @@ MonoBehaviour:
   firePoint: {fileID: 1911230239}
   warningTime: 1.5
   laserTime: 2
+  Playerpos: {x: 0, y: 0}
 --- !u!114 &1911230248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19779,7 +19780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec252e5512e1ce640a514a68639be0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageSetting: {fileID: 0}
+  StageSetting: {fileID: 1634346489}
   HitSign: 1
 --- !u!114 &2126516351
 MonoBehaviour:
@@ -19798,6 +19799,7 @@ MonoBehaviour:
   firePoint: {fileID: 1911230239}
   warningTime: 1.5
   laserTime: 2
+  Playerpos: {x: 0, y: 0}
 --- !u!114 &2126516352
 MonoBehaviour:
   m_ObjectHideFlags: 0

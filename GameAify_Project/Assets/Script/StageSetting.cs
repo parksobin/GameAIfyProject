@@ -26,7 +26,7 @@ public class StageSetting : MonoBehaviour
 
     void Start()
     {
-        Boss.SetActive(false);
+      //  Boss.SetActive(false);
         BossStageDoor.SetActive(false);
         BossVideo.SetActive(false);
         bosspos = Boss.transform.position;

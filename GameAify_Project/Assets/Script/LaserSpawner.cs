@@ -11,10 +11,12 @@ public class LaserSpawner : MonoBehaviour
     public float warningTime = 1.5f;  // 경고 후 발사까지 대기
     public float laserTime = 3f;      // 레이저 유지 시간
     private BossMove bossMove;
+    public Vector2 Playerpos;
 
     private void Start()
     {
-        bossMove = gameObject.GetComponent<BossMove>();   
+        bossMove = gameObject.GetComponent<BossMove>();
+        Playerpos = GameObject.Find("Player").transform.position;
     }
 
     private Vector2[][] directionGroups = new Vector2[][] // 레이저 방향 설정
@@ -54,6 +56,7 @@ public class LaserSpawner : MonoBehaviour
 
     private IEnumerator WarningAndFire(Vector2 firePos, Vector2 dir)
     {
+        firePos = Playerpos;
         // 경고 생성
         GameObject warning = Instantiate(warningPrefab, firePos, Quaternion.identity);
         warning.transform.right = dir;
