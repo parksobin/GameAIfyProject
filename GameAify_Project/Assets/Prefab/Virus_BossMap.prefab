@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1766943466503293989}
   - component: {fileID: 7565467309144599988}
+  - component: {fileID: 2521894225764404737}
   m_Layer: 0
   m_Name: Virus_BossMap
   m_TagString: Untagged
@@ -87,3 +88,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2521894225764404737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5217271937961881748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6753eb0c6d87b20499959f572ef0bd55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyStat: {fileID: 7208391118812045663, guid: 78548d87f6dae1341a1d59cd46ae0ea8, type: 3}
+  Square: {fileID: 0}

@@ -23,7 +23,7 @@ public class BossMove : MonoBehaviour
 
     private void BossHit()
     {
-        /*
+        
         switch (BossLevel)
         {
             case 1:
@@ -38,7 +38,7 @@ public class BossMove : MonoBehaviour
             default:
                 break;
         }
-        */
+        
     }
 
     private void Level1_Hit()
