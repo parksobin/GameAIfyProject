@@ -95,15 +95,33 @@ public class EnemyCommonState : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (gameObject.name.StartsWith("Virus_BossMap"))
+        {
+            if(collision.CompareTag("Weapon"))
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision) //백신 필드 1초뒤 삭제
     {
-        if (collision.gameObject.CompareTag("Vaccine"))
+        if (gameObject.name.StartsWith("Virus_BossMap")) 
         {
-            VaccineFeildInTime += Time.deltaTime;
-            if(VaccineFeildInTime >=1.0f)
+            
+        }
+        else
+        {
+            if (collision.gameObject.CompareTag("Vaccine"))
             {
-                CheckVaccineState();
-                VaccineFeildInTime = 0.0f;
+                VaccineFeildInTime += Time.deltaTime;
+                if(VaccineFeildInTime >=1.0f)
+                {
+                    CheckVaccineState();
+                    VaccineFeildInTime = 0.0f;
+                }
             }
         }
     }
