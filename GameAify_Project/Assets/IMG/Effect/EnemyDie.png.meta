@@ -160,6 +160,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -572,7 +585,25 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      EnemyDie_0: 186240792681527304
+      EnemyDie_1: 8424946187282295680
+      EnemyDie_10: -4252848905652498850
+      EnemyDie_11: -909611018538259075
+      EnemyDie_12: -1458663458825075187
+      EnemyDie_13: 2798165182772162301
+      EnemyDie_14: 553247060888891139
+      EnemyDie_15: -8496911668496321370
+      EnemyDie_16: -3530313309314396108
+      EnemyDie_17: 6768697707760421693
+      EnemyDie_2: -5186392028424298644
+      EnemyDie_3: 2328871401507709523
+      EnemyDie_4: -5461187850558790283
+      EnemyDie_5: -3668382442121470810
+      EnemyDie_6: -3603012773639981789
+      EnemyDie_7: -8678365673368346091
+      EnemyDie_8: -8654611083247864448
+      EnemyDie_9: -3043725699900596554
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

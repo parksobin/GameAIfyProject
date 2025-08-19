@@ -373,7 +373,7 @@ MonoBehaviour:
   EnemyAttack: 0
   EnemyMoveSpeed: 0
   DieEffect: {fileID: 8872594557615173302, guid: 329f6a0dc3c6c4349a6d779a890789c1, type: 3}
-  fillImage: {fileID: 0}
+  fillImage: {fileID: 5295728923335313604}
 --- !u!58 &4752337847985719311
 CircleCollider2D:
   m_ObjectHideFlags: 0

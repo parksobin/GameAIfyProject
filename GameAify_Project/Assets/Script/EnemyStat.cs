@@ -12,7 +12,7 @@ public class EnemyStat : MonoBehaviour
     private float maxHP; // 적 기본체력
     private float currentHP; // 적 현재체력
     private bool OnVaccineDamage = false;
-    public GameObject DieEffect;
+    public GameObject DieEffect; // 적 사망 시 이펙트
 
     public Image fillImage;
     void Awake()
@@ -110,6 +110,7 @@ public class EnemyStat : MonoBehaviour
         PlayerStat.currentGauge++;
         //디버그용
         Debug.Log("Gauge : " + PlayerStat.currentGauge + ", Upgrade : " + PlayerAttack.NowCount);
+        Instantiate(DieEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
