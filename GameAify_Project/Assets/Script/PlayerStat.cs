@@ -99,7 +99,9 @@ public class PlayerStat : MonoBehaviour
     {
         if(HpLevel < 5)
         {
-            maxHP += maxHP * 0.1f - HpLevel;
+            float PlusHP = maxHP * 0.1f - HpLevel;
+            HP += PlusHP;
+            maxHP += PlusHP;
             Hp.text = " + %" + ((HpLevel + 1) * 10).ToString();
             HpLevel++;
             CheckisSelected();
