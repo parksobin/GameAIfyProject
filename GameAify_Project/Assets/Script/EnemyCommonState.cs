@@ -4,15 +4,16 @@ using UnityEngine;
 public class EnemyCommonState : MonoBehaviour
 {
     public EnemyStat enemyStat;
-    private int stamina = 100;
     private float VaccineFeildInTime = 0f;
     private GameObject playerObj; //플레이어 오브젝트
     private Vector2 direction; //플레이어쪽 방향
     private SpriteRenderer enemySR;
     public GameObject Square = null; //몬스터무기
     private SpriteRenderer SquareRender;
-    private bool wait=false; 
-    float SpawnSquareTime;
+    private bool wait=false; // Virus2 대기 신호
+    private float SpawnSquareTime; //Virus2 무기
+    private float BossVirusWaitTime=0; //보스 바이러스 이동전 대기 시간ㄴ
+    private float BossVirusSpeed = 5.0f;
 
     void Start()
     {
@@ -35,6 +36,16 @@ public class EnemyCommonState : MonoBehaviour
     private void PlayerFollow() //플레이어 방향으로 따라가는 함수
     {
         float distance = Vector2.Distance(playerObj.transform.position, transform.position);
+        
+        if (gameObject.name==("Virus_BossMap(Clone)"))
+        {
+            BossVirusWaitTime += Time.deltaTime;
+            if (BossVirusWaitTime > 1.0f)
+            {
+                direction = (playerObj.transform.position - transform.position).normalized;
+                gameObject.transform.Translate(direction * BossVirusSpeed * Time.deltaTime);
+            }
+        }
         if (gameObject.name.StartsWith("Virus2") && distance <= 10f)
         {
             wait = true;
@@ -43,8 +54,10 @@ public class EnemyCommonState : MonoBehaviour
         else
         {
             wait = false;
-            direction = (playerObj.transform.position - transform.position).normalized;
-            gameObject.transform.Translate(direction * enemyStat.EnemyMoveSpeed * Time.deltaTime);
+
+                direction = (playerObj.transform.position - transform.position).normalized;
+                gameObject.transform.Translate(direction * enemyStat.EnemyMoveSpeed * Time.deltaTime);
+           
         }
     }
 
@@ -66,16 +79,16 @@ public class EnemyCommonState : MonoBehaviour
         switch (PlayerStat.VaccineLevel)
         {
             case 1:
-                stamina -= 1;
+                
                 break;
             case 2:
-                stamina -= 2;
+                
                 break;
             case 3:
-                stamina -= 3;
+                
                 break;
             case 4:
-                stamina -= 4;  
+               
                 break;
             default:
                 break;
@@ -97,6 +110,10 @@ public class EnemyCommonState : MonoBehaviour
 
     private void Destroyobj() //정화 단계 100 달성시 모두 삭제
     {
-        if(PlayerStat.purificationClearposSign) Destroy(gameObject);
+        if (gameObject.name.StartsWith("Virus_BossMap")) { }
+        else
+        {
+            if (PlayerStat.purificationClearposSign) Destroy(gameObject);
+        }
     }
 }
