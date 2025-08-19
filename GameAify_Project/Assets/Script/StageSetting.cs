@@ -17,19 +17,13 @@ public class StageSetting : MonoBehaviour
     public bool bossVideoEnd =false; //보스 영상 끝난지 판단 -> 다른 스크립트에서 사용
     public bool BossLevel2 =false; 
     private float videoTime; //재생시간
-    private float RotateSpeed = 30f; // 보스 2차 회전 속도
-    Vector3 bosspos;
 
-    private GameObject laser1;
-    private GameObject laser2;
-    private GameObject[] virus;
 
     void Start()
     {
-      //  Boss.SetActive(false);
+       Boss.SetActive(false);
         BossStageDoor.SetActive(false);
         BossVideo.SetActive(false);
-        bosspos = Boss.transform.position;
     }
 
     void Update()
@@ -77,29 +71,4 @@ public class StageSetting : MonoBehaviour
         }
     }
 
-    private void StartBossAnimation() //보스맵 도입 보스 애니메이션
-    {
-
-    }
-
-
-    private void BossLevel2_Rotate() //보스 레벨 2 시계방향 레이저 회전
-    {
-        //보스 좌표 기준 추가 해야함
-        if (BossLevel2 == false && Input.GetKeyDown(KeyCode.K))
-        {
-            laser1 = Instantiate(laserPreFab, Vector3.zero, Quaternion.identity);
-            // (0,0,0) 위치, 회전 없음
-            laser2 = Instantiate(laserPreFab, Vector3.zero, Quaternion.Euler(0, 0, 90));
-            // (0,0,0) 위치, Z축으로 90도 회전
-            BossLevel2 = true;
-        }
-        else if( BossLevel2)
-        {
-            //레이저 두 개 생성 후 시계방향 회전 초당 30도
-            laser1.transform.Rotate(0, 0, RotateSpeed * Time.deltaTime);
-            laser2.transform.Rotate(0, 0, RotateSpeed * Time.deltaTime);
-        }
-
-    }
 }

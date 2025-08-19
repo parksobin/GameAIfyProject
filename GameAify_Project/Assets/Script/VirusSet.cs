@@ -86,6 +86,9 @@ public class VirusSet : MonoBehaviour
         float t = 0f;
         while (t < duration)
         {
+            // 이미 파괴되었으면 즉시 종료
+            if (tr == null) yield break;
+
             t += Time.deltaTime;
             float p = Mathf.Clamp01(t / duration);
             p = p * p * (3f - 2f * p); // 스무스 스텝(가감속)

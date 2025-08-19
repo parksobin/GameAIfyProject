@@ -17925,7 +17925,6 @@ GameObject:
   - component: {fileID: 1911230240}
   - component: {fileID: 1911230242}
   - component: {fileID: 1911230248}
-  - component: {fileID: 1911230247}
   - component: {fileID: 1911230249}
   - component: {fileID: 1911230241}
   - component: {fileID: 1911230244}
@@ -18134,24 +18133,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1911230247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911230237}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7ec055f779935947b4edfab725884ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warningPrefab: {fileID: 720503735663951142, guid: 2bef57c5e83ca2d418c21d7ed355ad13, type: 3}
-  laserPrefab: {fileID: 3692756144343133757, guid: 2e7bb1331796e8341b3e0bd064130843, type: 3}
-  firePoint: {fileID: 1911230239}
-  warningTime: 1.5
-  laserTime: 2
-  Playerpos: {x: 0, y: 0}
 --- !u!114 &1911230248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19781,6 +19762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StageSetting: {fileID: 1634346489}
+  DelayTime: 4
   HitSign: 1
 --- !u!114 &2126516351
 MonoBehaviour:
@@ -19800,6 +19782,7 @@ MonoBehaviour:
   warningTime: 1.5
   laserTime: 2
   Playerpos: {x: 0, y: 0}
+  stageSetting: {fileID: 1634346489}
 --- !u!114 &2126516352
 MonoBehaviour:
   m_ObjectHideFlags: 0

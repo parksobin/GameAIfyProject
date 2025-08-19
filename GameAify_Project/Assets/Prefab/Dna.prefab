@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5598657880518337978}
   - component: {fileID: 2466724233065530786}
   - component: {fileID: -2171398044766497846}
-  - component: {fileID: 8122821631534716673}
   m_Layer: 0
   m_Name: Dna
   m_TagString: Untagged
@@ -111,19 +110,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!111 &8122821631534716673
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3692756144343133757}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 14f845cd2c5d9a84ca0e7d5ee41088f6, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0

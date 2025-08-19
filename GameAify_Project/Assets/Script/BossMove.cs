@@ -9,7 +9,7 @@ public class BossMove : MonoBehaviour
     private LaserSpawner spawner;
     private VirusSet virusSet;
     private int BossLevel = 1;
-    private float DelayTime=0f;
+    public float DelayTime=0f;
     public bool HitSign =true;
     int count = 0;
     private bool lv3PatternRunning = false;
@@ -30,7 +30,7 @@ public class BossMove : MonoBehaviour
         BossHit();
     }
 
-    private void BossHit()
+    private void BossHit() //레벨별 보스 공격 실행
     {
         
         switch (BossLevel)
@@ -39,11 +39,18 @@ public class BossMove : MonoBehaviour
                 Level1_Hit();
                 break;
             case 2:
+                Level1_Hit();
+                Level2_Hit();
                 break;
             case 3:
+                Level1_Hit();
+                Level2_Hit();
                 Level3_Hit();
                 break;
             case 4:
+                Level1_Hit();
+                Level2_Hit();
+                Level3_Hit();
                 break;
             default:
                 break;
@@ -70,7 +77,6 @@ public class BossMove : MonoBehaviour
         lv1PatternRunning = true;
 
         // 공격 시작: 애니 켜고 레이저 발사
-        animator.SetBool("basic", false);
         animator.SetBool("Level1", true);
         spawner.SponLevel1_Laser();
 
@@ -79,13 +85,16 @@ public class BossMove : MonoBehaviour
 
         // 공격 종료: 애니 끔
         animator.SetBool("Level1", false);
-        animator.SetBool("basic", true);
 
         // 쿨타임 타이머 리셋
         DelayTime = 0f;
         lv1PatternRunning = false;
     }
 
+    private void Level2_Hit()
+    {
+        spawner.BossLevel2_Rotate();
+    }
 
     private void Level3_Hit()
     {
@@ -115,6 +124,7 @@ public class BossMove : MonoBehaviour
 
 
 
+
     public void DelayTimeReset()
     {
         animator.SetBool("Level1", false);
@@ -128,4 +138,6 @@ public class BossMove : MonoBehaviour
         else if (PlayerStat.BossStamina > 2500) BossLevel = 3;
         else BossLevel = 4;
     }
+
+
 }
