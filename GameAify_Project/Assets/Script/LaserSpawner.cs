@@ -17,7 +17,7 @@ public class LaserSpawner : MonoBehaviour
     //2차 공격 관련
     private GameObject laser1;
     private GameObject laser2;
-    private float RotateSpeed = 30f;
+    public float RotateSpeed = 30f;
     public StageSetting stageSetting;
     private bool Boss2_Laser_make = false;
 

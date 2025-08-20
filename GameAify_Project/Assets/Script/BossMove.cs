@@ -45,7 +45,6 @@ public class BossMove : MonoBehaviour
                 break;
             case 3:
                 Level1_Hit();
-                Level2_Hit();
                 Level3_Hit();
                 break;
             case 4:
@@ -132,9 +131,14 @@ public class BossMove : MonoBehaviour
     private void BossLevelChange()
     {
         if (PlayerStat.BossStamina > 7500) BossLevel = 1;
-        else if (PlayerStat.BossStamina > 5000) BossLevel = 2;
+        else if (PlayerStat.BossStamina > 5000)
+        {
+            BossLevel = 2;
+            spawner.RotateSpeed = 30f;
+        }
         else if (PlayerStat.BossStamina > 2500) BossLevel = 3;
-        else BossLevel = 4;
+        else
+        { BossLevel = 4; spawner.RotateSpeed = 36f; }  //4페이즈 회전 속도 올라감
     }
 
 
