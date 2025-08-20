@@ -103,10 +103,18 @@ public class PlayerAttack : MonoBehaviour
 
         switch (PlayerStat.SyringeLevel)
         {
-            case 1: countPerRow = 1; rows = 1; spawnDistance = 1.25f; break;
-            case 2: countPerRow = 3; rows = 1; spawnDistance = 2.0f; break; // 한 발씩 0.2초 간격
-            case 3: countPerRow = 5; rows = 1; spawnDistance = 3.0f; break; // 한 발씩 0.2초 간격
-            default: countPerRow = 5; rows = 2; spawnDistance = 3.0f; break; // 두 줄(위/아래)을 한 세트로 0.2초 간격
+            case 1: 
+                countPerRow = 1; rows = 1; spawnDistance = 1.25f;
+                PlayerStat.SyringePower = PlayerStat.AttackPower / 4.0f; break;
+            case 2: 
+                countPerRow = 3; rows = 1; spawnDistance = 2.0f;
+                PlayerStat.SyringePower = PlayerStat.AttackPower / 4.0f; break; // 한 발씩 0.2초 간격
+            case 3: 
+                countPerRow = 5; rows = 1; spawnDistance = 3.0f;
+                PlayerStat.SyringePower = PlayerStat.AttackPower / 4.0f; break; // 한 발씩 0.2초 간격
+            default: 
+                countPerRow = 5; rows = 2; spawnDistance = 3.0f;
+                PlayerStat.SyringePower = PlayerStat.AttackPower / 2.0f; break; // 두 줄(위/아래)을 한 세트로 0.2초 간격
         }
         
         // === 1단계: 즉시 1발 ===
@@ -171,11 +179,15 @@ public class PlayerAttack : MonoBehaviour
         float endAngle;
         bool isBulletShoot = false;
         switch (PlayerStat.MessLevel)
-        {
-            case 2: endAngle = 180f * direction; isBulletShoot = true; break;
-            case 3: endAngle = 180f * direction; radian = 90; totalRadian = 270; break;
-            case 4: endAngle = 180f * direction; radian = 45; totalRadian = 315; break;
-            default: endAngle = 180f * direction; break;
+        { 
+            case 2: 
+                endAngle = 180f * direction; isBulletShoot = true; break;
+            case 3: 
+                endAngle = 180f * direction; radian = 90; totalRadian = 270; break;
+            case 4: 
+                endAngle = 180f * direction; radian = 45; totalRadian = 315; break;
+            default:
+                endAngle = 180f * direction; break;
         }
         MessRotating = true;
         GameObject obj = Instantiate(MessPrefab[ChangeUniqueImg(PlayerStat.MessLevel)], transform.position, Quaternion.identity);
@@ -253,10 +265,18 @@ public class PlayerAttack : MonoBehaviour
         int vaccineCount = 0; //백신 단계당 생성된 개수
         switch (PlayerStat.VaccineLevel)
         {
-            case 1: VaccineWaitSeconds = 8f; VaccineMaxCount = 1; break;// 1단계          
-            case 2: VaccineWaitSeconds = 8f; VaccineMaxCount = 3; break;// 2단계
-            case 3: VaccineWaitSeconds = 5f; VaccineMaxCount = 3; break;// 3단계         
-            case 4: VaccineWaitSeconds = 5f; VaccineMaxCount = 3; break;// 유니크 단계
+            case 1: 
+                VaccineWaitSeconds = 8f; VaccineMaxCount = 1;
+                PlayerStat.VaccinePower = PlayerStat.AttackPower / 10.0f; break;// 1단계          
+            case 2: 
+                VaccineWaitSeconds = 8f; VaccineMaxCount = 3;
+                PlayerStat.VaccinePower = PlayerStat.AttackPower / 10.0f; break;// 2단계
+            case 3: 
+                VaccineWaitSeconds = 5f; VaccineMaxCount = 3;
+                PlayerStat.VaccinePower = PlayerStat.AttackPower / 10.0f; break;// 3단계         
+            case 4: 
+                VaccineWaitSeconds = 5f; VaccineMaxCount = 3;
+                PlayerStat.VaccinePower = PlayerStat.AttackPower / 5.0f; break;// 유니크 단계
             default: break;
         }
         for (int i = 0; i < VaccineMaxCount; i++)
@@ -280,7 +300,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(capsuleObj==null) capsuleObj = GameObject.Find("CapsuleiTem");
 
-        if(!capsuleState.CapsuleActive)
+        if(CapsuleState.CapsuleActive)
         {
             capsuleTimer += Time.deltaTime;
         }
@@ -289,7 +309,7 @@ public class PlayerAttack : MonoBehaviour
             case 4: CapsuleTime = 15.0f; CapsuleTimerOn(CapsuleTime); break;
             default: CapsuleTime = 20.0f; CapsuleTimerOn(CapsuleTime); break;
         }
-        if (capsuleState != null &&!capsuleState.CapsuleActive )
+        if (capsuleState != null &&!CapsuleState.CapsuleActive )
         {
                    
         }
@@ -297,13 +317,13 @@ public class PlayerAttack : MonoBehaviour
     }
     private void CapsuleTimerOn(float sec) //캡슐 재생성 쿨타임
     {
-        if (capsuleTimer >= sec && capsuleObj != null && !capsuleState.CapsuleActive)
+        if (capsuleTimer >= sec && capsuleObj != null && !CapsuleState.CapsuleActive)
         {
             capsuleState.ActiveDesignerEventArgs(1.0f);
             //Vector3 CapsulePos = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
             //Instantiate(Capsule, CapsulePos, Quaternion.identity);
             GetCapsule = false;
-            capsuleState.CapsuleActive = !capsuleState.CapsuleActive;
+            CapsuleState.CapsuleActive = !CapsuleState.CapsuleActive;
             capsuleTimer = 0f;
         }
     }

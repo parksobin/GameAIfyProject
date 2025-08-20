@@ -44,10 +44,11 @@ public class PlayerStat : MonoBehaviour
     public static float AttackSpeed = 5.0f; // 플레이어의 기본 공격 속도
     public static float AttackPower = 100f; // 플레이어의 기본 공격력
 
-    public static float DronePower = AttackPower / 3.0f; // 드론 : 플레이어 공격력의 3분의 1
-    public static float SyringePower = AttackPower / 4.0f; // 주사기 : 플레이어 공격력의 4분의 1
-    public static float VaccinePower = AttackPower / 10.0f; // 백신 : 플레이어 공격력의 10분의 1
-    public static float MessPower = AttackPower / 2.0f; // 메스 : 플레이어 공격력의 2분의 1
+    public static float DronePower; // 드론 공격력
+    public static float SyringePower; // 주사기 공격력
+    public static float VaccinePower; // 백신 공격력
+    public static float MessPower = AttackPower / 2.0f; // 메스 공격력
+
     public void DroneLevelUp() // 드론 레벨업
     {
         if (DroneLevel < 4)

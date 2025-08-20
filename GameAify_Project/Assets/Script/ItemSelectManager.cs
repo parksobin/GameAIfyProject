@@ -24,7 +24,7 @@ public class ItemSelectManager : MonoBehaviour
     {
         UpgradeCountText.text = "Count : " + PlayerAttack.NowCount;
         // 패널이 닫혀있을 때만 다음 임계값 체크
-        if (!panelOpen && StepIndex < ItemSelectOn.Length)
+        if (!panelOpen && StepIndex < ItemSelectOn.Length && PlayerStat.itemSelectCount != 10)
         {
             if (PlayerStat.currentGauge >= ItemSelectOn[StepIndex] && PlayerStat.itemSelectCount != 10)   // 핵심: >=
             {

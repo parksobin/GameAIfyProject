@@ -36,16 +36,20 @@ public class DroneMove : MonoBehaviour
         {
             case 1:
                 CreateNormalDrones(1);
+                PlayerStat.DronePower = PlayerStat.AttackPower / 3.0f;
                 break;
             case 2:
                 CreateNormalDrones(2);
+                PlayerStat.DronePower = PlayerStat.AttackPower / 3.0f;
                 break;
             case 3:
                 CreateNormalDrones(3);
+                PlayerStat.DronePower = PlayerStat.AttackPower / 2.0f;
                 break;
             case 4:
                 CreateNormalDrones(3);
                 CreateUpgradeDrones(2);
+                PlayerStat.DronePower = PlayerStat.AttackPower / 3.0f;
                 break;
         }
     }

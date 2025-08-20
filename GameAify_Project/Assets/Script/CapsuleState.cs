@@ -5,7 +5,7 @@ public class CapsuleState : MonoBehaviour
 {
     private GameObject Player;
     private PlayerAttack playerAttack;
-    public bool CapsuleActive = true; // 캡슐 활성화 상태
+    public static bool CapsuleActive = true; // 캡슐 활성화 상태
     private int count=0; //타격 횟수
     private int maxCount=1;
     private SpriteRenderer SpriteRenderer;

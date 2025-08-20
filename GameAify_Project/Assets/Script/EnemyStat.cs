@@ -76,7 +76,20 @@ public class EnemyStat : MonoBehaviour
             || collision.gameObject.name.StartsWith("MessBullet") || collision.gameObject.name.StartsWith("UniqueMessBullet"))
             TakeDamage(PlayerStat.MessPower);
         else if (collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = true;
-        if (collision.CompareTag("Player")) PlayerStat.HP -= EnemyAttack;
+        if (collision.CompareTag("Player"))
+        {
+            if (CapsuleState.CapsuleActive)
+            {
+                switch (PlayerStat.CapsuleLevel)
+                {
+                    case 1: PlayerStat.HP -= EnemyAttack * 0.7f; break;
+                    case 2: PlayerStat.HP -= EnemyAttack * 0.5f; break;
+                    case 3: PlayerStat.HP -= EnemyAttack * 0.3f; break;
+                    default: PlayerStat.HP -= 0; break;
+                }
+            }
+            else PlayerStat.HP -= EnemyAttack;
+        }
         UpdateHPBar();
     }
 
