@@ -15,13 +15,14 @@ public class BossMove : MonoBehaviour
     private bool lv3PatternRunning = false;
     private float Lv3DelayTime = 10.0f;
 
+
     // 추가: Lv1 코루틴 중복 방지용
     private bool lv1PatternRunning = false;
     void Start()
     {
         StageSetting = GameObject.Find("MainManager").GetComponent<StageSetting>();
         spawner = GetComponent<LaserSpawner>();
-        animator = GetComponent<Animator>();
+        animator = gameObject.GetComponent<Animator>();
         virusSet = GetComponent<VirusSet>();
     }
 
@@ -75,16 +76,16 @@ public class BossMove : MonoBehaviour
     private IEnumerator Level1Pattern()
     {
         lv1PatternRunning = true;
-
         // 공격 시작: 애니 켜고 레이저 발사
-        animator.SetBool("Level1", true);
         spawner.SponLevel1_Laser();
+        animator.SetTrigger("Attack1");
 
         // 공격 연출 포함 대기 3초
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3.3f);
 
         // 공격 종료: 애니 끔
-        animator.SetBool("Level1", false);
+        //animator.SetBool("Level1", false);
+        animator.SetTrigger("Ide");
 
         // 쿨타임 타이머 리셋
         DelayTime = 0f;
@@ -98,6 +99,7 @@ public class BossMove : MonoBehaviour
 
     private void Level3_Hit()
     {
+        animator.SetTrigger("Attack2");
         // 쿨타임 축적
         if (Lv3DelayTime < 10f)
             Lv3DelayTime += Time.deltaTime;

@@ -14299,7 +14299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1911230237}
   Boss: {fileID: 2126516345}
-  OriginalStage: {fileID: 0}
+  OriginalStage: {fileID: 1219930065}
   BossStage: {fileID: 1393299068}
   BossStageDoor: {fileID: 1638778726}
   BossVideo: {fileID: 1059939958}
