@@ -280,7 +280,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(capsuleObj==null) capsuleObj = GameObject.Find("CapsuleiTem");
 
-        if(GetCapsule)
+        if(!capsuleState.CapsuleActive)
         {
             capsuleTimer += Time.deltaTime;
         }
@@ -291,11 +291,23 @@ public class PlayerAttack : MonoBehaviour
         }
         if (capsuleState != null &&!capsuleState.CapsuleActive )
         {
-                    //  레벨별 타격 감소 관련 작성 예정
+                   
         }
         else { }
     }
-    
+    private void CapsuleTimerOn(float sec) //캡슐 재생성 쿨타임
+    {
+        if (capsuleTimer >= sec && capsuleObj != null && !capsuleState.CapsuleActive)
+        {
+            capsuleState.ActiveDesignerEventArgs(1.0f);
+            //Vector3 CapsulePos = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
+            //Instantiate(Capsule, CapsulePos, Quaternion.identity);
+            GetCapsule = false;
+            capsuleState.CapsuleActive = !capsuleState.CapsuleActive;
+            capsuleTimer = 0f;
+        }
+    }
+    /*
     private void CapsuleTimerOn(float sec) //캡슐 재생성 쿨타임
     {
         if (capsuleTimer >= sec && capsuleObj!=null&&GetCapsule)
@@ -306,7 +318,6 @@ public class PlayerAttack : MonoBehaviour
             capsuleTimer = 0f;
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Capsule"))
@@ -316,6 +327,7 @@ public class PlayerAttack : MonoBehaviour
             capsuleState.ActiveDesignerEventArgs(1f);
         }
     }
+    */
 
     //private void ChangeUniqueImg(GameObject obj,int num)
     //{

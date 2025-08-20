@@ -7,6 +7,7 @@ public class CapsuleState : MonoBehaviour
     private PlayerAttack playerAttack;
     public bool CapsuleActive = true; // 캡슐 활성화 상태
     private int count=0; //타격 횟수
+    private int maxCount=1;
     private SpriteRenderer SpriteRenderer;
     private CircleCollider2D collider2D;
 
@@ -16,36 +17,29 @@ public class CapsuleState : MonoBehaviour
         playerAttack = Player.GetComponent<PlayerAttack>();
         SpriteRenderer= gameObject.GetComponent<SpriteRenderer>();
         collider2D = gameObject.GetComponent<CircleCollider2D>();
-        ActiveDesignerEventArgs(0f);
+        ActiveDesignerEventArgs(1.0f);
     }
     private void Update()
     {
-        transform.position = Player.transform.position; 
-    }
-    private void OnMouseDown()  //이거 나중ㅇㅔ 변경
-    {
+        transform.position = Player.transform.position;
         CapsuleLevelCheck();
     }
+
     private void CapsuleLevelCheck() //레벨별 캡슐타격 홋수
     {
-        int maxCount;
         switch (PlayerStat.CapsuleLevel)
         {
             case 1:
                 maxCount = 1;
-                CapsuleHide(maxCount);
                 break;
             case 2:
                 maxCount = 2; 
-                CapsuleHide(maxCount);
                 break;
             case 3:
                 maxCount = 2;
-                CapsuleHide(maxCount);
                 break;
             case 4:
                 maxCount = 3;
-                CapsuleHide(maxCount);
                 break;
         }
     }
@@ -59,6 +53,21 @@ public class CapsuleState : MonoBehaviour
             CapsuleActive = false;
             //gameObject.SetActive(false);
             ActiveDesignerEventArgs(0f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Enemy"))
+        {
+            count++;
+            if (count >= maxCount)
+            {
+                count = 0;
+                CapsuleActive = false;
+                //gameObject.SetActive(false);
+                ActiveDesignerEventArgs(0f);
+            }
         }
     }
 

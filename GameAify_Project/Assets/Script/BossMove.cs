@@ -8,12 +8,13 @@ public class BossMove : MonoBehaviour
     public StageSetting StageSetting;
     private LaserSpawner spawner;
     private VirusSet virusSet;
+
     private int BossLevel = 1;
     public float DelayTime=0f;
     public bool HitSign =true;
-    int count = 0;
     private bool lv3PatternRunning = false;
     private float Lv3DelayTime = 10.0f;
+
     // 추가: Lv1 코루틴 중복 방지용
     private bool lv1PatternRunning = false;
     void Start()
@@ -44,7 +45,6 @@ public class BossMove : MonoBehaviour
                 break;
             case 3:
                 Level1_Hit();
-                Level2_Hit();
                 Level3_Hit();
                 break;
             case 4:
@@ -122,10 +122,7 @@ public class BossMove : MonoBehaviour
         lv3PatternRunning = false; // 다음 쿨타임 후 다시 가능
     }
 
-
-
-
-    public void DelayTimeReset()
+    public void DelayTimeReset() 
     {
         animator.SetBool("Level1", false);
         DelayTime = 0f;
@@ -134,9 +131,14 @@ public class BossMove : MonoBehaviour
     private void BossLevelChange()
     {
         if (PlayerStat.BossStamina > 7500) BossLevel = 1;
-        else if (PlayerStat.BossStamina > 5000) BossLevel = 2;
+        else if (PlayerStat.BossStamina > 5000)
+        {
+            BossLevel = 2;
+            spawner.RotateSpeed = 30f;
+        }
         else if (PlayerStat.BossStamina > 2500) BossLevel = 3;
-        else BossLevel = 4;
+        else
+        { BossLevel = 4; spawner.RotateSpeed = 36f; }  //4페이즈 회전 속도 올라감
     }
 
 
