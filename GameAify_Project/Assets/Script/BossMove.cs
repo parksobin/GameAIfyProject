@@ -15,6 +15,7 @@ public class BossMove : MonoBehaviour
     private bool lv3PatternRunning = false;
     private float Lv3DelayTime = 10.0f;
 
+
     // 추가: Lv1 코루틴 중복 방지용
     private bool lv1PatternRunning = false;
     void Start()
@@ -75,7 +76,6 @@ public class BossMove : MonoBehaviour
     private IEnumerator Level1Pattern()
     {
         lv1PatternRunning = true;
-
         // 공격 시작: 애니 켜고 레이저 발사
         spawner.SponLevel1_Laser();
         animator.SetTrigger("Attack1");
@@ -99,6 +99,7 @@ public class BossMove : MonoBehaviour
 
     private void Level3_Hit()
     {
+        animator.SetTrigger("Attack2");
         // 쿨타임 축적
         if (Lv3DelayTime < 10f)
             Lv3DelayTime += Time.deltaTime;
