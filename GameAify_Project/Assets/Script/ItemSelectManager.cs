@@ -26,7 +26,7 @@ public class ItemSelectManager : MonoBehaviour
         // 패널이 닫혀있을 때만 다음 임계값 체크
         if (!panelOpen && StepIndex < ItemSelectOn.Length && PlayerStat.itemSelectCount != 10)
         {
-            if (PlayerStat.currentGauge >= ItemSelectOn[StepIndex] && PlayerStat.itemSelectCount != 10)   // 핵심: >=
+            if (PlayerStat.currentGauge >= ItemSelectOn[StepIndex])   // 핵심: >=
             {
                 OpenPanel();
                 StepIndex++; // 이 임계값은 소비
@@ -34,7 +34,7 @@ public class ItemSelectManager : MonoBehaviour
         }
 
         // 선택 완료 시 닫기
-        if (panelOpen && ItemChecker.SelectedItem || PlayerStat.itemSelectCount == 10)
+        if (panelOpen && ItemChecker.SelectedItem && PlayerStat.itemSelectCount != 10)
         {
             ItemChecker.SelectedItem = false; // 재진입 방지
             ClosePanel();

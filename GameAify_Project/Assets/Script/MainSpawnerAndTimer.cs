@@ -177,7 +177,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
         }
 
         // 디버그용(원하면)
-        Debug.Log($"Wave {waveIndex+1} 시작 - counts: {remain[0]},{remain[1]},{remain[2]},{remain[3]},{remain[4]} / rates: {rate[0]},{rate[1]},{rate[2]},{rate[3]},{rate[4]}");
+        //Debug.Log($"Wave {waveIndex+1} 시작 - counts: {remain[0]},{remain[1]},{remain[2]},{remain[3]},{remain[4]} / rates: {rate[0]},{rate[1]},{rate[2]},{rate[3]},{rate[4]}");
     }
 
     // 개무리 구현 함수

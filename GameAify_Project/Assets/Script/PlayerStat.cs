@@ -43,6 +43,8 @@ public class PlayerStat : MonoBehaviour
     public static float PlayerMoveSpeed = 5f; // 플레이어 기본 이동 속도
     public static float AttackSpeed = 5.0f; // 플레이어의 기본 공격 속도
     public static float AttackPower = 100f; // 플레이어의 기본 공격력
+    private float currentAttackPower; // 현재 플레이어의 공격력
+    private bool hasIncreased = false; // 이미 증가했는지 체크
 
     public static float DronePower; // 드론 공격력
     public static float SyringePower; // 주사기 공격력
@@ -59,7 +61,6 @@ public class PlayerStat : MonoBehaviour
         }
         CheckClear(0, DroneLevel, Drone);
     }
-
     public void SyringeLevelUp() // 주사기 레벨업
     {
         if (SyringeLevel < 4)
@@ -196,6 +197,27 @@ public class PlayerStat : MonoBehaviour
                 PlayerAttack.NowCount++;
                 if (PlayerAttack.NowCount >= 3) PlayerAttack.NowCount = 3;
             }
+        }
+    }
+
+
+    // 백신 필드 공격력 증가 임시 구현(기획팀과 논의 필요)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Vaccine" && !hasIncreased)
+        {
+            currentAttackPower += AttackPower * 0.1f;
+            hasIncreased = true;
+        }
+        Debug.Log("공격력 증가!! 현재 공격력: " + currentAttackPower);
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Vaccine" && hasIncreased)
+        {
+            currentAttackPower = AttackPower;
+            hasIncreased = false;
+            Debug.Log("공격력이 원래대로 돌아왔습니다. 현재 공격력: " + currentAttackPower);
         }
     }
 }

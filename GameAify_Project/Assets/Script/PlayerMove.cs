@@ -91,7 +91,7 @@ public class PlayerMove : MonoBehaviour
         UpdateHPBar();
         if (collision.CompareTag("Apple"))
         {
-            PlayerStat.HP += 50;
+            PlayerStat.HP += 100;
             Destroy(collision.gameObject);
         }
         if (collision.CompareTag("AppleDmg")) 
