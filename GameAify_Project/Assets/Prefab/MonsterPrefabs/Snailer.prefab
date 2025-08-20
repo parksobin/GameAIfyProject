@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 4257692914451176719}
   - component: {fileID: -444948312329741678}
   - component: {fileID: -4638882160319068350}
+  - component: {fileID: -6769299723567200504}
   m_Layer: 0
   m_Name: Snailer
   m_TagString: Enemy
@@ -419,4 +420,31 @@ MonoBehaviour:
   EnemyAttack: 0
   EnemyMoveSpeed: 0
   DieEffect: {fileID: 8872594557615173302, guid: 329f6a0dc3c6c4349a6d779a890789c1, type: 3}
-  fillImage: {fileID: 0}
+  fillImage: {fileID: 529737462518195631}
+--- !u!50 &-6769299723567200504
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5694065198812006149}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

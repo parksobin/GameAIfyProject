@@ -5,13 +5,13 @@ public class MapScroller : MonoBehaviour
 {
     public Transform player;
     public float tileSize = 50f;           // 타일 한 변(월드 유닛)
-    public Image[] tiles;                   // 9개 Image(순서 무관)
+    public GameObject[] tiles;                   // 9개 Image(순서 무관)
 
     void Update()
     {
-        foreach (var img in tiles)
+        foreach (var tile in tiles)
         {
-            RectTransform rt = img.rectTransform;
+            Transform rt = tile.transform;
 
             Vector2 playerPos = player.position;    // world
             Vector2 tilePos = rt.position;        // world

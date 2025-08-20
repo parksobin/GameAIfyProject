@@ -16,6 +16,6 @@ public class ItemChecker : MonoBehaviour
 
     public void isSelected()
     {
-        if(PlayerAttack.NowCount <= 0) SelectedItem = true;
+        if(PlayerAttack.NowCount <= 0 || PlayerStat.itemSelectCount >= 10) SelectedItem = true;
     }
 }

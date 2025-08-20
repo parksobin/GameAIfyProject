@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyCommonState : MonoBehaviour
@@ -15,6 +17,19 @@ public class EnemyCommonState : MonoBehaviour
     private float BossVirusWaitTime=0; //보스 바이러스 이동전 대기 시간ㄴ
     private float BossVirusSpeed = 5.0f;
 
+    private Transform player;
+    private Rigidbody2D rb;
+    public float knockbackDuration = 0.2f;
+    private bool isKnockback = false;
+    private Coroutine knockCR;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        // 태그로 플레이어 찾기
+        GameObject p = GameObject.FindWithTag("Player");
+        if (p != null) player = p.transform;
+    }
     void Start()
     {
         playerObj = GameObject.Find("Player");
@@ -23,9 +38,13 @@ public class EnemyCommonState : MonoBehaviour
     private void Update()
     {
         Spawn();
-        spriteFlip();
-        PlayerFollow();
         Destroyobj();
+        spriteFlip();
+    }
+
+    private void FixedUpdate()
+    {
+        PlayerFollow();
     }
     private void spriteFlip() // 스프라이트 방향 반전
     {
@@ -110,6 +129,10 @@ public class EnemyCommonState : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        if(collision.gameObject.name.StartsWith("Drone"))
+        {
+            MoveBack(4f, 3f);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision) //백신 필드 1초뒤 삭제
@@ -131,7 +154,35 @@ public class EnemyCommonState : MonoBehaviour
             }
         }
     }
+    public void MoveBack(float force, float maxSpeed = 0f)
+    {
+        if (rb == null || player == null) return;
 
+        if (knockCR != null) StopCoroutine(knockCR);
+        knockCR = StartCoroutine(KnockbackRoutine(force, maxSpeed));
+    }
+
+    private IEnumerator KnockbackRoutine(float force, float maxSpeed)
+    {
+        isKnockback = true;
+
+        // 넉백 방향: 플레이어 반대
+        Vector2 dir = ((Vector2)transform.position - (Vector2)player.position).normalized;
+
+        // 현재 추적 속도 제거 후 임펄스
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(dir * force, ForceMode2D.Impulse);
+
+        if (maxSpeed > 0f)
+            rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxSpeed);
+
+        yield return new WaitForSeconds(knockbackDuration);
+
+        // 넉백 잔여 속도 제거 후 추적 복귀
+        rb.linearVelocity = Vector2.zero;
+        isKnockback = false;
+        knockCR = null;
+    }
     private void Destroyobj() //정화 단계 100 달성시 모두 삭제
     {
         if (gameObject.name.StartsWith("Virus_BossMap")) { }

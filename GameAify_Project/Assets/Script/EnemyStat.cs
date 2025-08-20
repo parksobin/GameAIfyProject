@@ -46,7 +46,6 @@ public class EnemyStat : MonoBehaviour
                 EnemyMoveSpeed = 1.0f;
                 break;
         }
-
         currentHP = maxHP;
     }
 
@@ -73,8 +72,9 @@ public class EnemyStat : MonoBehaviour
     {
         if (collision.gameObject.name.StartsWith("Syringe")) TakeDamage(PlayerStat.SyringePower);
         else if (collision.gameObject.name.StartsWith("Drone")) TakeDamage(PlayerStat.DronePower);
-        else if (collision.gameObject.name.StartsWith("Mess") || 
-            collision.gameObject.name.StartsWith("MessUnique")) TakeDamage(PlayerStat.MessPower);
+        else if (collision.gameObject.name.StartsWith("Mess") || collision.gameObject.name.StartsWith("MessUnique")
+            || collision.gameObject.name.StartsWith("MessBullet") || collision.gameObject.name.StartsWith("UniqueMessBullet"))
+            TakeDamage(PlayerStat.MessPower);
         else if (collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = true;
         if (collision.CompareTag("Player")) PlayerStat.HP -= EnemyAttack;
         UpdateHPBar();

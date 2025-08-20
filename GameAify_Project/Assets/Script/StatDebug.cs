@@ -82,11 +82,11 @@ public class StatDebug : MonoBehaviour
         VacText.text = "Vaccine : " + PlayerStat.VaccineLevel.ToString();
         CapText.text = "Capsule : " + PlayerStat.CapsuleLevel.ToString();
 
-        HeaText.text = "maxHP : " + PlayerStat.maxHP.ToString("N1");
+        HeaText.text = "HP : " + PlayerStat.maxHP.ToString("N1");
         AraText.text = "Att Range : " + PlayerStat.AttackRange.ToString();
         SpeText.text = "Mov Speed : " + PlayerStat.PlayerMoveSpeed.ToString();
         AspText.text = "Att Speed : " + PlayerStat.AttackSpeed.ToString();
-        AtpText.text = "maxHP : " + PlayerStat.AttackPower.ToString("N1");
+        AtpText.text = "Att Power : " + PlayerStat.AttackPower.ToString("N1");
         purificationText.text = "정화율(%) : "+PlayerStat.purificationGauge.ToString();
         BossHealthText.text = "보스체력 : "+PlayerStat.BossStamina.ToString();
     }

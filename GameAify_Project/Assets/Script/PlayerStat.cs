@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework.Internal;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStat : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlayerStat : MonoBehaviour
     public TextMeshProUGUI AttSpeed;
     public TextMeshProUGUI AttPower;
 
+    public Button[] SelectBtn; // 아이템 선택 버튼
+
     public static int maxGauge = 5000; // 전체 정화 게이지
     public static int currentGauge = 0; // 현재 정화 게이지
 
@@ -29,8 +32,9 @@ public class PlayerStat : MonoBehaviour
     public static int VaccineLevel = 1;  // 백신 투하 단계
     public static int CapsuleLevel = 1; // 캡슐 단계
 
-    public int HpLevel = 0, AttRangeLevel = 0, PlayerSpeedLevel = 0, 
+    public int HpLevel = 0, AttRangeLevel = 0, PlayerSpeedLevel = 0,
          AttSpeedLevel = 0, AttPowerLevel = 0; // 알약 수치 조정을 위한 변수 선언
+    public static int itemSelectCount = 0;
     public static float VCFS = 0f; // 백신 구역의 크기
 
     public static float maxHP = 300f; // 플레이어의 기본 체력
@@ -44,60 +48,60 @@ public class PlayerStat : MonoBehaviour
     public static float SyringePower = AttackPower / 4.0f; // 주사기 : 플레이어 공격력의 4분의 1
     public static float VaccinePower = AttackPower / 10.0f; // 백신 : 플레이어 공격력의 10분의 1
     public static float MessPower = AttackPower / 2.0f; // 메스 : 플레이어 공격력의 2분의 1
-
-    public void SyringeLevelUp() // 주사기 레벨업
-    {
-        if(SyringeLevel < 4)
-        {
-            SyringeLevel++;
-            Syringe.text = "Level : " + SyringeLevel;
-            CheckisSelected();
-        }
-        if (SyringeLevel == 4) Syringe.text = "Clear";
-    }
-    public void MessLevelUp() // 메스 레벨업
-    {
-        if(MessLevel < 4)
-        {
-            MessLevel++;
-            Mess.text = "Level : " + MessLevel;
-            CheckisSelected();
-        }
-        if (MessLevel == 4) Mess.text = "Clear";
-    }
     public void DroneLevelUp() // 드론 레벨업
     {
-        if(DroneLevel < 4)
+        if (DroneLevel < 4)
         {
             DroneLevel++;
             Drone.text = "Level : " + DroneLevel;
             CheckisSelected();
         }
-        if (DroneLevel == 4) Drone.text = "Clear";
+        CheckClear(0, DroneLevel, Drone);
+    }
+
+    public void SyringeLevelUp() // 주사기 레벨업
+    {
+        if (SyringeLevel < 4)
+        {
+            SyringeLevel++;
+            Syringe.text = "Level : " + SyringeLevel;
+            CheckisSelected();
+        }
+        CheckClear(1, SyringeLevel, Syringe);
     }
     public void VaccineLevelUp() // 백신 레벨업
     {
-        if(VaccineLevel < 4)
+        if (VaccineLevel < 4)
         {
             VaccineLevel++;
             Vaccine.text = "Level : " + VaccineLevel;
             CheckisSelected();
         }
-        if (VaccineLevel == 4) Vaccine.text = "Clear";
+        CheckClear(2, VaccineLevel, Vaccine);
+    }
+    public void MessLevelUp() // 메스 레벨업
+    {
+        if (MessLevel < 4)
+        {
+            MessLevel++;
+            Mess.text = "Level : " + MessLevel;
+            CheckisSelected();
+        }
+        CheckClear(3, MessLevel, Mess);
     }
     public void CapsuleLevelUp() // 캡슐 레벨업
     {
-        if(CapsuleLevel < 4)
+        if (CapsuleLevel < 4)
         {
             CapsuleLevel++;
             Capsule.text = "Level : " + CapsuleLevel;
             CheckisSelected();
         }
-        if (CapsuleLevel == 4) Capsule.text = "Clear";
+        CheckClear(4, CapsuleLevel, Capsule);
     }
     public void HealthPointSet() // 체력 증가
     {
-        if(HpLevel < 5)
+        if (HpLevel < 5)
         {
             float PlusHP = maxHP * 0.1f - HpLevel;
             HP += PlusHP;
@@ -106,21 +110,18 @@ public class PlayerStat : MonoBehaviour
             HpLevel++;
             CheckisSelected();
         }
-        if (HpLevel == 5) Hp.text = "Clear";
+        CheckClear(5, HpLevel, Hp, 5);
     }
-    public void AttackRangeSet() // 공격 범위 증가(백신 구역 범위도 같이 증가)
+    public void AttackPowerSet() // 공격력 증가
     {
-        if(AttRangeLevel < 5)
+        if (AttPowerLevel < 5)
         {
-            AttackRange += AttackRange * 0.1f - AttRangeLevel;
-            AttRange.text = " + %" + ((AttRangeLevel + 1) * 10).ToString();
-            if (VaccineLevel == 4) VCFS = 3.0f + 0.3f * (AttRangeLevel + 1);
-            else VCFS = 1.5f + (0.15f * (AttRangeLevel + 1));
-            AttRangeLevel++;
+            AttackPower += AttackPower * 0.1f - AttPowerLevel;
+            AttPower.text = " + %" + ((AttPowerLevel + 1) * 10).ToString();
+            AttPowerLevel++;
             CheckisSelected();
         }
-        if (AttRangeLevel == 5) AttRange.text = "Clear";
-        Debug.Log("VCFS : " + VCFS);
+        CheckClear(6, AttPowerLevel, AttPower, 5);
     }
     public void PlayerSpeedSet() // 이동 속도 증가
     {
@@ -131,11 +132,11 @@ public class PlayerStat : MonoBehaviour
             PlayerSpeedLevel++;
             CheckisSelected();
         }
-        if (PlayerSpeedLevel == 5) PlayerSpeed.text = "Clear";
+        CheckClear(7, PlayerSpeedLevel, PlayerSpeed, 5);
     }
     public void AttackSpeedSet() // 공격 속도 증가 (백신 쿨타임, 캡슐 쿨타임 감소)
     {
-        if(AttSpeedLevel < 5)
+        if (AttSpeedLevel < 5)
         {
             AttackSpeed = 5.0f - (0.5f * (AttSpeedLevel + 1));
             AttSpeed.text = " + %" + ((AttSpeedLevel + 1) * 10).ToString();
@@ -143,18 +144,31 @@ public class PlayerStat : MonoBehaviour
             AttSpeedLevel++;
             CheckisSelected();
         }
-        if (AttSpeedLevel == 5) AttSpeed.text = "Clear";
+        CheckClear(8, AttSpeedLevel, AttSpeed, 5);
     }
-    public void AttackPowerSet() // 공격력 증가
+    public void AttackRangeSet() // 공격 범위 증가(백신 구역 범위도 같이 증가)
     {
-        if(AttPowerLevel < 5)
+        if (AttRangeLevel < 5)
         {
-            AttackPower += AttackPower * 0.1f - AttPowerLevel;
-            AttPower.text = " + %" + ((AttPowerLevel + 1) * 10).ToString();
-            AttPowerLevel++;
+            AttackRange += (AttRangeLevel + 1.0f);
+            AttRange.text = " + %" + ((AttRangeLevel + 1) * 10).ToString();
+            if (VaccineLevel == 4) VCFS = 3.0f + 0.3f * (AttRangeLevel + 1);
+            else VCFS = 1.5f + (0.15f * (AttRangeLevel + 1));
+            AttRangeLevel++;
             CheckisSelected();
         }
-        if (AttPowerLevel == 5) AttPower.text = "Clear";
+        CheckClear(9, AttRangeLevel, AttRange, 5);
+        Debug.Log("VCFS : " + VCFS);
+    }
+
+    void CheckClear(int btnNum, int level, TextMeshProUGUI text, int maxValue = 4)
+    {
+        if (level == maxValue)
+        {
+            text.text = "Clear";
+            itemSelectCount++;
+            SelectBtn[btnNum].interactable = false;
+        }
     }
 
     void VaccineAndCapsuleCheck() // 백신, 캡슐 공격속도 함수
@@ -168,7 +182,7 @@ public class PlayerStat : MonoBehaviour
     void CheckisSelected() // 아이템을 선택했는지 확인하는 함수
     {
         PlayerAttack.NowCount--;
-        if(PlayerAttack.NowCount <= 0) ItemChecker.SelectedItem = true;
+        if (PlayerAttack.NowCount <= 0) ItemChecker.SelectedItem = true;
     }
 
     public static void CheckUniqueLevel() // 유니크 레벨 달성 수 만큼 업그레이드 +1
@@ -176,7 +190,11 @@ public class PlayerStat : MonoBehaviour
         int[] levels = { SyringeLevel, MessLevel, DroneLevel, VaccineLevel, CapsuleLevel };
         foreach (int level in levels)
         {
-            if (level == 4) PlayerAttack.NowCount++;
+            if (level == 4)
+            {
+                PlayerAttack.NowCount++;
+                if (PlayerAttack.NowCount >= 3) PlayerAttack.NowCount = 3;
+            }
         }
     }
 }
