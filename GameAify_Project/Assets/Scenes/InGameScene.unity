@@ -14299,7 +14299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1911230237}
   Boss: {fileID: 2126516345}
-  OriginalStage: {fileID: 0}
+  OriginalStage: {fileID: 1219930065}
   BossStage: {fileID: 1393299068}
   BossStageDoor: {fileID: 1638778726}
   BossVideo: {fileID: 1059939958}
@@ -14471,7 +14471,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e263ee6ebe09b75499ee51f25092f845, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19830,6 +19830,7 @@ MonoBehaviour:
   firePoint: {fileID: 1911230239}
   warningTime: 1.5
   laserTime: 2
+  RotateSpeed: 30
   stageSetting: {fileID: 1634346489}
 --- !u!114 &2126516352
 MonoBehaviour:
