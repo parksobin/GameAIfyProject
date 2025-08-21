@@ -27,10 +27,8 @@ public class EnemyStat : MonoBehaviour
                 break;
             case "Virus2":
                 maxHP = 150f;
-                EnemyMoveSpeed = 3.0f;
-                break;
-            case "Square":
                 EnemyAttack = 30f;
+                EnemyMoveSpeed = 3.0f;
                 break;
             case "RunningDog":
                 maxHP = 50f;
@@ -80,13 +78,13 @@ public class EnemyStat : MonoBehaviour
         else if (collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = true;
         if (collision.CompareTag("Player"))
         {
-            if (CapsuleState.CapsuleActive)
+            if (collision.CompareTag("Capsule") && CapsuleState.CapsuleActive)
             {
                 switch (PlayerStat.CapsuleLevel)
                 {
-                    case 1: PlayerStat.HP -= EnemyAttack * 0.7f; break;
-                    case 2: PlayerStat.HP -= EnemyAttack * 0.5f; break;
-                    case 3: PlayerStat.HP -= EnemyAttack * 0.3f; break;
+                    case 0: PlayerStat.HP -= EnemyAttack * 0.7f; break;
+                    case 1: PlayerStat.HP -= EnemyAttack * 0.5f; break;
+                    case 2: PlayerStat.HP -= EnemyAttack * 0.3f; break;
                     default: PlayerStat.HP -= 0; break;
                 }
             }

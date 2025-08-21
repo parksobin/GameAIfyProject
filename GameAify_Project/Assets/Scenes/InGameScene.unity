@@ -12398,7 +12398,7 @@ GameObject:
   - component: {fileID: 1389821982}
   m_Layer: 6
   m_Name: CapsuleiTem
-  m_TagString: Untagged
+  m_TagString: Capsule
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12485,6 +12485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a8b3b275398c74f9d6edd04da4eedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CapsuleActive: 1
 --- !u!50 &1389821981
 Rigidbody2D:
   serializedVersion: 5
@@ -18085,6 +18086,7 @@ MonoBehaviour:
   - {fileID: 5943058326886495872, guid: c3984246bce4d84478fa36f4418674ef, type: 3}
   - {fileID: 936027254738174588, guid: 170150d142aa8af4d811895264d0e841, type: 3}
   VaccinePrefab: {fileID: 521822207882441309, guid: c33ef46c58496f54198a459f3171ac71, type: 3}
+  capsuleState: {fileID: 1389821980}
   Capsule: {fileID: 4159325352282298641, guid: e2a1ed05221d2274c903bf081fddb1c3, type: 3}
   capsuleObj: {fileID: 1389821976}
 --- !u!70 &1911230244
