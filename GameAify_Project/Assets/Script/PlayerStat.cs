@@ -118,7 +118,7 @@ public class PlayerStat : MonoBehaviour
     {
         if (AttPowerLevel < 5)
         {
-            AttackPower += AttackPower * 0.1f - AttPowerLevel;
+            AttackPower += 10f;
             AttPower.text = " + %" + ((AttPowerLevel + 1) * 10).ToString();
             AttPowerLevel++;
             CheckisSelected();

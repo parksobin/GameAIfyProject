@@ -15,6 +15,7 @@ TagManager:
   - Vaccine
   - Capsule
   - RunningDog
+  - Spear
   layers:
   - Default
   - TransparentFX

@@ -34,14 +34,14 @@ public class ItemSelectManager : MonoBehaviour
         }
 
         // 선택 완료 시 닫기
-        if (panelOpen && ItemChecker.SelectedItem && PlayerStat.itemSelectCount != 10)
+        if (panelOpen && ItemChecker.SelectedItem || PlayerStat.itemSelectCount == 10)
         {
             ItemChecker.SelectedItem = false; // 재진입 방지
             ClosePanel();
 
             // 닫자마자 "이미 넘은" 다음 임계값이 있으면 바로 또 띄움
             while (!panelOpen && StepIndex < ItemSelectOn.Length &&
-                   PlayerStat.currentGauge >= ItemSelectOn[StepIndex])
+                   PlayerStat.currentGauge >= ItemSelectOn[StepIndex] && PlayerStat.itemSelectCount != 10)
             {
                 OpenPanel();
                 StepIndex++;

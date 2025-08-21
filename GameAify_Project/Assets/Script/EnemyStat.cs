@@ -27,8 +27,10 @@ public class EnemyStat : MonoBehaviour
                 break;
             case "Virus2":
                 maxHP = 150f;
-                EnemyAttack = 30f;
                 EnemyMoveSpeed = 3.0f;
+                break;
+            case "Square":
+                EnemyAttack = 30f;
                 break;
             case "RunningDog":
                 maxHP = 50f;

@@ -79,7 +79,8 @@ public class PlayerMove : MonoBehaviour
             float ratio = (float)PlayerStat.HP / PlayerStat.maxHP;
             fillImage.fillAmount = ratio;
         }
-        if(PlayerStat.HP <= 0) PlayerStat.HP = 0;
+        if (PlayerStat.HP <= 0) PlayerStat.HP = 0;
+        if (PlayerStat.HP >= 450) PlayerStat.HP = 450;
     }
     void FixedUpdate()
     {
@@ -91,12 +92,17 @@ public class PlayerMove : MonoBehaviour
         UpdateHPBar();
         if (collision.CompareTag("Apple"))
         {
-            PlayerStat.HP += 100;
+            PlayerStat.HP += 100f;
             Destroy(collision.gameObject);
         }
         if (collision.CompareTag("AppleDmg")) 
         {
-            PlayerStat.HP -= 50;
+            PlayerStat.HP -= 50f;
+            Destroy(collision.gameObject);
+        }
+        if(collision.CompareTag("Spear"))
+        {
+            PlayerStat.HP -= 30f;
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.name== "BossDoor") //보스맵으로 이동
