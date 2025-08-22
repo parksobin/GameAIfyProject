@@ -59,7 +59,8 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         CapsuleActiveOn();
-        AttackSyringeAndMess();        
+        AttackSyringeAndMess();     
+        CheckDamage();
     }
 
     void AttackSyringeAndMess()
@@ -95,6 +96,14 @@ public class PlayerAttack : MonoBehaviour
         MessTimer += Time.deltaTime;
         VaccineTimer += Time.deltaTime;
     }
+    void CheckDamage()
+    {
+        if (PlayerStat.SyringeLevel == 4) PlayerStat.SyringePower = PlayerStat.AttackPower / 2.0f;
+        else PlayerStat.SyringePower = PlayerStat.AttackPower / 4.0f;
+        if (PlayerStat.VaccineLevel == 4) PlayerStat.VaccinePower = PlayerStat.AttackPower / 5.0f;
+        else PlayerStat.VaccinePower = PlayerStat.AttackPower / 10.0f;
+        PlayerStat.MessPower = PlayerStat.AttackPower / 2.0f;
+    }
 
     IEnumerator ShootSyringe()
     {
@@ -104,17 +113,13 @@ public class PlayerAttack : MonoBehaviour
         switch (PlayerStat.SyringeLevel)
         {
             case 1: 
-                countPerRow = 1; rows = 1; spawnDistance = 1.25f;
-                PlayerStat.SyringePower = PlayerStat.AttackPower / 4.0f; break;
+                countPerRow = 1; rows = 1; spawnDistance = 1.25f; break;
             case 2: 
-                countPerRow = 3; rows = 1; spawnDistance = 2.0f;
-                PlayerStat.SyringePower = PlayerStat.AttackPower / 4.0f; break; // 한 발씩 0.2초 간격
+                countPerRow = 3; rows = 1; spawnDistance = 2.0f; break; // 한 발씩 0.2초 간격
             case 3: 
-                countPerRow = 5; rows = 1; spawnDistance = 3.0f;
-                PlayerStat.SyringePower = PlayerStat.AttackPower / 4.0f; break; // 한 발씩 0.2초 간격
+                countPerRow = 5; rows = 1; spawnDistance = 3.0f; break; // 한 발씩 0.2초 간격
             default: 
-                countPerRow = 5; rows = 2; spawnDistance = 3.0f;
-                PlayerStat.SyringePower = PlayerStat.AttackPower / 2.0f; break; // 두 줄(위/아래)을 한 세트로 0.2초 간격
+                countPerRow = 5; rows = 2; spawnDistance = 3.0f; break; // 두 줄(위/아래)을 한 세트로 0.2초 간격
         }
         
         // === 1단계: 즉시 1발 ===
@@ -266,17 +271,13 @@ public class PlayerAttack : MonoBehaviour
         switch (PlayerStat.VaccineLevel)
         {
             case 1: 
-                VaccineWaitSeconds = 8f; VaccineMaxCount = 1;
-                PlayerStat.VaccinePower = PlayerStat.AttackPower / 10.0f; break;// 1단계          
+                VaccineWaitSeconds = 8f; VaccineMaxCount = 1; break;// 1단계          
             case 2: 
-                VaccineWaitSeconds = 8f; VaccineMaxCount = 3;
-                PlayerStat.VaccinePower = PlayerStat.AttackPower / 10.0f; break;// 2단계
+                VaccineWaitSeconds = 8f; VaccineMaxCount = 3; break;// 2단계
             case 3: 
-                VaccineWaitSeconds = 5f; VaccineMaxCount = 3;
-                PlayerStat.VaccinePower = PlayerStat.AttackPower / 10.0f; break;// 3단계         
+                VaccineWaitSeconds = 5f; VaccineMaxCount = 3;  break;// 3단계         
             case 4: 
-                VaccineWaitSeconds = 5f; VaccineMaxCount = 3;
-                PlayerStat.VaccinePower = PlayerStat.AttackPower / 5.0f; break;// 유니크 단계
+                VaccineWaitSeconds = 5f; VaccineMaxCount = 3; break;// 유니크 단계
             default: break;
         }
         for (int i = 0; i < VaccineMaxCount; i++)

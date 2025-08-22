@@ -15,9 +15,14 @@ public class MainSpawnerAndTimer : MonoBehaviour
     public static int waveIndex = -1;   // -1이면 웨이브 없음(대기)
     private bool waveActive = false;
     private float timeInWave = 0f; // 웨이브별 진행된 시간
+    private const int MAX_ALIVE = 300;
+    // alive 리스트 정리 주기(성능용)
+    private float aliveCleanInterval = 0.25f;
+    private float aliveCleanTimer = 0f;
     private readonly int[] remain = new int[5]; // 웨이브동안 생성해야 하는 남은 몬스터 수
     private readonly float[] rate = new float[5]; // 초당 몬스터 스폰 속도
     private readonly float[] acc = new float[5]; // 현재 쌓여있는 몬스터 수
+    public static int SpawnCount;
     public float[,] SpawnRate = // 웨이브별 스폰률
     {
         // 0 ~ 4번 : 몬스터 총 스폰 수
@@ -72,13 +77,13 @@ public class MainSpawnerAndTimer : MonoBehaviour
         if (player == null) Debug.LogError("player가 비어있습니다.");
         if (spawnEnemyPrefab == null || spawnEnemyPrefab.Count < 5) Debug.LogError("spawnEnemyPrefab 5개 이상이 필요합니다.");
         if (timerText == null) Debug.LogWarning("timerText가 비어있습니다."); // 없어도 스폰은 됨
-
         // 바로 웨이브 0 시작
         SpawnCheck();
     }
 
     void Update()
     {
+        Debug.Log($"현재 몬스터 수 : {SpawnCount}");
         if (!PlayerStat.purificationClearposSign)
         {
             if (timerRunning)
@@ -105,44 +110,48 @@ public class MainSpawnerAndTimer : MonoBehaviour
             // 웨이브가 진행 중인 동안에만 스폰 로직을 돌린다.
             if (waveActive)
             {
-                timeInWave += Time.deltaTime; // 0초부터 waveDuration초까지 누적
-
-                // 몬스터 타입 0~4까지 각각에 대해 스폰 계산을 수행한다.
-                for (int i = 0; i < 5; i++)
+                timeInWave += Time.deltaTime;
+                // --- 동시 활성 상한 체크 ---
+                int alive = GetAliveCount();
+                // 500 이상이면 스폰/누적을 모두 '일시 정지'
+                if (alive >= MAX_ALIVE)
                 {
-                    if (remain[i] <= 0 || rate[i] <= 0f) continue;
+                    // 누적(acc) 증가도 멈춰 폭발 스폰 방지
+                    // (아무것도 하지 않고 바로 빠져나감)
+                    // 웨이브 시간은 계속 흐르므로,
+                    // 오래 막히면 해당 웨이브의 남은 수(remain)가 남은 채로 종료될 수 있음(의도).
+                }
+                else
+                {
+                    // 남은 슬롯(이번 프레임에 최대 몇 마리 더 뽑을 수 있나)
+                    int slotsLeft = MAX_ALIVE - alive;
 
-                    // 이번 프레임 동안 자란 수량을 누적치에 더한다.
-                    // 예: rate=2.5, deltaTime=0.02면 acc += 0.05 → 몇 프레임 지나면 1을 넘고, 그때 실제로 스폰한다.
-                    acc[i] += rate[i] * Time.deltaTime;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (remain[i] <= 0 || rate[i] <= 0f) continue;
 
-                    // acc의 "정수 부분"만큼 실제로 스폰할 수 있다.
-                    // 다만 이번 웨이브에서 남은 마릿수(remain[i])를 넘지 않도록 최소값을 취한다.
-                    int toSpawn = Mathf.Min(remain[i], Mathf.FloorToInt(acc[i]));
+                        // ★ 정지 상태가 아니므로 이때만 누적
+                        acc[i] += rate[i] * Time.deltaTime;
 
-                    // 정수로 꺼낼 게 없다면(아직 1 미만 누적) 다음 타입으로 넘어간다.
-                    if (toSpawn <= 0) continue;
+                        int toSpawn = Mathf.Min(remain[i], Mathf.FloorToInt(acc[i]));
+                        if (toSpawn <= 0) continue;
 
-                    // 방금 계산된 toSpawn 만큼 실제로 생성한다.
-                    // 프레임 누락/저fps 등으로 acc가 많이 쌓였을 경우, 한 프레임에 여러 마리가 나올 수 있다(의도된 동작).
-                    for (int k = 0; k < toSpawn; k++)
-                        SpawnOne(i);
+                        // 한 프레임 스폰량을 남은 슬롯으로 제한
+                        if (toSpawn > slotsLeft) toSpawn = slotsLeft;
 
-                    // 스폰으로 변환한 만큼 누적치에서 빼 준다.
-                    // (예: acc가 1.7이고 toSpawn=1이면 acc는 0.7이 남아서 다음 프레임에 이어서 누적된다.)
-                    acc[i] -= toSpawn;
+                        for (int k = 0; k < toSpawn; k++)
+                            SpawnOne(i);
 
-                    // 실제로 뽑은 만큼 남은 마릿수도 줄인다.
-                    // 이 값이 0이 되면 다음 프레임부터는 위의 continue에 걸려 더 이상 뽑지 않는다.
-                    remain[i] -= toSpawn;
+                        acc[i] -= toSpawn;
+                        remain[i] -= toSpawn;
+                        slotsLeft -= toSpawn;
+
+                        if (slotsLeft <= 0) break; // 슬롯 소진 → 다음 프레임까지 대기
+                    }
                 }
 
-                // 웨이브 종료 조건:
-                // 1) 시간이 다 지났거나(timeInWave가 waveDuration 이상),
-                // 2) 모든 타입의 남은치 합이 0(목표량을 모두 소진)인 경우.
-                // 둘 중 하나라도 참이면 이번 웨이브를 종료한다.
                 if (timeInWave >= waveDuration || (remain[0] + remain[1] + remain[2] + remain[3] + remain[4]) == 0)
-                    waveActive = false; // 다음 웨이브 트리거가 들어올 때까지 대기 상태로 전환
+                    waveActive = false;
             }
         }
     }
@@ -154,6 +163,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
         Vector3 pos = player.position + new Vector3(dir.x, dir.y, 0f) * EnemySpawnDistance;
 
         GameObject obj = Instantiate(spawnEnemyPrefab[enemyIdx], pos, Quaternion.identity);
+        SpawnCount++;
         spawnedEnemies.Add(obj);
         obj.AddComponent<AutoRemove>().Init(spawnedEnemies, obj);
     }
@@ -175,13 +185,23 @@ public class MainSpawnerAndTimer : MonoBehaviour
             rate[i] = SpawnRate[waveIndex, 5 + i]; // 5~9: 초당 속도
             acc[i] = 0f;
         }
-
+        Debug.Log($"현재 살아있는 몬스터 수 : {GetAliveCount()}");
         // 디버그용(원하면)
         //Debug.Log($"Wave {waveIndex+1} 시작 - counts: {remain[0]},{remain[1]},{remain[2]},{remain[3]},{remain[4]} / rates: {rate[0]},{rate[1]},{rate[2]},{rate[3]},{rate[4]}");
     }
 
-    // 개무리 구현 함수
-    
+    int GetAliveCount()
+    {
+        // 주기적으로만 null 정리(성능)
+        aliveCleanTimer += Time.deltaTime;
+        if (aliveCleanTimer >= aliveCleanInterval)
+        {
+            aliveCleanTimer = 0f;
+            // 파괴되었거나 비활성인 것 제거
+            spawnedEnemies.RemoveAll(go => go == null || !go.activeInHierarchy);
+        }
+        return spawnedEnemies.Count;
+    }
 
     public static void SetDropPosition(Vector2 pos)
     {

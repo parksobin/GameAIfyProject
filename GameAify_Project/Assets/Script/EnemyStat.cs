@@ -121,6 +121,7 @@ public class EnemyStat : MonoBehaviour
     void Die()
     {
         PlayerStat.currentGauge++;
+        MainSpawnerAndTimer.SpawnCount--;
         //디버그용
         //Debug.Log("Gauge : " + PlayerStat.currentGauge + ", Upgrade : " + PlayerAttack.NowCount);
         Instantiate(DieEffect, transform.position, Quaternion.identity);

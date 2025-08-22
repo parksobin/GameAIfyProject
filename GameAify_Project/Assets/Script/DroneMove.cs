@@ -63,6 +63,9 @@ public class DroneMove : MonoBehaviour
             DroneUpdate();
         }
 
+        if (PlayerStat.DroneLevel == 3) PlayerStat.DronePower = PlayerStat.AttackPower / 2.0f;
+        else PlayerStat.DronePower = PlayerStat.AttackPower / 3.0f;
+
         // 일반 드론 공전
         if (normalDrones != null)
         {

@@ -325,6 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStat: {fileID: 5114077724824540779}
   Square: {fileID: 0}
+  knockbackDuration: 0.2
 --- !u!114 &5114077724824540779
 MonoBehaviour:
   m_ObjectHideFlags: 0

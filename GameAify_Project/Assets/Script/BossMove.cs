@@ -10,7 +10,7 @@ public class BossMove : MonoBehaviour
     private VirusSet virusSet;
 
     private int BossLevel = 1;
-    public float DelayTime=0f;
+    public float DelayTime = 0f;
     public bool HitSign =true;
     private bool lv3PatternRunning = false;
     private float Lv3DelayTime = 10.0f;

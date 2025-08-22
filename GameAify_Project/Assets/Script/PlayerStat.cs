@@ -49,7 +49,10 @@ public class PlayerStat : MonoBehaviour
     public static float DronePower; // 드론 공격력
     public static float SyringePower; // 주사기 공격력
     public static float VaccinePower; // 백신 공격력
-    public static float MessPower = AttackPower / 2.0f; // 메스 공격력
+    public static float MessPower;// 메스 공격력
+    public static event System.Action OnStatsChanged;
+
+    void RaiseStatsChanged() => OnStatsChanged?.Invoke();
 
     public void DroneLevelUp() // 드론 레벨업
     {
@@ -111,6 +114,7 @@ public class PlayerStat : MonoBehaviour
             Hp.text = " + %" + ((HpLevel + 1) * 10).ToString();
             HpLevel++;
             CheckisSelected();
+            RaiseStatsChanged();
         }
         CheckClear(5, HpLevel, Hp, 5);
     }
@@ -122,6 +126,7 @@ public class PlayerStat : MonoBehaviour
             AttPower.text = " + %" + ((AttPowerLevel + 1) * 10).ToString();
             AttPowerLevel++;
             CheckisSelected();
+            RaiseStatsChanged();
         }
         CheckClear(6, AttPowerLevel, AttPower, 5);
     }
@@ -133,6 +138,7 @@ public class PlayerStat : MonoBehaviour
             PlayerSpeed.text = " + %" + ((PlayerSpeedLevel + 1) * 10).ToString();
             PlayerSpeedLevel++;
             CheckisSelected();
+            RaiseStatsChanged();
         }
         CheckClear(7, PlayerSpeedLevel, PlayerSpeed, 5);
     }
@@ -145,6 +151,7 @@ public class PlayerStat : MonoBehaviour
             VaccineAndCapsuleCheck();
             AttSpeedLevel++;
             CheckisSelected();
+            RaiseStatsChanged();
         }
         CheckClear(8, AttSpeedLevel, AttSpeed, 5);
     }
@@ -158,6 +165,7 @@ public class PlayerStat : MonoBehaviour
             else VCFS = 1.5f + (0.15f * (AttRangeLevel + 1));
             AttRangeLevel++;
             CheckisSelected();
+            RaiseStatsChanged();
         }
         CheckClear(9, AttRangeLevel, AttRange, 5);
         Debug.Log("VCFS : " + VCFS);
