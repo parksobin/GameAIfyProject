@@ -32,17 +32,17 @@ public class BossMove : MonoBehaviour
     void Update()
     {
         BossImgChange();
-        BossLevelChange();
-        BossHit();
     }
 
     private void BossImgChange()
     { 
-        //보스 체력에 따른 애니메이터 사용여부와 기본 이미지 변경
+        //보스 체력에 따른 애니메이터 사용여부와 기본 이미지 변경 && 체력이 있어야만 공격 함
         if(PlayerStat.BossStamina >0)
         {
             sr.sprite = BossImg[0];
             animator.enabled = true;
+            BossLevelChange();
+            BossHit();
         }
         else
         {
