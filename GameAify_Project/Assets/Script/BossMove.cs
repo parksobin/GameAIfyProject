@@ -8,6 +8,8 @@ public class BossMove : MonoBehaviour
     public StageSetting StageSetting;
     private LaserSpawner spawner;
     private VirusSet virusSet;
+    private SpriteRenderer sr;
+    public  Sprite[] BossImg; // 0: boss idle이미지 / 1 :Die 이미지
 
     private int BossLevel = 1;
     public float DelayTime = 0f;
@@ -24,12 +26,29 @@ public class BossMove : MonoBehaviour
         spawner = GetComponent<LaserSpawner>();
         animator = gameObject.GetComponent<Animator>();
         virusSet = GetComponent<VirusSet>();
+        sr = gameObject.GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        BossImgChange();
         BossLevelChange();
         BossHit();
+    }
+
+    private void BossImgChange()
+    { 
+        //보스 체력에 따른 애니메이터 사용여부와 기본 이미지 변경
+        if(PlayerStat.BossStamina >0)
+        {
+            sr.sprite = BossImg[0];
+            animator.enabled = true;
+        }
+        else
+        {
+            sr.sprite = BossImg[1];
+            animator.enabled = false;
+        }
     }
 
     private void BossHit() //레벨별 보스 공격 실행

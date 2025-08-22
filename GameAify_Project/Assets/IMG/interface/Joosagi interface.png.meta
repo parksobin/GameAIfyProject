@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Joosagi interface_0: -445133703535597754
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

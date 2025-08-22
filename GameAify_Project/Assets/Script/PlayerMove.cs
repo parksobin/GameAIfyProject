@@ -7,7 +7,7 @@ public class PlayerMove : MonoBehaviour
 {
     public Transform player;
     private SpriteRenderer sr; // 캐릭터 기본 스프라이트 렌더러
-    public Sprite idleSprite; // 기본 이미지
+    public Sprite[] PlayerSprite; //0 기본 이미지 / 1 Die IMG
     private Rigidbody2D rb;
     private Vector2 movement;
 
@@ -31,29 +31,37 @@ public class PlayerMove : MonoBehaviour
         movement.y = Input.GetAxisRaw("Vertical");
         movement.Normalize(); // 대각선 속도 보정
 
-        //플레이어 입력 이동에 따른
-        if (Input.GetKey(KeyCode.D))
+        if(PlayerStat.HP <=0) // 플레이어 체력 0시 죽는 스프라이트로 변경 && 애니메이터, 이동 불가
         {
-            sr.flipX = true;
-            walkAni("walk", true,true,false,false);
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            sr.flipX = false;
-            walkAni("walk", true, true, false, false);
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            walkAni("walkUp", true,false,true,false);
-        }
-        else if(Input.GetKey(KeyCode.S))
-        {
-            walkAni("walkDown", true,false,false,true);
+            sr.sprite = PlayerSprite[1];
+            animator.enabled = false;
         }
         else
         {
-            walkAni(null,false,false,false,false);
-            sr.sprite = idleSprite;
+            //플레이어 입력 이동에 따른
+            if (Input.GetKey(KeyCode.D))
+            {
+                sr.flipX = true;
+                walkAni("walk", true,true,false,false);
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                sr.flipX = false;
+                walkAni("walk", true, true, false, false);
+            }
+            else if (Input.GetKey(KeyCode.W))
+            {
+                walkAni("walkUp", true,false,true,false);
+            }
+            else if(Input.GetKey(KeyCode.S))
+            {
+                walkAni("walkDown", true,false,false,true);
+            }
+            else
+            {
+                walkAni(null,false,false,false,false);
+                sr.sprite = PlayerSprite[0];
+            }
         }
 
         //스킬 사용 애니 작성칸입니다
