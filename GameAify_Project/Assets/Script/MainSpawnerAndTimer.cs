@@ -15,7 +15,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
     public static int waveIndex = -1;   // -1이면 웨이브 없음(대기)
     private bool waveActive = false;
     private float timeInWave = 0f; // 웨이브별 진행된 시간
-    private const int MAX_ALIVE = 300;
+    private const int MAX_ALIVE = 150;
     // alive 리스트 정리 주기(성능용)
     private float aliveCleanInterval = 0.25f;
     private float aliveCleanTimer = 0f;
@@ -83,7 +83,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"현재 몬스터 수 : {SpawnCount}");
+        //Debug.Log($"현재 몬스터 수 : {SpawnCount}");
         if (!PlayerStat.purificationClearposSign)
         {
             if (timerRunning)

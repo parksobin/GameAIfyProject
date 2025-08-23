@@ -126,6 +126,7 @@ public class PlayerAttack : MonoBehaviour
         if (rows == 1 && countPerRow == 1)
         {
             SpawnOne(0f, 0f);
+            
             yield break;
         }
         // === 2·3단계: 한 줄에서 "한 발씩" 0.2s 간격 ===
@@ -170,6 +171,7 @@ public class PlayerAttack : MonoBehaviour
             Vector3 spawnPos = spawnOrigin + offset;
             // 생성 및 초기 설정
             GameObject proj = Instantiate(SyringePrefab, spawnPos, Quaternion.Euler(0, 0, angle + 90f));
+            //AudioManager.instance.SyringeSound.Play();
             var rb = proj.GetComponent<Rigidbody2D>();
             if (rb != null) rb.linearVelocity = direction * SyringeSpeed;
             var AR = proj.GetComponent<AttackRange>();
@@ -218,7 +220,7 @@ public class PlayerAttack : MonoBehaviour
                 MessBulletShoot();
                 isBulletShoot = false;
             }
-
+            Debug.Log("메스 휘두르는 중");
             elapsed += Time.deltaTime;
             yield return null;
         }

@@ -11,7 +11,7 @@ public class ItemChecker : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void isSelected()

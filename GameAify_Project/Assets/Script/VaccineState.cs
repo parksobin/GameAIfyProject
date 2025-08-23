@@ -39,6 +39,7 @@ public class VaccineState : MonoBehaviour
 
         // 낙하
         float forcePower = Random.Range(30,40);
+        AudioManager.instance.VaccineSound.Play();
         rb.AddForce(Vector2.down * forcePower, ForceMode2D.Impulse);
 
         if (PlayerStat.VaccineLevel == 4)

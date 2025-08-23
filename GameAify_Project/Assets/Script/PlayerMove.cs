@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,9 +88,15 @@ public class PlayerMove : MonoBehaviour
             float ratio = (float)PlayerStat.HP / PlayerStat.maxHP;
             fillImage.fillAmount = ratio;
         }
-        if (PlayerStat.HP <= 0) PlayerStat.HP = 0;
+        if (PlayerStat.HP <= 0) PlayerDead();
         if (PlayerStat.HP >= 450) PlayerStat.HP = 450;
     }
+
+    private void PlayerDead()
+    {
+        
+    }
+
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * PlayerStat.PlayerMoveSpeed * Time.fixedDeltaTime);
