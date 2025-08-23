@@ -221,6 +221,7 @@ public class PlayerAttack : MonoBehaviour
                 isBulletShoot = false;
             }
             Debug.Log("메스 휘두르는 중");
+            AudioManager.instance.MessSound.Play();
             elapsed += Time.deltaTime;
             yield return null;
         }
