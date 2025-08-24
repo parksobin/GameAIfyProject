@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource[] BgmGroup;
     private AudioSource[] SfxGroup;
 
-    private bool switched = false;      // Áßº¹ ½ÇÇà ¹æÁö¿ë
+    private bool switched = false;      // ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private void Awake()
     {
@@ -24,31 +24,30 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        // ½ÃÀÛ ½Ã BasicBGM Àç»ý
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ BasicBGM ï¿½ï¿½ï¿½
         BasicBGM.loop = true;
-        BasicBGM.Play(); // ¡Ú ÀÌ°Å ³ªÁß¿¡ °¡Àå ¸ÞÀÎÈ­¸é »ç¿îµå·Î º¯°æ !!! ¾Æ´Ï¸é stopÃ³¸® ÇØ¾ßÇÔ
+        BasicBGM.Play(); // ï¿½ï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ !!! ï¿½Æ´Ï¸ï¿½ stopÃ³ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½
 
         BossBGM.loop = true;
-        // Ã³À½¿¡´Â Á¤Áö
+        // Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         BossBGM.Stop(); 
         SyringeSound.Stop();
         VaccineSound.Stop();
         MessSound.Stop();
-        // »ç¿îµå ±×·ìº° ºÐ·ù
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½×·ìº° ï¿½Ð·ï¿½
         SoundGroup();
     }
 
-
     void Update()
     {
-        // º¸½º ¸Ê ÁøÀÔ ½Ã ¹è°æÀ½ º¯°æ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (!switched && StageSetting.InbossStage == true)
         {
             SwitchToBossBGM();
         }
     }
 
-    private void SoundGroup() //»ç¿îµå À½·® Á¶ÀýÀ» À§ÇÑ ±×·ì ºÐ·ù
+    private void SoundGroup() //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ ï¿½Ð·ï¿½
     {
         var bgmList = new System.Collections.Generic.List<AudioSource>();
         var sfxList = new System.Collections.Generic.List<AudioSource>();
@@ -57,7 +56,7 @@ public class AudioManager : MonoBehaviour
         if (BasicBGM) bgmList.Add(BasicBGM);
         if (BossBGM) bgmList.Add(BossBGM);
 
-        // SFX (Bgm ¾Æ´Ñ °Íµé)
+        // SFX (Bgm ï¿½Æ´ï¿½ ï¿½Íµï¿½)
         if (SyringeSound) sfxList.Add(SyringeSound);
         if (VaccineSound) sfxList.Add(VaccineSound);
         if (MessSound) sfxList.Add(MessSound);
@@ -73,7 +72,7 @@ public class AudioManager : MonoBehaviour
         BossBGM.Play();
     }
 
-    public void SetBgmVolume(float volume01) // Bgm º¼·ý ¼³Á¤
+    public void SetBgmVolume(float volume01) // Bgm ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         float v = Mathf.Clamp01(volume01);
         if (BgmGroup == null) return;
@@ -82,7 +81,7 @@ public class AudioManager : MonoBehaviour
             if (src) src.volume = v;
     }
 
-    public void SetSfxVolume(float volume01) // Sfx º¼·ý ¼³Á¤
+    public void SetSfxVolume(float volume01) // Sfx ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         float v = Mathf.Clamp01(volume01);
         if (SfxGroup == null) return;

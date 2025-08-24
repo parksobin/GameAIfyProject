@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1646065448293302679}
   - component: {fileID: 1945169671722019563}
   - component: {fileID: 529737462518195631}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 5255592510689728721}
   - component: {fileID: 7072815482568692414}
   - component: {fileID: 8382356677611936119}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 4654722718751451555}
   - component: {fileID: 5951234377865255993}
   - component: {fileID: 4391620082148937470}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: -444948312329741678}
   - component: {fileID: -4638882160319068350}
   - component: {fileID: -6769299723567200504}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Snailer
   m_TagString: Enemy
   m_Icon: {fileID: 0}

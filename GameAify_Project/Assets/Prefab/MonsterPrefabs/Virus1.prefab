@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6485256481305794424}
   - component: {fileID: 4958563300241118120}
   - component: {fileID: 1432738038187621748}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 3497713249481749912}
   - component: {fileID: 5282106980047310330}
   - component: {fileID: 7008090561015849273}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 6384193945879431083}
   - component: {fileID: 8063467072681355824}
   - component: {fileID: 866849163016556044}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 6908949018748760594}
   - component: {fileID: 7208391118812045663}
   - component: {fileID: -1635473630825468099}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Virus1
   m_TagString: Enemy
   m_Icon: {fileID: 0}

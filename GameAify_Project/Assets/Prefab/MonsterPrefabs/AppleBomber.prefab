@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2823948444550737731}
   - component: {fileID: 6992097637301156612}
   - component: {fileID: 4669442138164531983}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 51103221471358130}
   - component: {fileID: 5366326896618875546}
   - component: {fileID: 5295728923335313604}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 6366653812923714504}
   - component: {fileID: 6145201824328474704}
   - component: {fileID: 3158356570290767912}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,9 +267,9 @@ GameObject:
   - component: {fileID: 5118898893419592285}
   - component: {fileID: 4752337847985719311}
   - component: {fileID: 1696520842925543959}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AppleBomber
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
