@@ -321,6 +321,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (capsuleTimer >= sec && capsuleObj != null && !CapsuleState.CapsuleActive)
         {
+            PlayerStat.CapsuleState = true;
             capsuleState.ActiveDesignerEventArgs(1.0f);
             //Vector3 CapsulePos = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
             //Instantiate(Capsule, CapsulePos, Quaternion.identity);
@@ -329,33 +330,7 @@ public class PlayerAttack : MonoBehaviour
             capsuleTimer = 0f;
         }
     }
-    /*
-    private void CapsuleTimerOn(float sec) //캡슐 재생성 쿨타임
-    {
-        if (capsuleTimer >= sec && capsuleObj!=null&&GetCapsule)
-        {
-            Vector3 CapsulePos = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
-            Instantiate(Capsule, CapsulePos, Quaternion.identity);
-            GetCapsule= false;
-            capsuleTimer = 0f;
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Capsule"))
-        {
-            Destroy(collision.gameObject); //획득한 캡슐 삭제
-            GetCapsule = true;
-            capsuleState.ActiveDesignerEventArgs(1f);
-        }
-    }
-    */
 
-    //private void ChangeUniqueImg(GameObject obj,int num)
-    //{
-    //    SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
-    //    spriteRenderer.sprite = UniqueImg[num];
-    //}
 
     static int ChangeUniqueImg(int level)
     {
