@@ -11,7 +11,7 @@ public class EnemyStat : MonoBehaviour
     public float EnemyMoveSpeed; // 적 이동속도
     private float maxHP; // 적 기본체력
     private float currentHP; // 적 현재체력
-    private bool OnVaccineDamage = false;
+    public static bool OnVaccineDamage = false;
     public GameObject DieEffect; // 적 사망 시 이펙트
 
     public Image fillImage;

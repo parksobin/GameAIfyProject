@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d648adeaaa2cde04bb971d501fe226c1
+guid: 337ddc4eab326a949b9ae65c3df27838
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3379463121690889879
-    second: f3_0
+      213: 4112356383579328530
+    second: Drone_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: f3_0
+      name: Drone_0
       rect:
         serializedVersion: 2
-        x: 104
-        y: 96
-        width: 125
-        height: 150
+        x: 0
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 961f41c223cb911d0800000000000000
-      internalID: -3379463121690889879
+      spriteID: 2105e09b756021930800000000000000
+      internalID: 4112356383579328530
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      f3_0: -3379463121690889879
+      Drone_0: 4112356383579328530
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

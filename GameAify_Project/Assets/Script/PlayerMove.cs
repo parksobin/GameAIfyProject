@@ -20,6 +20,8 @@ public class PlayerMove : MonoBehaviour
     public Image gaugeFillImage; // 정화게이지 오브젝트
 
     public StageSetting stageSetting;
+    public Image PlayerFace;
+    public Sprite[] PlayerFaces;
     public static bool isInvincible; // 무적 상태 여부
     private float invincibleDuration = 1.0f; // 무적 시간
     private float blinkInterval = 0.1f; // 깜빡임 간격
@@ -98,7 +100,11 @@ public class PlayerMove : MonoBehaviour
         if (fillImage != null)
         {
             float ratio = (float)PlayerStat.HP / PlayerStat.maxHP;
+            float hpPercent = ratio * 100;
             fillImage.fillAmount = ratio;
+            if (hpPercent >= 75f) PlayerFace.sprite = PlayerFaces[0]; // 100% ~ 75%
+            else if (hpPercent >= 30f) PlayerFace.sprite = PlayerFaces[1]; // 74% ~ 30%
+            else PlayerFace.sprite = PlayerFaces[2]; // 29% ~ 0%
         }
         if (PlayerStat.HP <= 0) PlayerDead();
         if (PlayerStat.HP >= 750) PlayerStat.HP = 750;
