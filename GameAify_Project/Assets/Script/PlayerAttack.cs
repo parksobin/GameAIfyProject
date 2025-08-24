@@ -301,33 +301,63 @@ public class PlayerAttack : MonoBehaviour
     //캡슐 활성화 함수
     private void CapsuleActiveOn()
     {
-        if(capsuleObj==null) capsuleObj = GameObject.Find("CapsuleiTem");
+        if (capsuleObj == null) capsuleObj = GameObject.Find("CapsuleiTem"); // 이름 확인 필요: "CapsuleItem"이면 오타
 
-        if(CapsuleState.CapsuleActive)
-        {
+        // 캡슐이 '꺼져 있을 때'만 쿨타임 증가
+        if (!CapsuleState.CapsuleActive)
             capsuleTimer += Time.deltaTime;
-        }
+
+        // 레벨별 재생성 대기시간 계산
         switch (PlayerStat.CapsuleLevel)
         {
-            case 4: CapsuleTime = 15.0f; CapsuleTimerOn(CapsuleTime); break;
-            default: CapsuleTime = 20.0f; CapsuleTimerOn(CapsuleTime); break;
+            case 1:
+            case 2:
+            case 3:
+                CapsuleTime = 20f - (20f * HitSpeedPercent());
+                break;
+            case 4:
+                CapsuleTime = 15.0f - (15.0f * HitSpeedPercent());
+                break;
+            default:
+                CapsuleTime = 20.0f;
+                break;
         }
-        if (capsuleState != null &&!CapsuleState.CapsuleActive )
-        {
-                   
-        }
-        else { }
+
+        // 모든 레벨에서 재생성 체크 호출
+        CapsuleTimerOn(CapsuleTime);
     }
-    private void CapsuleTimerOn(float sec) //캡슐 재생성 쿨타임
+
+    private float HitSpeedPercent() //공격속도단계에 따른 쿨타임 감소
     {
-        if (capsuleTimer >= sec && capsuleObj != null && !CapsuleState.CapsuleActive)
+        switch (PlayerStat.AttSpeedLevel)
         {
+            case 1:
+                return 0.1f;
+            case 2:
+                return 0.2f;
+            case 3:
+                return 0.3f;
+            case 4:
+                return 0.4f;
+            case 5:
+                return 0.5f;
+            default:
+                return 0;
+        }
+
+    }
+    private void CapsuleTimerOn(float sec)
+    {
+        if (!CapsuleState.CapsuleActive && capsuleObj != null && capsuleTimer >= sec)
+        {
+            // 상태 일치시키기: 재생성 = 둘 다 true
             PlayerStat.CapsuleState = true;
-            capsuleState.ActiveDesignerEventArgs(1.0f);
-            //Vector3 CapsulePos = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
-            //Instantiate(Capsule, CapsulePos, Quaternion.identity);
+            CapsuleState.CapsuleActive = true;
+
+            var cs = capsuleObj.GetComponent<CapsuleState>();
+            if (cs != null) cs.ActiveDesignerEventArgs(1.0f);
+
             GetCapsule = false;
-            CapsuleState.CapsuleActive = !CapsuleState.CapsuleActive;
             capsuleTimer = 0f;
         }
     }

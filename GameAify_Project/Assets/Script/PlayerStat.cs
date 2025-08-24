@@ -30,9 +30,9 @@ public class PlayerStat : MonoBehaviour
     public static int MessLevel = 1; // 메스 단계
     public static int DroneLevel = 1; // 드론 단계
     public static int VaccineLevel = 1;  // 백신 투하 단계
-    public static int CapsuleLevel = 1; // 캡슐 단계
+    public static int CapsuleLevel = 4; // 캡슐 단계
 
-    public int HpLevel = 0, AttRangeLevel = 0, PlayerSpeedLevel = 0,
+    public static int HpLevel = 0, AttRangeLevel = 0, PlayerSpeedLevel = 0,
          AttSpeedLevel = 0, AttPowerLevel = 0; // 알약 수치 조정을 위한 변수 선언
     public static int itemSelectCount = 0;
     public static float VCFS = 0f; // 백신 구역의 크기
@@ -186,8 +186,10 @@ public class PlayerStat : MonoBehaviour
     {
         if (VaccineLevel <= 2) PlayerAttack.VaccineWaitSeconds -= 0.8f * (AttSpeedLevel + 1);
         else PlayerAttack.VaccineWaitSeconds -= 0.5f * (AttSpeedLevel + 1);
+        /*
         if (CapsuleLevel == 4) PlayerAttack.CapsuleTime -= 1.5f * (AttSpeedLevel + 1);
         else PlayerAttack.CapsuleTime -= 2.0f * (AttSpeedLevel + 1);
+        */
     }
 
     void CheckisSelected() // 아이템을 선택했는지 확인하는 함수
