@@ -76,7 +76,7 @@ public class EnemyStat : MonoBehaviour
             || collision.gameObject.name.StartsWith("MessBullet") || collision.gameObject.name.StartsWith("UniqueMessBullet"))
             TakeDamage(PlayerStat.MessPower);
         else if (collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = true;
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !PlayerMove.isInvincible)
         {
             if (collision.CompareTag("Capsule") && CapsuleState.CapsuleActive)
             {

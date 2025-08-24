@@ -29,7 +29,6 @@ public class AudioManager : MonoBehaviour
         BossBGM.Stop(); // 처음에는 정지
     }
 
-
     void Update()
     {
         // 보스 맵 진입 시 배경음 변경
@@ -44,5 +43,12 @@ public class AudioManager : MonoBehaviour
         switched = true;
         BasicBGM.Stop();
         BossBGM.Play();
+    }
+
+    public void SFXVolumeControl(bool onoff)
+    {
+        SyringeSound.volume = onoff ? 1 : 0;
+        MessSound.volume = onoff ? 1 : 0;
+        VaccineSound.volume = onoff ? 1 : 0;
     }
 }

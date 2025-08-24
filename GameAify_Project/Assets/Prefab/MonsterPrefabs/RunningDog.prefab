@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2531440937127298533}
   - component: {fileID: 820234520843995566}
   - component: {fileID: 5116662923428792633}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3162868849087982449}
   - component: {fileID: 4921530938837585461}
   - component: {fileID: 5568961785185867207}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: -8536441984586772426}
   - component: {fileID: 5114077724824540779}
   - component: {fileID: 6904915599937764802}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RunningDog
   m_TagString: RunningDog
   m_Icon: {fileID: 0}
@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 506889000257133543}
   - component: {fileID: 4845101927312355640}
   - component: {fileID: 1147540564358135337}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

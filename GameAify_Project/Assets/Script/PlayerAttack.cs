@@ -202,8 +202,8 @@ public class PlayerAttack : MonoBehaviour
         MessRend = MessTarget.GetComponent<SpriteRenderer>();
         if (direction > 0f) MessRend.flipX = true;
         else MessRend.flipX = false;
-        
-        
+        AudioManager.instance.MessSound.Play();
+              
         while (elapsed < rotationDuration)
         {
             // 1. 플레이어 위치로 이동 (이 스크립트가 플레이어에 붙어있다고 가정)
@@ -226,7 +226,6 @@ public class PlayerAttack : MonoBehaviour
         }
         // 마지막 각도 보정
         obj.transform.rotation = Quaternion.Euler(0f, 0f, endAngle);
-        AudioManager.instance.MessSound.Play();
         Destroy(obj);
         yield return new WaitForSeconds(PlayerStat.AttackSpeed);
         MessRotating = false;

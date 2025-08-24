@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Xml.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,11 +20,21 @@ public class PlayerMove : MonoBehaviour
     public Image gaugeFillImage; // 정화게이지 오브젝트
 
     public StageSetting stageSetting;
+    public static bool isInvincible; // 무적 상태 여부
+    private float invincibleDuration = 1.0f; // 무적 시간
+    private float blinkInterval = 0.1f; // 깜빡임 간격
+    private string playerLayerName = "Player";
+    private string enemyLayerName = "Enemy";
+    private int playerLayer;
+    private int enemyLayer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr =  this.GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        playerLayer = LayerMask.NameToLayer(playerLayerName);
+        enemyLayer = LayerMask.NameToLayer(enemyLayerName);
     }
 
     void Update()
@@ -40,21 +52,21 @@ public class PlayerMove : MonoBehaviour
         else
         {
             //플레이어 입력 이동에 따른
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 sr.flipX = true;
                 walkAni("walk", true,true,false,false);
             }
-            else if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 sr.flipX = false;
                 walkAni("walk", true, true, false, false);
             }
-            else if (Input.GetKey(KeyCode.W))
+            else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             {
                 walkAni("walkUp", true,false,true,false);
             }
-            else if(Input.GetKey(KeyCode.S))
+            else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
                 walkAni("walkDown", true,false,false,true);
             }
@@ -89,7 +101,7 @@ public class PlayerMove : MonoBehaviour
             fillImage.fillAmount = ratio;
         }
         if (PlayerStat.HP <= 0) PlayerDead();
-        if (PlayerStat.HP >= 450) PlayerStat.HP = 450;
+        if (PlayerStat.HP >= 750) PlayerStat.HP = 750;
     }
 
     private void PlayerDead()
@@ -105,6 +117,10 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         UpdateHPBar();
+        if(collision.CompareTag("Enemy") || collision.CompareTag("Spear") || collision.CompareTag("RunningDog"))
+        {
+            StartCoroutine(InvincibleRoutine());
+        }
         if (collision.CompareTag("Apple"))
         {
             PlayerStat.HP += 100f;
@@ -125,7 +141,28 @@ public class PlayerMove : MonoBehaviour
             stageSetting.InBossStage();
         }
     }
+    private IEnumerator InvincibleRoutine()
+    {
+        isInvincible = true;
+        if (playerLayer != -1 && enemyLayer != -1)
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
+        float elapsed = 0f;
 
+        while (elapsed < invincibleDuration)
+        {
+            // 깜빡임 (투명/불투명 반복)
+            sr.enabled = !sr.enabled;
+
+            yield return new WaitForSeconds(blinkInterval);
+            elapsed += blinkInterval;
+        }
+
+        // 깜빡임 끝난 뒤 원래대로
+        sr.enabled = true;
+        if (playerLayer != -1 && enemyLayer != -1)
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+        isInvincible = false;
+    }
     private void walkAni(string aniName, bool state,bool ani1, bool ani2,bool ani3)
     {
         // 스프라이트 덮어씌우기 위한 애니메시터 상태제어
