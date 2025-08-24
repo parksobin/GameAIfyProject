@@ -20,6 +20,7 @@ public class BossMove : MonoBehaviour
 
     // 추가: Lv1 코루틴 중복 방지용
     private bool lv1PatternRunning = false;
+    private bool OnVaccineDamage = false; //백신 공격 여부
     void Start()
     {
         StageSetting = GameObject.Find("MainManager").GetComponent<StageSetting>();
@@ -32,6 +33,10 @@ public class BossMove : MonoBehaviour
     void Update()
     {
         BossImgChange();
+        if (OnVaccineDamage)
+        {
+            PlayerStat.BossStamina -= PlayerStat.VaccinePower * Time.deltaTime;
+        }
     }
 
     private void BossImgChange()
@@ -163,5 +168,13 @@ public class BossMove : MonoBehaviour
         { BossLevel = 4; spawner.RotateSpeed = 36f; }  //4페이즈 회전 속도 올라감
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = false;
+    }
 
 }

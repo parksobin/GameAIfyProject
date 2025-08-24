@@ -142,4 +142,6 @@ public class EnemyStat : MonoBehaviour
         Instantiate(DieEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
+
+    
 }
