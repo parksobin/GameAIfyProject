@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class MainSpawnerAndTimer : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
     public static int waveIndex = -1;   // -1이면 웨이브 없음(대기)
     private bool waveActive = false;
     private float timeInWave = 0f; // 웨이브별 진행된 시간
-    private const int MAX_ALIVE = 150;
+    private const short MAX_ALIVE = 150;
     // alive 리스트 정리 주기(성능용)
     private float aliveCleanInterval = 0.25f;
     private float aliveCleanTimer = 0f;
@@ -65,6 +66,9 @@ public class MainSpawnerAndTimer : MonoBehaviour
     public static bool isDropApple = false;
     public static Vector2 lastDropPosition; // 사과를 생성할 위치 확인
 
+    private IObjectPool<PooledEnemy>[] pools = new IObjectPool<PooledEnemy>[5];
+    private readonly int prewarmPerType = 300; // 타입별 프리웜
+
     void Awake()
     {
         ApplePrefab = applePrefabInspector;
@@ -78,7 +82,79 @@ public class MainSpawnerAndTimer : MonoBehaviour
         if (spawnEnemyPrefab == null || spawnEnemyPrefab.Count < 5) Debug.LogError("spawnEnemyPrefab 5개 이상이 필요합니다.");
         if (timerText == null) Debug.LogWarning("timerText가 비어있습니다."); // 없어도 스폰은 됨
         // 바로 웨이브 0 시작
-        SpawnCheck();
+        BuildPools();        
+        SpawnCheck();           
+    }
+    void BuildPools()
+    {
+        var root = new GameObject("EnemyPools").transform;
+
+        for (int i = 0; i < 5; i++)
+        {
+            int type = i;
+            var typeRoot = new GameObject($"Pool_Type_{type}").transform;
+            typeRoot.SetParent(root, false);
+
+            pools[i] = new ObjectPool<PooledEnemy>(
+                createFunc: () =>
+                {
+                    var go = Instantiate(spawnEnemyPrefab[type], typeRoot); // 부모 지정
+                    var pe = go.GetComponent<PooledEnemy>() ?? go.AddComponent<PooledEnemy>();
+                    pe.pool = pools[type];
+                    go.SetActive(false);
+                    return pe;
+                },
+                actionOnGet: (pe) =>
+                {
+                    if (pe.transform.parent == null) pe.transform.SetParent(typeRoot, false);
+                    pe.gameObject.SetActive(true);
+                    pe.OnSpawned();
+                },
+                actionOnRelease: (pe) =>
+                {
+                    if (pe.transform.parent != typeRoot) pe.transform.SetParent(typeRoot, false);
+                    pe.gameObject.SetActive(false);
+                },
+                actionOnDestroy: (pe) => Destroy(pe.gameObject),
+                collectionCheck: false,
+                defaultCapacity: Mathf.Max(8, prewarmPerType),
+                maxSize: 2000
+            );
+
+            // ★ 여기서 비동기 프리웜 코루틴 시작
+            StartCoroutine(PrewarmRoutine(prewarmPerType, typeRoot, type));
+        }
+    }
+
+    IEnumerator PrewarmRoutine(int countPerType, Transform typeRoot, int poolIndex, int batch = 300)
+    {
+        var tmp = new List<PooledEnemy>(batch);
+        int made = 0;
+
+        while (made < countPerType)
+        {
+            int n = Mathf.Min(batch, countPerType - made);
+            tmp.Clear();
+
+            // n개를 강제로 새로 만들기
+            for (int k = 0; k < n; k++)
+            {
+                var pe = pools[poolIndex].Get();
+                tmp.Add(pe);
+            }
+
+            // 만든 것들 Release → 풀에 Inactive로 쌓임
+            for (int k = 0; k < n; k++)
+                pools[poolIndex].Release(tmp[k]);
+
+            made += n;
+
+            // 한 프레임에 전부 만들면 버벅일 수 있어서 프레임 분산
+            yield return null;
+        }
+
+        var op = (ObjectPool<PooledEnemy>)pools[poolIndex];
+        Debug.Log($"[Pool Prewarm] Type {poolIndex} -> Inactive: {op.CountInactive}, Children: {typeRoot.childCount}");
     }
 
     void Update()
@@ -162,10 +238,17 @@ public class MainSpawnerAndTimer : MonoBehaviour
         Vector2 dir = UnityEngine.Random.insideUnitCircle.normalized;
         Vector3 pos = player.position + new Vector3(dir.x, dir.y, 0f) * EnemySpawnDistance;
 
-        GameObject obj = Instantiate(spawnEnemyPrefab[enemyIdx], pos, Quaternion.identity);
+        // 풀에서 꺼내기
+        var pe = pools[enemyIdx].Get();
+        pe.pool = pools[enemyIdx];
+        pe.transform.SetPositionAndRotation(pos, Quaternion.identity);
+
+        // 기존 alive 카운트/리스트는 그대로 활용 가능
         SpawnCount++;
-        spawnedEnemies.Add(obj);
-        obj.AddComponent<AutoRemove>().Init(spawnedEnemies, obj);
+        spawnedEnemies.Add(pe.gameObject);
+
+        // (선택) 수명 테스트용 자동 반납이 필요하면 아래처럼:
+        // pe.StartCoroutine(AutoRelease(pe, 12f));
     }
 
     // 45초 경계마다 호출됨: 다음 웨이브 1회 초기화만 수행
@@ -185,7 +268,6 @@ public class MainSpawnerAndTimer : MonoBehaviour
             rate[i] = SpawnRate[waveIndex, 5 + i]; // 5~9: 초당 속도
             acc[i] = 0f;
         }
-        Debug.Log($"현재 살아있는 몬스터 수 : {GetAliveCount()}");
         // 디버그용(원하면)
         //Debug.Log($"Wave {waveIndex+1} 시작 - counts: {remain[0]},{remain[1]},{remain[2]},{remain[3]},{remain[4]} / rates: {rate[0]},{rate[1]},{rate[2]},{rate[3]},{rate[4]}");
     }

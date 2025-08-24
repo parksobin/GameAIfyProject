@@ -220,7 +220,6 @@ public class PlayerAttack : MonoBehaviour
                 MessBulletShoot();
                 isBulletShoot = false;
             }
-            Debug.Log("메스 휘두르는 중");
             elapsed += Time.deltaTime;
             yield return null;
         }

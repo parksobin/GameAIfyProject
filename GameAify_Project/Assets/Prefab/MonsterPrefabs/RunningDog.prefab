@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: -3343059581724266306}
   - component: {fileID: -8536441984586772426}
   - component: {fileID: 5114077724824540779}
+  - component: {fileID: 4019809616941413145}
   - component: {fileID: 6904915599937764802}
   m_Layer: 9
   m_Name: RunningDog
@@ -342,6 +343,18 @@ MonoBehaviour:
   EnemyMoveSpeed: 0
   DieEffect: {fileID: 8872594557615173302, guid: 329f6a0dc3c6c4349a6d779a890789c1, type: 3}
   fillImage: {fileID: 5568961785185867207}
+--- !u!114 &4019809616941413145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6931691900932593072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2dc21e14da48f4c84b841539952b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &6904915599937764802
 Rigidbody2D:
   serializedVersion: 5
