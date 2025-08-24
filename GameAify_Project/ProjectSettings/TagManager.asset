@@ -16,6 +16,7 @@ TagManager:
   - Capsule
   - RunningDog
   - Spear
+  - Laser
   layers:
   - Default
   - TransparentFX
