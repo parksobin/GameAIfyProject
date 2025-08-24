@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: -444948312329741678}
   - component: {fileID: -4638882160319068350}
   - component: {fileID: -6769299723567200504}
+  - component: {fileID: 4112720365518618542}
   m_Layer: 9
   m_Name: Snailer
   m_TagString: Enemy
@@ -449,3 +450,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4112720365518618542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5694065198812006149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2dc21e14da48f4c84b841539952b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
