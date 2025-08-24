@@ -57,7 +57,7 @@ public class StageSetting : MonoBehaviour
         InbossStage = true;
         BossStageDoor.SetActive(false);
         BossStage.SetActive(true);
-        AudioManager.instance.SFXVolumeControl(false);
+        // AudioManager.instance.SFXVolumeControl(false);
         OriginalStage.SetActive(false);
         Boss.transform.position = new Vector3(0,10,0); // 보스 초기위치
         Player.transform.position=new Vector3(0,-7.5f,0); //플레이어 초기위치
@@ -72,7 +72,8 @@ public class StageSetting : MonoBehaviour
             {
                 BossVideo.SetActive(false);
                 Boss.SetActive(true);
-                AudioManager.instance.SFXVolumeControl(true);
+                // AudioManager.instance.SFXVolumeControl(true);
+                AudioManager.instance.BossBGM.Play();
                 BossHpFill.SetActive(true);
                 BossHpFrame.SetActive(true);
                 bossVideoEnd =true; 
