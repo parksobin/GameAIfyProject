@@ -1,33 +1,36 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    private bool PlayerHealthMinus = false; //ÇÃ·¹ÀÌ¾î µ¥¹ÌÁö Áßº¹ ¹æÁö
-    private bool minus =false;
-    private float delayTime = 0; //Áßº¹¹æÁö µô·¹ÀÌÅ¸ÀÓ
-    private float FixTime = 1.5f; //°íÁ¤ Áßº¹ ¹æÁö Å¸ÀÓ 
+    private bool isCooldown = false;   // ë°ë¯¸ì§€ ì¿¨íƒ€ì„ ì—¬ë¶€
+    private float delayTime = 0f;      // ê²½ê³¼ ì‹œê°„
+    private float cooldownTime = 1f;   // ë°ë¯¸ì§€ ì¿¨íƒ€ì„ (1ì´ˆ)
 
     private void Update()
     {
-        if(PlayerHealthMinus)
+        // ì¿¨íƒ€ì„ ì§„í–‰ ì¤‘ì´ë©´ ì‹œê°„ ì¸¡ì •
+        if (isCooldown)
         {
-            // if(minus) PlayerStat.HP -= 30; -> ¼öÁ¤ÇÊ¿ä ¤Ğ¤Ğ
             delayTime += Time.deltaTime;
-            if ((delayTime > FixTime))
+            if (delayTime >= cooldownTime)
             {
-                Debug.Log("ÇÃ·¹ÀÌ¾î ÇÇÇØ");
-                PlayerHealthMinus=!PlayerHealthMinus;  
-                delayTime = 0;
-                minus=false;
+                // ì¿¨íƒ€ì„ ì¢…ë£Œ
+                isCooldown = false;
+                delayTime = 0f;
             }
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !isCooldown)
         {
-            PlayerHealthMinus = !PlayerHealthMinus;
+            // í”Œë ˆì´ì–´ ì²´ë ¥ ê°ì†Œ
+            PlayerStat.HP -= 30;
+            Debug.Log("í”Œë ˆì´ì–´ í”¼í•´! í˜„ì¬ HP: " + PlayerStat.HP);
 
+            // ì¿¨íƒ€ì„ ì‹œì‘
+            isCooldown = true;
         }
     }
 }
