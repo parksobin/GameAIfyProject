@@ -24,6 +24,7 @@ public class CapsuleState : MonoBehaviour
         transform.position = Player.transform.position;
         CapsuleLevelCheck();
     }
+    /*
     private void OnMouseDown() // 테스트용
     {
         count++;
@@ -35,6 +36,7 @@ public class CapsuleState : MonoBehaviour
             ActiveDesignerEventArgs(0f);
         }
     }
+    */
     private void CapsuleLevelCheck() //레벨별 캡슐타격 홋수
     {
         switch (PlayerStat.CapsuleLevel)
