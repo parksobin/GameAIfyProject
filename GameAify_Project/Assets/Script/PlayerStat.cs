@@ -38,7 +38,7 @@ public class PlayerStat : MonoBehaviour
     public static float VCFS = 0f; // 백신 구역의 크기
 
     public static float maxHP = 300f; // 플레이어의 기본 체력
-    public static float HP = 300f; // 플레이어의 현재 체력
+    public static float HP = 500f; // 플레이어의 현재 체력
     public static float AttackRange = 10f; // 플레이어의 기본 공격 범위
     public static float PlayerMoveSpeed = 5f; // 플레이어 기본 이동 속도
     public static float AttackSpeed = 5.0f; // 플레이어의 기본 공격 속도

@@ -13,7 +13,7 @@ public class StageSetting : MonoBehaviour
     public GameObject laserPreFab; //2단계 레이저 프리팹
     public GameObject VirusPreFab; //3단계 바이러스 프리팹
 
-    public bool InbossStage =false; //보스맵 스테이지에 들어간 상태인지 확인
+    public static bool InbossStage =false; //보스맵 스테이지에 들어간 상태인지 확인
     public bool bossVideoEnd =false; //보스 영상 끝난지 판단 -> 다른 스크립트에서 사용
     public bool BossLevel2 =false; 
     private float videoTime; //재생시간
@@ -50,7 +50,7 @@ public class StageSetting : MonoBehaviour
     {
         BossVideo.SetActive(true) ;
         InbossStage = true;
-        BossStageDoor.SetActive(false );
+        BossStageDoor.SetActive(false);
         BossStage.SetActive(true );
         OriginalStage.SetActive(false);
         Boss.transform.position = new Vector3(0,10,0); // 보스 초기위치

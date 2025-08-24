@@ -171,7 +171,7 @@ public class PlayerAttack : MonoBehaviour
             Vector3 spawnPos = spawnOrigin + offset;
             // 생성 및 초기 설정
             GameObject proj = Instantiate(SyringePrefab, spawnPos, Quaternion.Euler(0, 0, angle + 90f));
-            //AudioManager.instance.SyringeSound.Play();
+            AudioManager.instance.SyringeSound.Play();
             var rb = proj.GetComponent<Rigidbody2D>();
             if (rb != null) rb.linearVelocity = direction * SyringeSpeed;
             var AR = proj.GetComponent<AttackRange>();
@@ -221,12 +221,12 @@ public class PlayerAttack : MonoBehaviour
                 isBulletShoot = false;
             }
             Debug.Log("메스 휘두르는 중");
-            AudioManager.instance.MessSound.Play();
             elapsed += Time.deltaTime;
             yield return null;
         }
         // 마지막 각도 보정
         obj.transform.rotation = Quaternion.Euler(0f, 0f, endAngle);
+        AudioManager.instance.MessSound.Play();
         Destroy(obj);
         yield return new WaitForSeconds(PlayerStat.AttackSpeed);
         MessRotating = false;

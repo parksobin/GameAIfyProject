@@ -131,7 +131,7 @@ public class EnemyCommonState : MonoBehaviour
         }
         if(collision.gameObject.name.StartsWith("Drone"))
         {
-            MoveBack(4f, 3f);
+            MoveBack(5f, 4f);
         }
     }
 
