@@ -67,7 +67,6 @@ public class EnemyStat : MonoBehaviour
         }
         if (currentHP <= 0) currentHP = 0;
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name.StartsWith("Syringe")) TakeDamage(PlayerStat.SyringePower);
@@ -76,20 +75,36 @@ public class EnemyStat : MonoBehaviour
             || collision.gameObject.name.StartsWith("MessBullet") || collision.gameObject.name.StartsWith("UniqueMessBullet"))
             TakeDamage(PlayerStat.MessPower);
         else if (collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = true;
+
+        // 적이 플레이어에 닿았을 때 플레이어 피해 계산
         if (collision.CompareTag("Player") && !PlayerMove.isInvincible)
         {
-            if (collision.CompareTag("Capsule") && CapsuleState.CapsuleActive)
+            float damage = EnemyAttack;
+
+            // 캡슐이 활성화된 경우에만 감소율 적용
+            if (PlayerStat.CapsuleState)
             {
                 switch (PlayerStat.CapsuleLevel)
                 {
-                    case 0: PlayerStat.HP -= EnemyAttack * 0.7f; break;
-                    case 1: PlayerStat.HP -= EnemyAttack * 0.5f; break;
-                    case 2: PlayerStat.HP -= EnemyAttack * 0.3f; break;
-                    default: PlayerStat.HP -= 0; break;
+                    case 1: // 30% 감소 → 70%만 받음
+                        damage *= 0.7f; break;
+                    case 2: // 50% 감소
+                        damage *= 0.5f; break;
+                    case 3: // 70% 감소
+                        damage *= 0.3f; break;
+                    case 4: // 100% 감소(유니크)
+                        damage = 0f; break;
+                    default:
+                        // 레벨 0 또는 정의 밖: 감소 없음
+                        break;
                 }
             }
-            else PlayerStat.HP -= EnemyAttack;
+
+            // 음수 방지 및 적용
+            if (damage < 0f) damage = 0f;
+            PlayerStat.HP -= damage;
         }
+
         UpdateHPBar();
     }
 

@@ -65,6 +65,7 @@ public class CapsuleState : MonoBehaviour
             {
                 count = 0;
                 CapsuleActive = false;
+                PlayerStat.CapsuleState = false;
                 //gameObject.SetActive(false);
                 ActiveDesignerEventArgs(0f);
             }

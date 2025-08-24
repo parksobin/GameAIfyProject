@@ -45,6 +45,7 @@ public class PlayerStat : MonoBehaviour
     public static float AttackPower = 100f; // 플레이어의 기본 공격력
     private float currentAttackPower; // 현재 플레이어의 공격력
     private bool hasIncreased = false; // 이미 증가했는지 체크
+    public static bool CapsuleState = true; //캡슐 쉴드 상태인지
 
     public static float DronePower; // 드론 공격력
     public static float SyringePower; // 주사기 공격력
