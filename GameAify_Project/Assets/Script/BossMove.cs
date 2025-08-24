@@ -122,7 +122,8 @@ public class BossMove : MonoBehaviour
         // 쿨타임 축적
         if (Lv3DelayTime < 10f)
             Lv3DelayTime += Time.deltaTime;
-
+        // 패턴1 실행중이면 기다림 -> 패턴1 실행 후 실행
+        if (lv1PatternRunning) return;
         // 쿨타임 끝났고 아직 패턴 실행 중이 아니면 시작
         if (!lv3PatternRunning && Lv3DelayTime >= 10f)
             StartCoroutine(Level3Pattern());

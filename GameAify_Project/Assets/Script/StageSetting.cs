@@ -8,7 +8,10 @@ public class StageSetting : MonoBehaviour
     public GameObject OriginalStage; //원래 타일맵
     public GameObject BossStage; //보스맵
     public GameObject BossStageDoor; // 보스 스테이지 출입문
-    public GameObject BossVideo;
+    public GameObject BossVideo; //보스 출현 동영상
+    public GameObject BossHpFill;
+    public GameObject BossHpFrame;
+
 
     public GameObject laserPreFab; //2단계 레이저 프리팹
     public GameObject VirusPreFab; //3단계 바이러스 프리팹
@@ -24,6 +27,8 @@ public class StageSetting : MonoBehaviour
        Boss.SetActive(false);
         BossStageDoor.SetActive(false);
         BossVideo.SetActive(false);
+        BossHpFill.SetActive(false);
+        BossHpFrame.SetActive(false);
     }
 
     void Update()
@@ -57,7 +62,7 @@ public class StageSetting : MonoBehaviour
         Player.transform.position=new Vector3(0,-7.5f,0); //플레이어 초기위치
     }
 
-    private void VideoStartTime() //영상길기 (7초) 뒤에 꺼지도록 설정
+    private void VideoStartTime() //영상길기 (7초) 뒤에 꺼지도록 설정 -> 진짜 메인 입장
     {
         if (BossVideo.active==true)
         {
@@ -66,7 +71,9 @@ public class StageSetting : MonoBehaviour
             {
                 BossVideo.SetActive(false);
                 Boss.SetActive(true);
-                bossVideoEnd=true;
+                BossHpFill.SetActive(true);
+                BossHpFrame.SetActive(true);
+                bossVideoEnd =true; 
             }
         }
     }
