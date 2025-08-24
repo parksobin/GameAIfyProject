@@ -14494,7 +14494,6 @@ MonoBehaviour:
   timerText: {fileID: 1863847895}
   applePrefabInspector: {fileID: 8779030364416994736, guid: 495bd9356a05f2849849531563bf9cba, type: 3}
   appleDamagePrefabInspector: {fileID: 6571307472699201355, guid: 7f16f65f30e88a64594ffa8c27969a39, type: 3}
-  prewarmPerType: 300
 --- !u!114 &1634346485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14763,7 +14762,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e263ee6ebe09b75499ee51f25092f845, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50f5de9af5678f34d9409ba3e2ceafe2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14784,7 +14783,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.16, y: 2.73, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1682259208}
@@ -14823,17 +14822,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.10448825, y: 0.08359027}
+  m_Offset: {x: 0.044503212, y: 5.782524}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5, y: 5}
+    oldSize: {x: 36.79, y: 36.79}
     newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.4086964, y: 3.5789633}
+  m_Size: {x: 14.328033, y: 15.572796}
   m_EdgeRadius: 0
 --- !u!1 &1652350816
 GameObject:
@@ -19189,11 +19188,6 @@ MonoBehaviour:
   - {fileID: 1424747299}
   - {fileID: 1821336200}
   - {fileID: 1778597198}
-  HpLevel: 0
-  AttRangeLevel: 0
-  PlayerSpeedLevel: 0
-  AttSpeedLevel: 0
-  AttPowerLevel: 0
 --- !u!1 &1916097597
 GameObject:
   m_ObjectHideFlags: 0
