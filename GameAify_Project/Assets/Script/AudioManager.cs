@@ -1,10 +1,11 @@
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+
+    // 메인 화면 진입 전 블랙패널/첫 화면을 통과했는지의 “유일한” 기준
+    public static bool StartScreenSign = false;  // default: 첫 진입 전
 
     public AudioSource BasicBGM;
     public AudioSource BossBGM;
@@ -14,49 +15,52 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource[] BgmGroup;
     private AudioSource[] SfxGroup;
+    private bool switched = false;
 
-    private bool switched = false;      // �ߺ� ���� ������
+    const string KEY_START = "StartScreenSign";
 
     private void Awake()
     {
-        if(instance == null) instance = this;
+        // 싱글턴 보장 + 영속화
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        // 저장된 값 복원
+        StartScreenSign = PlayerPrefs.GetInt(KEY_START, 0) == 1;
     }
 
-    void Start()
+    private void Start()
     {
-        // ���� �� BasicBGM ���
         BasicBGM.loop = true;
-        BasicBGM.Play(); // �� �̰� ���߿� ���� ����ȭ�� ����� ���� !!! �ƴϸ� stopó�� �ؾ���
+        if (!BasicBGM.isPlaying) BasicBGM.Play();
 
         BossBGM.loop = true;
-        // ó������ ����
-        BossBGM.Stop(); 
+        BossBGM.Stop();
         SyringeSound.Stop();
         VaccineSound.Stop();
         MessSound.Stop();
-        // ���� �׷캰 �з�
         SoundGroup();
     }
 
-    void Update()
+    private void Update()
     {
-        // ���� �� ���� �� ����� ����
         if (!switched && StageSetting.InbossStage == true)
-        {
             SwitchToBossBGM();
-        }
     }
 
-    private void SoundGroup() //���� ���� ������ ���� �׷� �з�
+    private void SoundGroup()
     {
         var bgmList = new System.Collections.Generic.List<AudioSource>();
         var sfxList = new System.Collections.Generic.List<AudioSource>();
 
-        // BGM
         if (BasicBGM) bgmList.Add(BasicBGM);
         if (BossBGM) bgmList.Add(BossBGM);
 
-        // SFX (Bgm �ƴ� �͵�)
         if (SyringeSound) sfxList.Add(SyringeSound);
         if (VaccineSound) sfxList.Add(VaccineSound);
         if (MessSound) sfxList.Add(MessSound);
@@ -65,28 +69,32 @@ public class AudioManager : MonoBehaviour
         SfxGroup = sfxList.ToArray();
     }
 
-    void SwitchToBossBGM()
+    private void SwitchToBossBGM()
     {
         switched = true;
         BasicBGM.Stop();
-        BossBGM.Play();
+        if (!BossBGM.isPlaying) BossBGM.Play();
     }
 
-    public void SetBgmVolume(float volume01) // Bgm ���� ����
+    public void SetBgmVolume(float v01)
     {
-        float v = Mathf.Clamp01(volume01);
+        float v = Mathf.Clamp01(v01);
         if (BgmGroup == null) return;
-
-        foreach (var src in BgmGroup)
-            if (src) src.volume = v;
+        foreach (var src in BgmGroup) if (src) src.volume = v;
     }
 
-    public void SetSfxVolume(float volume01) // Sfx ���� ����
+    public void SetSfxVolume(float v01)
     {
-        float v = Mathf.Clamp01(volume01);
+        float v = Mathf.Clamp01(v01);
         if (SfxGroup == null) return;
+        foreach (var src in SfxGroup) if (src) src.volume = v;
+    }
 
-        foreach (var src in SfxGroup)
-            if (src) src.volume = v;
+    // 외부에서 “통과 완료” 처리할 때 이걸 호출하면 저장까지 한번에
+    public static void MarkStartScreenPassed()
+    {
+        StartScreenSign = true;
+        PlayerPrefs.SetInt(KEY_START, 1);
+        PlayerPrefs.Save();
     }
 }
