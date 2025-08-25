@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 5139339694985521937}
   - component: {fileID: 1799307672273264198}
   - component: {fileID: 4425716095877578665}
+  - component: {fileID: 8923047573472889930}
   m_Layer: 0
   m_Name: VaccineFeild
   m_TagString: Vaccine
@@ -324,3 +325,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8923047573472889930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7434792636638831328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb81b23b2f457943abe1989274c7d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
