@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainSceneManager : MonoBehaviour
 {
+    public MainSceneManager Instance { get; private set; }
     private const string KEY_BGM = "BGM_VOLUME";
     private const string KEY_SFX = "SFX_VOLUME";
 

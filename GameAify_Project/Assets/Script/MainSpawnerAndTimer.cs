@@ -154,7 +154,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
         }
 
         var op = (ObjectPool<PooledEnemy>)pools[poolIndex];
-        Debug.Log($"[Pool Prewarm] Type {poolIndex} -> Inactive: {op.CountInactive}, Children: {typeRoot.childCount}");
+        //Debug.Log($"[Pool Prewarm] Type {poolIndex} -> Inactive: {op.CountInactive}, Children: {typeRoot.childCount}");
     }
 
     void Update()
