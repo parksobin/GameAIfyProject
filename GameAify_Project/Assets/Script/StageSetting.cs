@@ -75,7 +75,7 @@ public class StageSetting : MonoBehaviour
                 BossVideo.SetActive(false);
                 Boss.SetActive(true);
                 // AudioManager.instance.SFXVolumeControl(true);
-                AudioManager.instance.BossBGM.Play();
+                //AudioManager.instance.BossBGM.Play();
                 BossHpFill.SetActive(true);
                 BossHpFrame.SetActive(true);
                 bossVideoEnd =true; 

@@ -5,12 +5,12 @@ public class BossHPBar : MonoBehaviour
 {
     public Image  BossHpFill;   // 빨간 HP 이미지
     private float BossMaxHP; //보스 전체 체력 저장
-    private float currentHP; //현재 체력
+    public static float BossCurrentHP; //현재 체력
 
     void Start()
     {
         BossMaxHP = PlayerStat.BossStamina;
-        currentHP = BossMaxHP;
+        BossCurrentHP = BossMaxHP;
         UpdateHPBar();
     }
 
@@ -20,8 +20,8 @@ public class BossHPBar : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        currentHP -= damage;
-        if (currentHP < 0) currentHP = 0;
+        BossCurrentHP -= damage;
+        if (BossCurrentHP < 0) BossCurrentHP = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -67,6 +67,6 @@ public class BossHPBar : MonoBehaviour
 
     void UpdateHPBar() // 보스 이미지에 따른 체력 표시
     {
-        BossHpFill.fillAmount = (float)currentHP / BossMaxHP;
+        BossHpFill.fillAmount = (float)BossCurrentHP / BossMaxHP;
     }
 }

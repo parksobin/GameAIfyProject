@@ -24,7 +24,7 @@ public class PlayerStat : MonoBehaviour
 
     public static int purificationGauge = 0; //정화 게이지 퍼센트
     public static bool purificationClearposSign = false; // 정화 완료 여부 확인 
-    public static float  BossStamina = 10000; //보스 체력
+    public static float BossStamina = 10000; //보스 체력
 
     public static int MessLevel = 1; // 메스 단계
     public static int SyringeLevel = 1; // 주사기 단계
