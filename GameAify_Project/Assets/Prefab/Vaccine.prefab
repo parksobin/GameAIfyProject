@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9094070459884942660}
   - component: {fileID: 6027002004433261531}
   - component: {fileID: 7546114162898245546}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Vaccine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1125199301369812931}
   - component: {fileID: 9199444276721434803}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Vaccine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 1799307672273264198}
   - component: {fileID: 4425716095877578665}
   - component: {fileID: 8923047573472889930}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: VaccineFeild
   m_TagString: Vaccine
   m_Icon: {fileID: 0}
