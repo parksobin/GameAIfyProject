@@ -149,7 +149,7 @@ public class LaserSpawner : MonoBehaviour
             laser1.transform.Rotate(0, 0, delta);
             laser2.transform.Rotate(0, 0, delta);
         }
-        else // (예: 3페이즈)
+        else // ( 3페이즈, 죽음)
         {
             laser1.SetActive(false);
             laser2.SetActive(false);
