@@ -118,7 +118,8 @@ public class EnemyCommonState : MonoBehaviour
     {
         if (gameObject.name.StartsWith("Virus_BossMap"))
         {
-            if(collision.CompareTag("Weapon"))
+            if(collision.CompareTag("Player")) Destroy(gameObject);
+            if (collision.CompareTag("Weapon"))
             {
                 Destroy(gameObject);
             }

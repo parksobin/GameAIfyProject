@@ -5,7 +5,6 @@ public class BossHPBar : MonoBehaviour
 {
     public Image  BossHpFill;   // 빨간 HP 이미지
     private float BossMaxHP = 10000f; //보스 전체 체력 저장
-    private float currentHP = 10000f; //현재 체력
 
     void Start()
     {

@@ -16031,7 +16031,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 850, y: 508}
+  m_AnchoredPosition: {x: 809, y: 364}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1712504559
@@ -16054,7 +16054,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: (10000 / 7500 / 5000  /2500)
+  m_text: "\uD398\uC774\uC988\uBCC4 \uC785\uB825\uAC12\n1 : 40000\n2:  30000\n3 :
+    20000\n4 : 10000"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c31010d6379a0a4d849f934762888f1, type: 2}
   m_sharedMaterial: {fileID: 5748617614116358605, guid: 1c31010d6379a0a4d849f934762888f1, type: 2}
@@ -20923,8 +20924,9 @@ MonoBehaviour:
   firePoint: {fileID: 1911230239}
   warningTime: 1.5
   laserTime: 2
-  RotateSpeed: 30
   stageSetting: {fileID: 1634346489}
+  RotateSpeed: 30
+  TogglePeriod: 10
 --- !u!114 &2126516352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20991,17 +20993,8 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7.51, y: 10.56}
-    newSize: {x: 7.51, y: 10.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   m_Size: {x: 7.51, y: 10.56}
-  m_EdgeRadius: 0
+  m_Direction: 0
 --- !u!50 &2126516355
 Rigidbody2D:
   serializedVersion: 5
