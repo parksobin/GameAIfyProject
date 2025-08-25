@@ -1,66 +1,67 @@
 ﻿using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class MainSceneManager : MonoBehaviour
 {
-    public MainSceneManager Instance { get; private set; }
     private const string KEY_BGM = "BGM_VOLUME";
     private const string KEY_SFX = "SFX_VOLUME";
 
-    public GameObject MainScreen01; // 메인 화면 (시작 한 번만)
-    public GameObject MainScreen02; // 시작화면
-    public GameObject Option; // 옵션창
-    public GameObject PressKey; //pressKey 글자 오브젝트
-    private bool mainScreen =true;
-    private bool PressKeyActive =true;
-    private float PressTime = 0f; //깜빡임 간격 1초
+    public GameObject MainScreen01; // 첫 진입에서만 보이는 화면
+    public GameObject MainScreen02; // 이후 기본 시작화면
+    public GameObject Option;
+    public GameObject PressKey;
     public MainScreenFade mainScreenFade;
 
-    private static bool StartKeyDown = false;  // 씬을 다녀와도 유지
-    private bool  OptionActive =false; //옵션 활성화용
-    public SpriteRenderer[] MainReanderArray; 
+    private bool mainScreen = true;
+    private bool PressKeyActive = true;
+    private float PressTime = 0f;
+    private bool OptionActive = false;
 
     public AudioManager AudioManager;
-    public Slider bgmSlider;                // 슬라이더 연결
-    public Slider sfxSlider;                // 슬라이더 연결
-    public TextMeshProUGUI BgmpercentText;     // 퍼센트 출력 텍스트
-    public TextMeshProUGUI SfxpercentText;     // 퍼센트 출력 텍스트
-    public Sprite[] SoundOnOff_Img; //사운드 Onoff 이미지 변경  0 켜짐 1꺼짐
-    public Image BgmImg; //Bgm 껐다 켜짐 이미지
-    public Image SfxImg;//Sfx 껐다 켜짐 이미지
+    public Slider bgmSlider;
+    public Slider sfxSlider;
+    public TextMeshProUGUI BgmpercentText;
+    public TextMeshProUGUI SfxpercentText;
+    public Sprite[] SoundOnOff_Img; // 0 on, 1 off
+    public Image BgmImg;
+    public Image SfxImg;
 
-    void Start()
+    private void Start()
     {
-        // StartKeyDown에 맞춰 화면 세팅
-        MainScreen01.SetActive(!StartKeyDown);
-        MainScreen02.SetActive(StartKeyDown);
+        // 오직 StartScreenSign 하나로 화면 결정
+        bool passed = AudioManager.StartScreenSign;
+        MainScreen01.SetActive(!passed);
+        MainScreen02.SetActive(passed);
 
         Option.SetActive(OptionActive);
 
-        // 시작 시 현재 음량 값 반영 , 없으면 기본 50%
         float bgm = PlayerPrefs.HasKey(KEY_BGM) ? PlayerPrefs.GetFloat(KEY_BGM) : 0.5f;
         float sfx = PlayerPrefs.HasKey(KEY_SFX) ? PlayerPrefs.GetFloat(KEY_SFX) : 0.5f;
         if (!PlayerPrefs.HasKey(KEY_BGM)) PlayerPrefs.SetFloat(KEY_BGM, bgm);
         if (!PlayerPrefs.HasKey(KEY_SFX)) PlayerPrefs.SetFloat(KEY_SFX, sfx);
         PlayerPrefs.Save();
+
         if (bgmSlider) bgmSlider.value = Mathf.Clamp01(bgm);
         if (sfxSlider) sfxSlider.value = Mathf.Clamp01(sfx);
+
+        // 첫 화면 모드 여부 갱신 (PressKey 깜빡임에 사용)
+        mainScreen = !passed;
     }
 
-    void Update()
+    private void Update()
     {
         PressKeyUpdate();
-        // 아직 키 입력이 없을 때만 체크
-        if (!StartKeyDown && Input.anyKeyDown)
-        {
-            StartKeyDown = true;
-            mainScreenFade.ScreenFade();
 
+        // 첫 화면일 때 아무 키 누르면 통과 & 페이드
+        if (mainScreen && Input.anyKeyDown)
+        {
             mainScreen = false;
+            AudioManager.MarkStartScreenPassed();   // 상태 true + 저장
+            mainScreenFade.ScreenFade();            // 페이드 -> ScreenOnoff()에서 UI 전환
         }
-        // 이미지 & 음량 텍스트 변경
+
         UpdateVolumeText(bgmSlider.value, BgmpercentText);
         UpdateVolumeText(sfxSlider.value, SfxpercentText);
     }
@@ -71,20 +72,16 @@ public class MainSceneManager : MonoBehaviour
         MainScreen02.SetActive(true);
     }
 
-    public void OptionClick() // 옵션창 닫기 열기
+    public void OptionClick()
     {
         OptionActive = !OptionActive;
         Option.SetActive(OptionActive);
-        // 닫힐 때 음량 설정 저장
-        if (!OptionActive)
-        {
-            SaveVolumes();
-        }
+        if (!OptionActive) SaveVolumes();
     }
 
     private void PressKeyUpdate()
     {
-        if(mainScreen)
+        if (mainScreen)
         {
             PressTime += Time.deltaTime;
             if (PressTime > 0.5f)
@@ -94,47 +91,49 @@ public class MainSceneManager : MonoBehaviour
                 PressTime = 0f;
             }
         }
+        else
+        {
+            if (PressKey.activeSelf) PressKey.SetActive(false);
+        }
     }
 
     private void SaveVolumes()
     {
         if (bgmSlider) PlayerPrefs.SetFloat(KEY_BGM, Mathf.Clamp01(bgmSlider.value));
         if (sfxSlider) PlayerPrefs.SetFloat(KEY_SFX, Mathf.Clamp01(sfxSlider.value));
-        PlayerPrefs.Save(); 
+        PlayerPrefs.Save();
     }
 
-    void UpdateVolumeText(float value, TextMeshProUGUI txt) // 슬라이더 값애 의한 텍스트 출력과 이미지 변경
+    private void UpdateVolumeText(float value, TextMeshProUGUI txt)
     {
-        int percent = Mathf.RoundToInt(value * 100); // 0.1 → 10
+        int percent = Mathf.RoundToInt(value * 100);
         txt.text = percent.ToString() + "%";
 
-        //음량값과 이미지, 텍스트 바로 변경
-        if(txt == BgmpercentText)
+        if (txt == BgmpercentText)
         {
             AudioManager.SetBgmVolume(value);
-            if(percent > 0) BgmImg.sprite = SoundOnOff_Img[0];
-            else BgmImg.sprite = SoundOnOff_Img[1];
+            BgmImg.sprite = (percent > 0) ? SoundOnOff_Img[0] : SoundOnOff_Img[1];
         }
         else
         {
             AudioManager.SetSfxVolume(value);
-            if (percent > 0) SfxImg.sprite = SoundOnOff_Img[0];
-            else SfxImg.sprite = SoundOnOff_Img[1];
+            SfxImg.sprite = (percent > 0) ? SoundOnOff_Img[0] : SoundOnOff_Img[1];
         }
     }
 
-    public void StartBtn() //게임 시작버튼
+    //public void StartBtn() => SceneManager.LoadScene("InGameScene");
+
+    public void StartBtn()
     {
         SceneManager.LoadScene("InGameScene");
+        Time.timeScale = 1f;
     }
-
-    public void QuitGame() //게임종료 버튼
+    public void QuitGame()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-    Application.Quit();
+        Application.Quit();
 #endif
     }
-
 }
