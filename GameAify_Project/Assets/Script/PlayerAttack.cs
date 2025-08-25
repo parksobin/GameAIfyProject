@@ -42,7 +42,6 @@ public class PlayerAttack : MonoBehaviour
     public GameObject capsuleObj; //캡슐 오브젝트(플레이어 내에있음)
     public static float CapsuleTime; // 캡슐 쿨타임
     private float capsuleTimer;  //캡슐 쿨타임 계산을 위한 변수
-    private CapsuleState capsuleState;
 
     //모든 무기유니크 단계 이미지 
     //public Sprite[] UniqueImg;  //  (0 매스, 1 매스 총알 )  / 백신은 따로 프리팹 안에 되어 잇음
@@ -52,7 +51,6 @@ public class PlayerAttack : MonoBehaviour
     {
         //StartCoroutine(VaccineInject());
         capsuleObj = GameObject.Find("CapsuleiTem");
-        capsuleState = capsuleObj.GetComponent<CapsuleState>();
         capsuleObj = null;
     }
 
@@ -354,7 +352,7 @@ public class PlayerAttack : MonoBehaviour
             CapsuleState.CapsuleActive = true;
 
             var cs = capsuleObj.GetComponent<CapsuleState>();
-            if (cs != null) cs.ActiveDesignerEventArgs(1.0f);
+            if (cs != null) CapsuleState.ActiveDesignerEventArgs(1.0f);
 
             GetCapsule = false;
             capsuleTimer = 0f;

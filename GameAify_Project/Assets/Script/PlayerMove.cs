@@ -29,6 +29,7 @@ public class PlayerMove : MonoBehaviour
     private string enemyLayerName = "Enemy";
     private int playerLayer;
     private int enemyLayer;
+    private bool VaccineSign =false;
 
     void Start()
     {
@@ -70,7 +71,7 @@ public class PlayerMove : MonoBehaviour
             }
             else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
-                walkAni("walkDown", true,false,false,true);
+
             }
             else
             {
@@ -123,8 +124,11 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         UpdateHPBar();
-        if(collision.CompareTag("Enemy") || collision.CompareTag("Spear") || collision.CompareTag("RunningDog"))
+        if(collision.CompareTag("Enemy") || collision.CompareTag("Spear") || 
+            collision.CompareTag("RunningDog") || collision.CompareTag("Laser") || 
+            collision.CompareTag("Virus_BossMap"))
         {
+            CapsuleState.CapsuleControl();
             StartCoroutine(InvincibleRoutine());
         }
         if (collision.CompareTag("Apple"))
@@ -146,7 +150,26 @@ public class PlayerMove : MonoBehaviour
         {
             stageSetting.InBossStage();
         }
+        /*
+        if(collision.CompareTag("Vaccine")&&PlayerStat.VaccineLevel==4&&!VaccineSign)
+        {
+            PlayerStat.AttackPower += 10;
+            Debug.Log("AttackPower : " + PlayerStat.AttackPower);
+            VaccineSign =!VaccineSign;
+        }
+        */
     }
+    /*
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Vaccine" && PlayerStat.VaccineLevel == 4 && VaccineSign)
+        {
+            PlayerStat.AttackPower -= 10;
+            Debug.Log("AttackPower : " + PlayerStat.AttackPower);
+            VaccineSign = !VaccineSign;
+        }
+    }
+    */
     private IEnumerator InvincibleRoutine()
     {
         isInvincible = true;

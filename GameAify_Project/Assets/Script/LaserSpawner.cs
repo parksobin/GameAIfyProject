@@ -58,17 +58,17 @@ public class LaserSpawner : MonoBehaviour
 
     private IEnumerator WarningAndFire(Vector2 lockedPos, Vector2 dir)
     {
-        //  경고도 잠근 좌표로 생성
+        // 경고도 잠근 좌표로 생성
         GameObject warning = Instantiate(warningPrefab, lockedPos, Quaternion.identity);
         warning.transform.right = dir;
 
         // 깜빡임(총 1초)
         yield return StartCoroutine(BlinkWarning(warning, 1f));
 
-        // ★ 발사 직전에 '절대' player.position 재읽지 않음!
+        // 발사 직전에 '절대' player.position 재읽지 않음!
         Destroy(warning);
 
-        // ★ 실제 레이저도 잠근 좌표로 발사
+        // 실제 레이저도 잠근 좌표로 발사
         GameObject laser = Instantiate(laserPrefab, lockedPos, Quaternion.identity);
         laser.transform.right = dir;
 

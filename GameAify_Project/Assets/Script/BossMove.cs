@@ -42,7 +42,7 @@ public class BossMove : MonoBehaviour
     private void BossImgChange()
     { 
         //보스 체력에 따른 애니메이터 사용여부와 기본 이미지 변경 && 체력이 있어야만 공격 함
-        if(PlayerStat.BossStamina >0)
+        if(PlayerStat.BossStamina > 0)
         {
             sr.sprite = BossImg[0];
             animator.enabled = true;
@@ -58,7 +58,6 @@ public class BossMove : MonoBehaviour
 
     private void BossHit() //레벨별 보스 공격 실행
     {
-        
         switch (BossLevel)
         {
             case 1:
@@ -157,15 +156,15 @@ public class BossMove : MonoBehaviour
 
     private void BossLevelChange()
     {
-        if (PlayerStat.BossStamina > 7500) BossLevel = 1;
-        else if (PlayerStat.BossStamina > 5000)
+        if (BossHPBar.BossCurrentHP > 37500) BossLevel = 1;
+        else if (BossHPBar.BossCurrentHP > 25000)
         {
             BossLevel = 2;
             spawner.RotateSpeed = 30f;
         }
-        else if (PlayerStat.BossStamina > 2500) BossLevel = 3;
+        else if (BossHPBar.BossCurrentHP > 12500) BossLevel = 3;
         else
-        { BossLevel = 4; spawner.RotateSpeed = 36f; }  //4페이즈 회전 속도 올라감
+        { BossLevel = 4; spawner.RotateSpeed = -36f; }  //4페이즈 회전 속도 올라감
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -24,15 +24,15 @@ public class PlayerStat : MonoBehaviour
 
     public static int purificationGauge = 0; //정화 게이지 퍼센트
     public static bool purificationClearposSign = false; // 정화 완료 여부 확인 
-    public static float  BossStamina = 10000; //보스 체력
+    public static float BossStamina = 10000; //보스 체력
 
-    public static int SyringeLevel = 1; // 주사기 단계
     public static int MessLevel = 1; // 메스 단계
+    public static int SyringeLevel = 1; // 주사기 단계
     public static int DroneLevel = 1; // 드론 단계
     public static int VaccineLevel = 1;  // 백신 투하 단계
     public static int CapsuleLevel = 1; // 캡슐 단계
 
-    public static int HpLevel = 0, AttRangeLevel = 0, PlayerSpeedLevel = 0,
+    public static int HpLevel = 0, AttRangeLevel = 0 , PlayerSpeedLevel = 0,
          AttSpeedLevel = 0, AttPowerLevel = 0; // 알약 수치 조정을 위한 변수 선언
     public static int itemSelectCount = 0;
     public static float VCFS = 0f; // 백신 구역의 크기
@@ -211,7 +211,7 @@ public class PlayerStat : MonoBehaviour
         }
     }
 
-
+    /*
     // 백신 필드 공격력 증가 임시 구현(기획팀과 논의 필요)
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -231,4 +231,5 @@ public class PlayerStat : MonoBehaviour
             Debug.Log("공격력이 원래대로 돌아왔습니다. 현재 공격력: " + currentAttackPower);
         }
     }
+    */
 }

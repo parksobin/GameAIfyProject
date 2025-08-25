@@ -11,6 +11,11 @@ public class MainSceneManager : MonoBehaviour
     public GameObject MainScreen01; // 메인 화면 (시작 한 번만)
     public GameObject MainScreen02; // 시작화면
     public GameObject Option; // 옵션창
+    public GameObject PressKey; //pressKey 글자 오브젝트
+    private bool mainScreen =true;
+    private bool PressKeyActive =true;
+    private float PressTime = 0f; //깜빡임 간격 1초
+    public MainScreenFade mainScreenFade;
 
     private static bool StartKeyDown = false;  // 씬을 다녀와도 유지
     private bool  OptionActive =false; //옵션 활성화용
@@ -45,16 +50,24 @@ public class MainSceneManager : MonoBehaviour
 
     void Update()
     {
+        PressKeyUpdate();
         // 아직 키 입력이 없을 때만 체크
         if (!StartKeyDown && Input.anyKeyDown)
         {
             StartKeyDown = true;
-            MainScreen01.SetActive(false);
-            MainScreen02.SetActive(true);
+            mainScreenFade.ScreenFade();
+
+            mainScreen = false;
         }
         // 이미지 & 음량 텍스트 변경
         UpdateVolumeText(bgmSlider.value, BgmpercentText);
         UpdateVolumeText(sfxSlider.value, SfxpercentText);
+    }
+
+    public void ScreenOnoff()
+    {
+        MainScreen01.SetActive(false);
+        MainScreen02.SetActive(true);
     }
 
     public void OptionClick() // 옵션창 닫기 열기
@@ -65,6 +78,20 @@ public class MainSceneManager : MonoBehaviour
         if (!OptionActive)
         {
             SaveVolumes();
+        }
+    }
+
+    private void PressKeyUpdate()
+    {
+        if(mainScreen)
+        {
+            PressTime += Time.deltaTime;
+            if (PressTime > 0.5f)
+            {
+                PressKeyActive = !PressKeyActive;
+                PressKey.SetActive(PressKeyActive);
+                PressTime = 0f;
+            }
         }
     }
 
