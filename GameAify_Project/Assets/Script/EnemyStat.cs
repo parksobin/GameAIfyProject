@@ -11,7 +11,7 @@ public class EnemyStat : MonoBehaviour
     public float EnemyMoveSpeed; // 적 이동속도
     private float maxHP; // 적 기본체력
     private float currentHP; // 적 현재체력
-    private bool OnVaccineDamage = false;
+    public static bool OnVaccineDamage = false;
     public GameObject DieEffect; // 적 사망 시 이펙트
 
     public Image fillImage;
@@ -45,6 +45,9 @@ public class EnemyStat : MonoBehaviour
                 EnemyAttack = 60f;
                 EnemyMoveSpeed = 1.0f;
                 break;
+            case "Virus_BossMap":
+                EnemyAttack = 20f;
+                break;
         }
         currentHP = maxHP;
     }
@@ -75,42 +78,54 @@ public class EnemyStat : MonoBehaviour
             || collision.gameObject.name.StartsWith("MessBullet") || collision.gameObject.name.StartsWith("UniqueMessBullet"))
             TakeDamage(PlayerStat.MessPower);
         else if (collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = true;
-
-        // 적이 플레이어에 닿았을 때 플레이어 피해 계산
-        if (collision.CompareTag("Player") && !PlayerMove.isInvincible)
+        else if (gameObject.name.StartsWith("Virus_BossMap"))
         {
-            float damage = EnemyAttack;
-
-            // 캡슐이 활성화된 경우에만 감소율 적용
-            if (PlayerStat.CapsuleState)
+            if (collision.CompareTag("Player") && !PlayerMove.isInvincible)
             {
-                switch (PlayerStat.CapsuleLevel)
-                {
-                    case 1: // 30% 감소 → 70%만 받음
-                        damage *= 0.7f; break;
-                    case 2: // 50% 감소
-                        damage *= 0.5f; break;
-                    case 3: // 70% 감소
-                        damage *= 0.3f; break;
-                    case 4: // 100% 감소(유니크)
-                        damage = 0f; break;
-                    default:
-                        // 레벨 0 또는 정의 밖: 감소 없음
-                        break;
-                }
+                CapsuleDamageCalcurate(EnemyAttack);
+                Destroy(gameObject);
             }
-
-            // 음수 방지 및 적용
-            if (damage < 0f) damage = 0f;
-            PlayerStat.HP -= damage;
         }
 
+        // 적이 플레이어에 닿았을 때 플레이어 피해 계산
+        else if (collision.CompareTag("Player") && !PlayerMove.isInvincible)
+        {
+            CapsuleDamageCalcurate(EnemyAttack);
+        }
         UpdateHPBar();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.gameObject.name.StartsWith("VaccineFeild")) OnVaccineDamage = false;
+    }
+
+    public static void CapsuleDamageCalcurate(float EnemyAttack)
+    {
+        float damage = EnemyAttack;
+
+        // 캡슐이 활성화된 경우에만 감소율 적용
+        if (PlayerStat.CapsuleState)
+        {
+            switch (PlayerStat.CapsuleLevel)
+            {
+                case 1: // 30% 감소 → 70%만 받음
+                    damage *= 0.7f; break;
+                case 2: // 50% 감소
+                    damage *= 0.5f; break;
+                case 3: // 70% 감소
+                    damage *= 0.3f; break;
+                case 4: // 100% 감소(유니크)
+                    damage = 0f; break;
+                default:
+                    // 레벨 0 또는 정의 밖: 감소 없음
+                    break;
+            }
+        }
+
+        // 음수 방지 및 적용
+        if (damage < 0f) damage = 0f;
+        PlayerStat.HP -= damage;
     }
 
     public void TakeDamage(float damage)

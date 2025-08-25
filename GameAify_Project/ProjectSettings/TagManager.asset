@@ -17,6 +17,7 @@ TagManager:
   - RunningDog
   - Spear
   - Laser
+  - Virus_BossMap
   layers:
   - Default
   - TransparentFX

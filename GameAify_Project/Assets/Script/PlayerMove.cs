@@ -69,7 +69,7 @@ public class PlayerMove : MonoBehaviour
             }
             else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
-                walkAni("walkDown", true,false,false,true);
+
             }
             else
             {
@@ -118,8 +118,11 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         UpdateHPBar();
-        if(collision.CompareTag("Enemy") || collision.CompareTag("Spear") || collision.CompareTag("RunningDog"))
+        if(collision.CompareTag("Enemy") || collision.CompareTag("Spear") || 
+            collision.CompareTag("RunningDog") || collision.CompareTag("Laser") || 
+            collision.CompareTag("Virus_BossMap"))
         {
+            CapsuleState.CapsuleControl();
             StartCoroutine(InvincibleRoutine());
         }
         if (collision.CompareTag("Apple"))
