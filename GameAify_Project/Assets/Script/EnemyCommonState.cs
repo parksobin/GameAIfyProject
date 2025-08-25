@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class EnemyCommonState : MonoBehaviour
@@ -22,6 +23,7 @@ public class EnemyCommonState : MonoBehaviour
     public float knockbackDuration = 0.2f;
     private bool isKnockback = false;
     private Coroutine knockCR;
+    private bool MoveTo =false; //보스맵 바이러스 이동 사인 (이걸로 이동할 때 삭제 가능)
 
     void Awake()
     {
@@ -63,6 +65,7 @@ public class EnemyCommonState : MonoBehaviour
             {
                 direction = (playerObj.transform.position - transform.position).normalized;
                 gameObject.transform.Translate(direction * BossVirusSpeed * Time.deltaTime);
+                MoveTo=true;
             }
         }
         if (gameObject.name.StartsWith("Virus2") && distance <= 10f)
@@ -116,9 +119,10 @@ public class EnemyCommonState : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (gameObject.name.StartsWith("Virus_BossMap"))
+        if (gameObject.name.StartsWith("Virus_BossMap")&& MoveTo)
         {
-            if(collision.CompareTag("Weapon"))
+            if(collision.CompareTag("Player")) Destroy(gameObject);
+            if (collision.CompareTag("Weapon"))
             {
                 Destroy(gameObject);
             }

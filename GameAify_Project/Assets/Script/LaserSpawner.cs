@@ -18,9 +18,15 @@ public class LaserSpawner : MonoBehaviour
     //2차 공격 관련
     private GameObject laser1;
     private GameObject laser2;
-    public float RotateSpeed = 30f;
     public StageSetting stageSetting;
     private bool Boss2_Laser_make = false;
+
+    public float RotateSpeed = 30f;   // 회전 속도 (deg/s)
+    public float TogglePeriod = 10f;  // 10초마다 방향 반전
+    private float _dirTimer = 0f;
+    private int _dir = 1;             // +1(정방향) → -1(역방향) 토글
+    private bool _enteredPhase4 = false;
+
 
     private void Start()
     {
@@ -91,29 +97,65 @@ public class LaserSpawner : MonoBehaviour
         yield return new WaitForSeconds(half);
     }
 
-    public void BossLevel2_Rotate() //보스2 회전 레이저 생성과 실제 회전
+    public void BossLevel2_Rotate()
     {
-        
         if (!Boss2_Laser_make)
         {
             laser1 = Instantiate(laserPrefab, Vector3.zero, Quaternion.identity);
             laser2 = Instantiate(laserPrefab, Vector3.zero, Quaternion.Euler(0, 0, 90));
             Boss2_Laser_make = true;
+
+            _dir = 1;
+            _dirTimer = 0f;
+            _enteredPhase4 = false;
+            return;
         }
-        else
+
+        // 페이즈별 on/off
+        if (BossMove.BossLevel <= 2)
         {
-            if (BossMove.BossLevel != 3)
+            laser1.SetActive(true);
+            laser2.SetActive(true);
+
+            // 4페이즈에서 빠져나오면 초기화
+            if (_enteredPhase4) { _enteredPhase4 = false; _dir = 1; _dirTimer = 0f; }
+
+            float dt = Time.deltaTime;
+            float delta = RotateSpeed * dt;          // 항상 정방향
+            laser1.transform.Rotate(0, 0, delta);
+            laser2.transform.Rotate(0, 0, delta);
+        }
+        else if (BossMove.BossLevel == 4) // 10초마다 방향 반전
+        {
+            laser1.SetActive(true);
+            laser2.SetActive(true);
+
+            float dt = Time.deltaTime; // 일시정지 중에도 돌리려면 Time.unscaledDeltaTime
+            if (!_enteredPhase4)
             {
-                laser1.SetActive(true);
-                laser2.SetActive(true);
-                laser1.transform.Rotate(0, 0, RotateSpeed * Time.deltaTime);
-                laser2.transform.Rotate(0, 0, RotateSpeed * Time.deltaTime);
+                _enteredPhase4 = true;
+                _dir = 1;
+                _dirTimer = 0f;
             }
-            else
+
+            _dirTimer += dt;
+            if (_dirTimer >= TogglePeriod)
             {
-                laser1.SetActive(false);
-                laser2.SetActive(false);
+                _dirTimer = 0f;
+                _dir *= -1; // 방향 토글
             }
+
+            float delta = RotateSpeed * _dir * dt;   // ★ 방향 적용!
+            laser1.transform.Rotate(0, 0, delta);
+            laser2.transform.Rotate(0, 0, delta);
+        }
+        else // ( 3페이즈, 죽음)
+        {
+            laser1.SetActive(false);
+            laser2.SetActive(false);
+
+            // 끄는 동안 상태 유지 or 필요 시 초기화
+            // _enteredPhase4 = false; _dir = 1; _dirTimer = 0f;
         }
     }
 }

@@ -17,7 +17,10 @@ public class MainScreenFade : MonoBehaviour
     public void ScreenFade()
     {
         StartCoroutine(FadeSequence());
+        /*
+        StartCoroutine(WaitHalfSecond());
         BlackPannel.SetActive(false);
+        */
     }
 
     IEnumerator FadeSequence()
@@ -27,6 +30,7 @@ public class MainScreenFade : MonoBehaviour
         sceneManager.ScreenOnoff();
         // 1 → 0 (0.5초)
         yield return StartCoroutine(Fade(1f, 0f, duration));
+        BlackPannel.SetActive(false);
     }
 
     IEnumerator Fade(float start, float end, float time)
@@ -40,5 +44,12 @@ public class MainScreenFade : MonoBehaviour
             yield return null;
         }
         overlay.alpha = end;
+    }
+
+
+    IEnumerator WaitHalfSecond()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("0.5초 지남!");
     }
 }

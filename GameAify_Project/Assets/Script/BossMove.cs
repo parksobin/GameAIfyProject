@@ -79,6 +79,7 @@ public class BossMove : MonoBehaviour
                 Level3_Hit();
                 break;
             default:
+                Level2_Hit();  //죽음상태 비활성화 처리용
                 break;
         }
         
@@ -158,7 +159,8 @@ public class BossMove : MonoBehaviour
 
     private void BossLevelChange() //보스 체력에 따른 레벨
     {
-        if (PlayerStat.BossStamina > 37500) BossLevel = 1;
+        if(PlayerStat.BossStamina <=0 ) BossLevel = 5; //죽음 상태
+        else if (PlayerStat.BossStamina > 37500) BossLevel = 1;
         else if (PlayerStat.BossStamina > 25000)
         {
             BossLevel = 2;
