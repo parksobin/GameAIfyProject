@@ -25,7 +25,6 @@ public class PlayerAttack : MonoBehaviour
     private float MessTimer = 0f;
     private bool MessRotating = false; // 메스가 생성 중인지 여부
     private float MessBulletSpeed = 15f; // 메스 발사체 속도
-    private bool hasStarted = false;
     private float ShootDelay = 5f;
     private int radian; // 메스 발사체 각도 설정
     private int totalRadian; // 메스 발사체 최종 각도
@@ -76,12 +75,6 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(SpawnMessRotate(direction));
             MessTimer = 0f;
         }
-        if (PlayerStat.MessLevel >= 3 && !hasStarted)
-        {
-            StartCoroutine(Explosion());
-            hasStarted = true;
-        }
-        else if (PlayerStat.MessLevel < 3) hasStarted = false;
         if (VaccineTimer >= VaccineWaitSeconds)
         {
             MakeVaccine();
@@ -188,9 +181,9 @@ public class PlayerAttack : MonoBehaviour
             case 2: 
                 endAngle = 180f * direction; isBulletShoot = true; break;
             case 3: 
-                endAngle = 180f * direction; radian = 90; totalRadian = 270; break;
+                endAngle = 180f * direction; isBulletShoot = true; radian = 90; totalRadian = 270; break;
             case 4: 
-                endAngle = 180f * direction; radian = 45; totalRadian = 315; break;
+                endAngle = 180f * direction; isBulletShoot = true; radian = 45; totalRadian = 315; break;
             default:
                 endAngle = 180f * direction; break;
         }
@@ -215,7 +208,8 @@ public class PlayerAttack : MonoBehaviour
             // 발사 조건: 각도 지나침 체크
             if (isBulletShoot && Mathf.Abs(angle) >= 90f)
             {
-                MessBulletShoot();
+                if (PlayerStat.MessLevel == 2) MessBulletShoot();
+                else if (PlayerStat.MessLevel >= 3) Explosion();
                 isBulletShoot = false;
             }
             elapsed += Time.deltaTime;
@@ -242,22 +236,17 @@ public class PlayerAttack : MonoBehaviour
         if (AR != null) AR.SetStartPosition(transform.position);
     }
 
-    IEnumerator Explosion()
+    void Explosion()
     {
-        while (true)
+        for (int i = 0; i <= totalRadian; i += radian)
         {
-            yield return new WaitForSeconds(ShootDelay); // 5초 기다리고 다시 발사             
-
-            for (int i = 0; i <= totalRadian; i += radian)
-            {
-                float rad = i * Mathf.Deg2Rad;
-                Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-                GameObject proj = Instantiate(MessBulletPrefab[1], transform.position, Quaternion.Euler(0, 0, i));
-                Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
-                if (rb != null) rb.linearVelocity = direction * MessBulletSpeed;
-                AttackRange AR = proj.GetComponent<AttackRange>();
-                if (AR != null) AR.SetStartPosition(transform.position);
-            }    
+            float rad = i * Mathf.Deg2Rad;
+            Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+            GameObject proj = Instantiate(MessBulletPrefab[1], transform.position, Quaternion.Euler(0, 0, i));
+            Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
+            if (rb != null) rb.linearVelocity = direction * MessBulletSpeed;
+            AttackRange AR = proj.GetComponent<AttackRange>();
+            if (AR != null) AR.SetStartPosition(transform.position);
         }
     }
     // 백신 생성 함수
