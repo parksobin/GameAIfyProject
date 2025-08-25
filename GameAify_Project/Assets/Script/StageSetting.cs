@@ -61,15 +61,17 @@ public class StageSetting : MonoBehaviour
         OriginalStage.SetActive(false);
         Boss.transform.position = new Vector3(0,10,0); // 보스 초기위치
         Player.transform.position=new Vector3(0,-7.5f,0); //플레이어 초기위치
+        Time.timeScale = 0f;
     }
 
     private void VideoStartTime() //영상길기 (7초) 뒤에 꺼지도록 설정 -> 진짜 메인 입장
     {
         if (BossVideo.active==true)
         {
-            videoTime += Time.deltaTime;
+            videoTime += Time.unscaledDeltaTime; //timeScale이 0이어도 시간 더해짐
             if (videoTime > 7f)
             {
+                Time.timeScale = 1f;
                 BossVideo.SetActive(false);
                 Boss.SetActive(true);
                 // AudioManager.instance.SFXVolumeControl(true);
