@@ -11,7 +11,7 @@ public class BossMove : MonoBehaviour
     private SpriteRenderer sr;
     public  Sprite[] BossImg; // 0: boss idle이미지 / 1 :Die 이미지
 
-    private int BossLevel = 1;
+    public int BossLevel = 1;
     public float DelayTime = 0f;
     public bool HitSign =true;
     private bool lv3PatternRunning = false;
@@ -46,7 +46,8 @@ public class BossMove : MonoBehaviour
         {
             sr.sprite = BossImg[0];
             animator.enabled = true;
-            BossLevelChange();
+            BossLevelChange(); 
+            //BossLevelChangeTest_10000(); //테스트용
             BossHit();
         }
         else
@@ -69,6 +70,7 @@ public class BossMove : MonoBehaviour
                 break;
             case 3:
                 Level1_Hit();
+                Level2_Hit(); // 조건문으로 레벨 3이면 비활성화 알아서됨
                 Level3_Hit();
                 break;
             case 4:
@@ -110,9 +112,9 @@ public class BossMove : MonoBehaviour
         //animator.SetBool("Level1", false);
         animator.SetTrigger("Ide");
 
+        lv1PatternRunning = false;
         // 쿨타임 타이머 리셋
         DelayTime = 0f;
-        lv1PatternRunning = false;
     }
 
     private void Level2_Hit()
@@ -154,15 +156,28 @@ public class BossMove : MonoBehaviour
         DelayTime = 0f;
     }
 
-    private void BossLevelChange()
+    private void BossLevelChange() //보스 체력에 따른 레벨
     {
-        if (BossHPBar.BossCurrentHP > 37500) BossLevel = 1;
-        else if (BossHPBar.BossCurrentHP > 25000)
+        if (PlayerStat.BossStamina > 37500) BossLevel = 1;
+        else if (PlayerStat.BossStamina > 25000)
         {
             BossLevel = 2;
             spawner.RotateSpeed = 30f;
         }
-        else if (BossHPBar.BossCurrentHP > 12500) BossLevel = 3;
+        else if (PlayerStat.BossStamina > 12500) BossLevel = 3;
+        else
+        { BossLevel = 4; spawner.RotateSpeed = -36f; }  //4페이즈 회전 속도 올라감
+    }
+
+    private void BossLevelChangeTest_10000() //보스 체력에 따른 레벨 --------- 테스트용
+    {
+        if (PlayerStat.BossStamina > 7500) BossLevel = 1;
+        else if (PlayerStat.BossStamina > 5000)
+        {
+            BossLevel = 2;
+            spawner.RotateSpeed = 30f;
+        }
+        else if (PlayerStat.BossStamina > 2500) BossLevel = 3;
         else
         { BossLevel = 4; spawner.RotateSpeed = -36f; }  //4페이즈 회전 속도 올라감
     }

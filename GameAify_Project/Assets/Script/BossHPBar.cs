@@ -10,7 +10,6 @@ public class BossHPBar : MonoBehaviour
     void Start()
     {
         BossMaxHP = PlayerStat.BossStamina;
-        BossCurrentHP = BossMaxHP;
         UpdateHPBar();
     }
 
@@ -67,6 +66,6 @@ public class BossHPBar : MonoBehaviour
 
     void UpdateHPBar() // 보스 이미지에 따른 체력 표시
     {
-        BossHpFill.fillAmount = (float)BossCurrentHP / BossMaxHP;
+        BossHpFill.fillAmount = (float)PlayerStat.BossStamina / BossMaxHP;
     }
 }

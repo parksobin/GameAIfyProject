@@ -1,20 +1,21 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class LaserSpawner : MonoBehaviour
 {
-    public GameObject warningPrefab;  // °æ°í¿ë ÇÁ¸®ÆÕ
-    public GameObject laserPrefab;    // ½ÇÁ¦ ·¹ÀÌÀú ÇÁ¸®ÆÕ
-    public Transform firePoint;       // (¿øÁ¡ Á¶ÁØÇüÀÌ¸é »ç¿ë)
+    public BossMove BossMove;
+    public GameObject warningPrefab;  // ê²½ê³ ìš© í”„ë¦¬íŒ¹
+    public GameObject laserPrefab;    // ì‹¤ì œ ë ˆì´ì € í”„ë¦¬íŒ¹
+    public Transform firePoint;       // (ì›ì  ì¡°ì¤€í˜•ì´ë©´ ì‚¬ìš©)
     public float warningTime = 1.5f;
     public float laserTime = 3f;
 
     private BossMove bossMove;
-    private Transform player;         //  ¸Å ¹ß»ç ½Ã ÁÂÇ¥¸¦ Àá±×±â À§ÇØ »ç¿ë
+    private Transform player;         //  ë§¤ ë°œì‚¬ ì‹œ ì¢Œí‘œë¥¼ ì ê·¸ê¸° ìœ„í•´ ì‚¬ìš©
 
-    //2Â÷ °ø°İ °ü·Ã
+    //2ì°¨ ê³µê²© ê´€ë ¨
     private GameObject laser1;
     private GameObject laser2;
     public float RotateSpeed = 30f;
@@ -24,7 +25,7 @@ public class LaserSpawner : MonoBehaviour
     private void Start()
     {
         bossMove = GetComponent<BossMove>();
-        player = GameObject.FindWithTag("Player").transform;          // Ä³½Ì
+        player = GameObject.FindWithTag("Player").transform;          // ìºì‹±
         stageSetting = GameObject.Find("MainManager").GetComponent<StageSetting>();
     }
 
@@ -38,18 +39,18 @@ public class LaserSpawner : MonoBehaviour
 
     public void SponLevel1_Laser()
     {
-        // ¡Ú °æ°í ½ÃÀÛ "Á÷Àü"¿¡ ÇöÀç ÇÃ·¹ÀÌ¾î ÁÂÇ¥¸¦ Àá±İ
+        // â˜… ê²½ê³  ì‹œì‘ "ì§ì „"ì— í˜„ì¬ í”Œë ˆì´ì–´ ì¢Œí‘œë¥¼ ì ê¸ˆ
         Vector2 lockPosNow = player.position;
 
-        // ±×·ì Áß 3°³ ·£´ı ¼±ÅÃ
+        // ê·¸ë£¹ ì¤‘ 3ê°œ ëœë¤ ì„ íƒ
         var chosenGroups = directionGroups.OrderBy(_ => Random.value).Take(3).ToList();
 
-        // °¢ ±×·ì¿¡¼­ 1°³¾¿ ·£´ıÇÏ°Ô ¹æÇâ ¼±ÅÃ
+        // ê° ê·¸ë£¹ì—ì„œ 1ê°œì”© ëœë¤í•˜ê²Œ ë°©í–¥ ì„ íƒ
         var selectedDirs = new List<Vector2>();
         foreach (var group in chosenGroups)
             selectedDirs.Add(group[Random.Range(0, group.Length)]);
 
-        // ÄÚ·çÆ¾¿¡ 'Àá±Ù ÁÂÇ¥'¸¦ Àü´Ş ¡æ °æ°íµµ, ½ÇÁ¦ ·¹ÀÌÀúµµ ÀÌ ÁÂÇ¥¸¸ »ç¿ë
+        // ì½”ë£¨í‹´ì— 'ì ê·¼ ì¢Œí‘œ'ë¥¼ ì „ë‹¬ â†’ ê²½ê³ ë„, ì‹¤ì œ ë ˆì´ì €ë„ ì´ ì¢Œí‘œë§Œ ì‚¬ìš©
         foreach (var dir in selectedDirs)
             StartCoroutine(WarningAndFire(lockPosNow, dir));
 
@@ -58,17 +59,17 @@ public class LaserSpawner : MonoBehaviour
 
     private IEnumerator WarningAndFire(Vector2 lockedPos, Vector2 dir)
     {
-        // °æ°íµµ Àá±Ù ÁÂÇ¥·Î »ı¼º
+        // ê²½ê³ ë„ ì ê·¼ ì¢Œí‘œë¡œ ìƒì„±
         GameObject warning = Instantiate(warningPrefab, lockedPos, Quaternion.identity);
         warning.transform.right = dir;
 
-        // ±ôºıÀÓ(ÃÑ 1ÃÊ)
+        // ê¹œë¹¡ì„(ì´ 1ì´ˆ)
         yield return StartCoroutine(BlinkWarning(warning, 1f));
 
-        // ¹ß»ç Á÷Àü¿¡ 'Àı´ë' player.position ÀçÀĞÁö ¾ÊÀ½!
+        // ë°œì‚¬ ì§ì „ì— 'ì ˆëŒ€' player.position ì¬ì½ì§€ ì•ŠìŒ!
         Destroy(warning);
 
-        // ½ÇÁ¦ ·¹ÀÌÀúµµ Àá±Ù ÁÂÇ¥·Î ¹ß»ç
+        // ì‹¤ì œ ë ˆì´ì €ë„ ì ê·¼ ì¢Œí‘œë¡œ ë°œì‚¬
         GameObject laser = Instantiate(laserPrefab, lockedPos, Quaternion.identity);
         laser.transform.right = dir;
 
@@ -90,8 +91,9 @@ public class LaserSpawner : MonoBehaviour
         yield return new WaitForSeconds(half);
     }
 
-    public void BossLevel2_Rotate() //º¸½º2 È¸Àü ·¹ÀÌÀú »ı¼º°ú ½ÇÁ¦ È¸Àü
+    public void BossLevel2_Rotate() //ë³´ìŠ¤2 íšŒì „ ë ˆì´ì € ìƒì„±ê³¼ ì‹¤ì œ íšŒì „
     {
+        
         if (!Boss2_Laser_make)
         {
             laser1 = Instantiate(laserPrefab, Vector3.zero, Quaternion.identity);
@@ -100,8 +102,18 @@ public class LaserSpawner : MonoBehaviour
         }
         else
         {
-            laser1.transform.Rotate(0, 0, RotateSpeed * Time.deltaTime);
-            laser2.transform.Rotate(0, 0, RotateSpeed * Time.deltaTime);
+            if (BossMove.BossLevel != 3)
+            {
+                laser1.SetActive(true);
+                laser2.SetActive(true);
+                laser1.transform.Rotate(0, 0, RotateSpeed * Time.deltaTime);
+                laser2.transform.Rotate(0, 0, RotateSpeed * Time.deltaTime);
+            }
+            else
+            {
+                laser1.SetActive(false);
+                laser2.SetActive(false);
+            }
         }
     }
 }

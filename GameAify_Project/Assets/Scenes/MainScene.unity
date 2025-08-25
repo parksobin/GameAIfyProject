@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 110459820}
   - component: {fileID: 110459822}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BlackPannel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4471,6 +4471,7 @@ MonoBehaviour:
   overlay: {fileID: 110459822}
   duration: 0.5
   sceneManager: {fileID: 2035990453}
+  BlackPannel: {fileID: 110459818}
 --- !u!1 &2058328816
 GameObject:
   m_ObjectHideFlags: 0

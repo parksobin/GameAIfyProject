@@ -7,15 +7,17 @@ public class MainScreenFade : MonoBehaviour
     public CanvasGroup overlay;   // 검은 이미지 CanvasGroup
     public float duration = 1.0f; // 각 페이드 구간 시간
     public MainSceneManager sceneManager;
+    public GameObject BlackPannel;
 
     void Start()
     {
-       
+        BlackPannel.SetActive(true);
     }
 
     public void ScreenFade()
     {
         StartCoroutine(FadeSequence());
+        BlackPannel.SetActive(false);
     }
 
     IEnumerator FadeSequence()
