@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Security.Cryptography;
 using System.Xml.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
@@ -13,6 +16,7 @@ public class PlayerMove : MonoBehaviour
     public Sprite[] PlayerSprite; //0 기본 이미지 / 1 Die IMG
     private Rigidbody2D rb;
     private Vector2 movement;
+    public GameObject MainCanvas;
 
     public TextMeshProUGUI hpText;
     private Animator animator;
@@ -30,6 +34,14 @@ public class PlayerMove : MonoBehaviour
     private int playerLayer;
     private int enemyLayer;
     private bool VaccineSign =false;
+
+    private bool running; // 게임이 진행중인가?
+    public float duration = 1.2f;    // 연출 시간(초) — Unscaled
+    public AnimationCurve curve = null; // 부드러운 가감속용 (없으면 기본 생성)
+    public GameObject fadeOverlay;          // 화면 전체를 덮는 검은색 오브젝트 (알파 0으로 시작)
+    public GameObject gameOverUI;    // 게임오버 패널 (처음엔 비활성)
+    public GameObject CapsuleItem; // 캡슐 끄기용
+    public GameObject ResetBtn;
 
     void Start()
     {
@@ -111,9 +123,10 @@ public class PlayerMove : MonoBehaviour
         if (PlayerStat.HP >= 750) PlayerStat.HP = 750;
     }
 
-    private void PlayerDead()
+    public void PlayerDead()
     {
-        
+        if (running) return;
+        StartCoroutine(DeathRoutine());
     }
 
     void FixedUpdate()
@@ -124,9 +137,9 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         UpdateHPBar();
-        if(collision.CompareTag("Enemy") || collision.CompareTag("Spear") || 
+        if((collision.CompareTag("Enemy") || collision.CompareTag("Spear") || 
             collision.CompareTag("RunningDog") || collision.CompareTag("Laser") || 
-            collision.CompareTag("Virus_BossMap"))
+            collision.CompareTag("Virus_BossMap")) && PlayerStat.HP >= 0)
         {
             CapsuleState.CapsuleControl();
             StartCoroutine(InvincibleRoutine());
@@ -214,6 +227,83 @@ public class PlayerMove : MonoBehaviour
                 animator.SetBool("walkDown", false);
             }
         }
-        else animator.enabled = false; //애니메이터 비활성호ㅓ -> hold상태
+        else animator.enabled = false; //애니메이터 비활성화 -> hold상태
     }
+    IEnumerator DeathRoutine()
+    {
+        running = true;
+
+        MainCanvas.SetActive(false);
+        CapsuleItem.SetActive(false);
+
+        Time.timeScale = 0f;
+        if (curve == null) curve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        
+        // 시작/목표 스케일
+        Vector3 start = player ? player.localScale : Vector3.one * 0.3f;
+        Vector3 target = Vector3.one * 0.5f;
+
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.unscaledDeltaTime / duration;
+            float k = curve.Evaluate(Mathf.Clamp01(t));
+
+            // 1) 화면 페이드: fadeOverlay의 알파를 직접 증가
+            if (fadeOverlay)
+            {
+                float a = Mathf.Lerp(0f, 1f, k);
+
+                // CanvasGroup 우선
+                var cg = fadeOverlay.GetComponent<CanvasGroup>();
+                if (cg != null)
+                {
+                    cg.alpha = a;
+                }
+                else
+                {
+                    // Image
+                    var img = fadeOverlay.GetComponent<Image>();
+                    if (img != null)
+                    {
+                        var c = img.color;
+                        c.a = a;
+                        img.color = c;
+                    }
+                    else
+                    {
+                        // SpriteRenderer
+                        var sr = fadeOverlay.GetComponent<SpriteRenderer>();
+                        if (sr != null)
+                        {
+                            var c = sr.color;
+                            c.a = a;
+                            sr.color = c;
+                        }
+                    }
+                }
+            }
+
+            // 2) 플레이어 스케일 업
+            if (player) player.localScale = Vector3.Lerp(start, target, k);
+
+            yield return null;
+        }
+
+        yield return null;                   // 한 프레임 넘겨 파괴 적용(선택)
+
+        if (gameOverUI)
+        {
+            gameOverUI.SetActive(true);
+            ResetBtn.SetActive(true);
+        }
+        EventSystem.current?.SetSelectedGameObject(null);
+        // timeScale은 0 유지(게임오버 상태)
+    }
+    public void ResetGame()
+    {
+        PlayerStat.HP = 500f;
+        SceneBoot.ReloadFresh();
+    }
+
 }

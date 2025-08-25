@@ -55,6 +55,33 @@ public class PlayerStat : MonoBehaviour
 
     void RaiseStatsChanged() => OnStatsChanged?.Invoke();
 
+    void Awake()
+    {
+        maxGauge = 5000;
+        currentGauge = 0;
+        purificationGauge = 0;
+        purificationClearposSign = false;
+        BossStamina = 50000f;
+        MessLevel = 1;
+        SyringeLevel = 1;
+        DroneLevel = 1;
+        VaccineLevel = 1;
+        CapsuleLevel = 1;
+        HpLevel = 0;
+        AttRangeLevel = 0;
+        PlayerSpeedLevel = 0;
+        AttSpeedLevel = 0;
+        AttPowerLevel = 0;
+        itemSelectCount = 0;
+        VCFS = 0f;
+        maxHP = 500f;
+        HP = 500f;
+        AttackRange = 10f;
+        PlayerMoveSpeed = 5f;
+        AttackSpeed = 5.0f;
+        AttackPower = 100f;
+    }
+
     public void DroneLevelUp() // 드론 레벨업
     {
         if (DroneLevel < 4)

@@ -5,19 +5,21 @@ public class ItemSelectManager : MonoBehaviour
 {
     public GameObject ItemPanel;
     public TextMeshProUGUI UpgradeCountText;
-    private readonly int[] ItemSelectOn =
-    {
-        10, 25, 50, 100, 250, 400, 500, 650, 850,
-        1000, 1250, 1500, 1850, 2200, 2500, 3000,
-        3500, 4100, 4650, 4950
-    };
+    private int[] ItemSelectOn;
     public static int StepIndex = 0;
     public static int allUpgrade = 0;
     private bool panelOpen = false;
 
-    void Start()
+    void Awake()
     {
-         
+        ItemSelectOn = new int[] 
+        {   
+            10, 25, 50, 100, 250, 400, 500, 650, 850,
+            1000, 1250, 1500, 1850, 2200, 2500, 3000,
+            3500, 4100, 4650, 4950 
+        };
+        StepIndex = 0;
+        allUpgrade = 0;
     }
 
     void Update()

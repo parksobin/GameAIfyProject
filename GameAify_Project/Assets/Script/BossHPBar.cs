@@ -5,8 +5,7 @@ using UnityEngine.UI;
 public class BossHPBar : MonoBehaviour
 {
     public Image  BossHpFill;   // 빨간 HP 이미지
-    private float BossMaxHP = 10000f; //보스 전체 체력 저장
-    private float currentHP = 10000f; //현재 체력
+    private float BossMaxHP = 50000f; //보스 전체 체력 저장
     private float duration = 0.4f; // 몇 초동안
     private float blinkInterval = 0.1f; // 몇 초 간격으로 깜빡이게 할 껀지
     public SpriteRenderer sr;
