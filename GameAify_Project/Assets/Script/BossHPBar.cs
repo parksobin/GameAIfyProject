@@ -11,7 +11,7 @@ public class BossHPBar : MonoBehaviour
 
     public SpriteRenderer sr;
     public GameObject hitEffectPrefab;
-    private float autoDestroyAfter = 0.5f; // 자동 파괴
+    private float autoDestroyAfter = 1.0f; // 자동 파괴
 
     void Start()
     {
@@ -27,13 +27,25 @@ public class BossHPBar : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        float previousStamina = PlayerStat.BossStamina;
         PlayerStat.BossStamina -= damage;
+
         if (PlayerStat.BossStamina < 0) PlayerStat.BossStamina = 0;
+
+        // 100의 배수 경계를 넘었는지 확인
+        int previousThreshold = (int)(previousStamina / 100);
+        int currentThreshold = (int)(PlayerStat.BossStamina / 100);
+
+        // 이전 임계값보다 현재 임계값이 작으면 SpawnEffect 호출
+        if (currentThreshold < previousThreshold)
+        {
+            SpawnEffect();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon")) SpawnEffect();
+        //if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon")) SpawnEffect();
         
         if (collision.gameObject.name.StartsWith("Syringe")) TakeDamage(PlayerStat.SyringePower);
         else if (collision.gameObject.name.StartsWith("Drone")) TakeDamage(PlayerStat.DronePower);

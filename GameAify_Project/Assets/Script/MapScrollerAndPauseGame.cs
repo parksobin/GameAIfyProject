@@ -41,7 +41,7 @@ public class MapScrollerAndPauseGame : MonoBehaviour
         }
     }
 
-    void CheckPauseGame()
+    public void CheckPauseGame()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
