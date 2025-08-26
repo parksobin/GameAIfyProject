@@ -17,7 +17,6 @@ public class AudioManager : MonoBehaviour
     private AudioSource[] SfxGroup;
     private bool switched = false;
 
-    const string KEY_START = "StartScreenSign";
 
     private void Awake()
     {
@@ -30,8 +29,6 @@ public class AudioManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // 저장된 값 복원
-        StartScreenSign = PlayerPrefs.GetInt(KEY_START, 0) == 1;
     }
 
     private void Start()
@@ -51,6 +48,11 @@ public class AudioManager : MonoBehaviour
     {
         if (!switched && StageSetting.InbossStage == true)
             SwitchToBossBGM();
+
+        if (Input.anyKey)
+        {
+            MarkStartScreenPassed();
+        }
     }
 
     private void SoundGroup()
@@ -90,11 +92,10 @@ public class AudioManager : MonoBehaviour
         foreach (var src in SfxGroup) if (src) src.volume = v;
     }
 
-    // 외부에서 “통과 완료” 처리할 때 이걸 호출하면 저장까지 한번에
     public static void MarkStartScreenPassed()
     {
+        if(StartScreenSign) return;
+        else 
         StartScreenSign = true;
-        PlayerPrefs.SetInt(KEY_START, 1);
-        PlayerPrefs.Save();
     }
 }

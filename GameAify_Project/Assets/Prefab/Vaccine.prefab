@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 1799307672273264198}
   - component: {fileID: 4425716095877578665}
   - component: {fileID: 8923047573472889930}
+  - component: {fileID: 4636948365074363097}
   m_Layer: 6
   m_Name: VaccineFeild
   m_TagString: Vaccine
@@ -337,3 +338,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb81b23b2f457943abe1989274c7d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseOrder: 1
+--- !u!210 &4636948365074363097
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7434792636638831328}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_SortAtRoot: 0

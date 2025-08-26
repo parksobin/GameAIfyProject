@@ -1,9 +1,25 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 
+[RequireComponent(typeof(SortingGroup))]
 public class VaccineFeildState : MonoBehaviour
 {
     private float appliedBonus = 0f; // 현재 적용한 보너스(0이면 미적용)
 
+    private static int s_Counter = 0;  // 전역 공유 카운터
+    public int baseOrder = 1;          // 1부터 시작
+
+    void OnEnable()
+    {
+        var sg = GetComponent<SortingGroup>();
+
+        // 1 → 2 → 3 → 다시 1 …
+        int order = baseOrder + (s_Counter % 3);
+
+        sg.sortingOrder = order;
+
+        s_Counter++;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && PlayerStat.VaccineLevel == 4 && appliedBonus == 0f)
