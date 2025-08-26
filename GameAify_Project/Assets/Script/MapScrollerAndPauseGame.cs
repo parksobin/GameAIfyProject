@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,10 +10,13 @@ public class MapScrollerAndPauseGame : MonoBehaviour
     public GameObject[] tiles;                   // 9개 Image(순서 무관)
     public GameObject PausePanel; // 일시정지 패널
     private bool isPaused; // 일시정지 상태인가를 확인
+    public GameObject StatCanvas; // 디버그용 캔버스
+    private bool isStatOn;
 
     void Start()
     {
         isPaused = false;
+        isStatOn = false;
     }
 
     void Update()
@@ -38,6 +42,20 @@ public class MapScrollerAndPauseGame : MonoBehaviour
 
             if (Mathf.Abs(dy) >= tileSize * 1.5f)
                 rt.position += new Vector3(0f, Mathf.Sign(dy) * tileSize * 3f, 0f);
+        }
+    }
+
+    public void OnOff()
+    {
+        if (!isStatOn)
+        {
+            StatCanvas.SetActive(true);
+            isStatOn = true;
+        }
+        else
+        {
+            StatCanvas.SetActive(false);
+            isStatOn = false;
         }
     }
 
