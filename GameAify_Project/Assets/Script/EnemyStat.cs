@@ -124,7 +124,7 @@ public class EnemyStat : MonoBehaviour
         }
 
         // 음수 방지 및 적용
-        if (damage < 0f) damage = 0f;
+        if (damage <= 0f) damage = 0f;
         PlayerStat.HP -= damage;
     }
 

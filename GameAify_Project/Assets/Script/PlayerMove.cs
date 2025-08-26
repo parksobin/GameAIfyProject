@@ -41,7 +41,8 @@ public class PlayerMove : MonoBehaviour
     public GameObject fadeOverlay;          // 화면 전체를 덮는 검은색 오브젝트 (알파 0으로 시작)
     public GameObject gameOverUI;    // 게임오버 패널 (처음엔 비활성)
     public GameObject CapsuleItem; // 캡슐 끄기용
-    public GameObject ResetBtn;
+    public GameObject ResetBtn; // 게임 다시 하기 버튼
+    public GameObject BossGameOver; // 보스 맵에서 게임 오버
 
     void Start()
     {
@@ -126,7 +127,8 @@ public class PlayerMove : MonoBehaviour
     public void PlayerDead()
     {
         if (running) return;
-        StartCoroutine(DeathRoutine());
+        if (StageSetting.InbossStage) BossMapDead();
+        else StartCoroutine(DeathRoutine());
     }
 
     void FixedUpdate()
@@ -241,7 +243,7 @@ public class PlayerMove : MonoBehaviour
         
         // 시작/목표 스케일
         Vector3 start = player ? player.localScale : Vector3.one * 0.3f;
-        Vector3 target = Vector3.one * 0.5f;
+        Vector3 target = Vector3.one * 1.0f;
 
         float t = 0f;
         while (t < 1f)
@@ -300,9 +302,14 @@ public class PlayerMove : MonoBehaviour
         EventSystem.current?.SetSelectedGameObject(null);
         // timeScale은 0 유지(게임오버 상태)
     }
+
+    void BossMapDead()
+    {
+        MainCanvas.SetActive(false);
+        BossGameOver.SetActive(true);   
+    }
     public void ResetGame()
     {
-        PlayerStat.HP = 500f;
         SceneBoot.ReloadFresh();
     }
 

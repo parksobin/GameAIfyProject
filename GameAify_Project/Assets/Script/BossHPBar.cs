@@ -8,7 +8,10 @@ public class BossHPBar : MonoBehaviour
     private float BossMaxHP = 50000f; //보스 전체 체력 저장
     private float duration = 0.4f; // 몇 초동안
     private float blinkInterval = 0.1f; // 몇 초 간격으로 깜빡이게 할 껀지
+
     public SpriteRenderer sr;
+    public GameObject hitEffectPrefab;
+    private float autoDestroyAfter = 0.5f; // 자동 파괴
 
     void Start()
     {
@@ -30,7 +33,7 @@ public class BossHPBar : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon")) StartCoroutine(BlinkRoutine(duration, blinkInterval));
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon")) SpawnEffect();
         
         if (collision.gameObject.name.StartsWith("Syringe")) TakeDamage(PlayerStat.SyringePower);
         else if (collision.gameObject.name.StartsWith("Drone")) TakeDamage(PlayerStat.DronePower);
@@ -39,7 +42,17 @@ public class BossHPBar : MonoBehaviour
             TakeDamage(PlayerStat.MessPower);
         else if (collision.gameObject.name.StartsWith("VaccineFeild")) EnemyStat.OnVaccineDamage = true;
     }
+    private void SpawnEffect()
+    {
+        if (hitEffectPrefab == null) return;
 
+        // 적의 현재 위치 & 회전값으로 생성
+        GameObject fx = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+
+        // 자동 파괴(프리팹에 애니메이션/파티클 길이에 맞게 조절)
+        if (autoDestroyAfter > 0f)
+            Destroy(fx, autoDestroyAfter);
+    }
     private IEnumerator BlinkRoutine(float duration, float blinkInterval)
     {
         float time = 0f;

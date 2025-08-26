@@ -1,0 +1,357 @@
+fileFormatVersion: 2
+guid: 5055ce59ded9b16429b03e91d76f78dd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6684829646038804595
+    second: BossDamage_0
+  - first:
+      213: -9023569383117446144
+    second: BossDamage_1
+  - first:
+      213: -4258336671107963701
+    second: BossDamage_2
+  - first:
+      213: 8324796409857656558
+    second: BossDamage_3
+  - first:
+      213: 445317282899207968
+    second: BossDamage_4
+  - first:
+      213: -5008726748000775808
+    second: BossDamage_5
+  - first:
+      213: -3432468091325093388
+    second: BossDamage_6
+  - first:
+      213: 8270019941364684801
+    second: BossDamage_7
+  - first:
+      213: 5387224413790869176
+    second: BossDamage_8
+  - first:
+      213: -4425824761093190944
+    second: BossDamage_9
+  - first:
+      213: -2235624370976874830
+    second: BossDamage_10
+  - first:
+      213: -2932166172492337064
+    second: BossDamage_11
+  - first:
+      213: 6495353843399795266
+    second: BossDamage_12
+  - first:
+      213: 1966373447262870694
+    second: BossDamage_13
+  - first:
+      213: -1566193006044709085
+    second: BossDamage_14
+  - first:
+      213: 2670455765634044647
+    second: BossDamage_15
+  - first:
+      213: -7001825797837915885
+    second: BossDamage_16
+  - first:
+      213: -2814266455073858195
+    second: BossDamage_17
+  - first:
+      213: -7582375584545830878
+    second: BossDamage_18
+  - first:
+      213: -3229021551980004987
+    second: BossDamage_19
+  - first:
+      213: -344669277572187152
+    second: BossDamage_20
+  - first:
+      213: 8562789168313398676
+    second: BossDamage_21
+  - first:
+      213: 967096748337772791
+    second: BossDamage_22
+  - first:
+      213: -134582174237081943
+    second: BossDamage_23
+  - first:
+      213: -4299149091447420629
+    second: BossDamage_24
+  - first:
+      213: -9026559626891157801
+    second: BossDamage_25
+  - first:
+      213: -5596430109859297107
+    second: BossDamage_26
+  - first:
+      213: -1771600259255386893
+    second: BossDamage_27
+  - first:
+      213: -4724481703834590852
+    second: BossDamage_28
+  - first:
+      213: -6696041238798130020
+    second: BossDamage_29
+  - first:
+      213: -596661900039676989
+    second: BossDamage_30
+  - first:
+      213: 7245362574271277205
+    second: BossDamage_31
+  - first:
+      213: -8990445563659720982
+    second: BossDamage_32
+  - first:
+      213: -3661522894591437547
+    second: BossDamage_33
+  - first:
+      213: -5751264597632204908
+    second: BossDamage_34
+  - first:
+      213: 3505572234430278648
+    second: BossDamage_35
+  - first:
+      213: -1091400587817726330
+    second: BossDamage_36
+  - first:
+      213: -4339499710459481217
+    second: BossDamage_37
+  - first:
+      213: -1480871298814941098
+    second: BossDamage_38
+  - first:
+      213: -8260551706954147149
+    second: BossDamage_39
+  - first:
+      213: 4139383188072662884
+    second: BossDamage_40
+  - first:
+      213: -4987118134205420312
+    second: BossDamage_41
+  - first:
+      213: -7498748785275864927
+    second: BossDamage_42
+  - first:
+      213: 2400152789315399866
+    second: BossDamage_43
+  - first:
+      213: 666263649455301294
+    second: BossDamage_44
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BossDamage_0
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 0
+        width: 260
+        height: 853
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a17af81d1b85ec34b9bc0342f14d270f
+      internalID: 66281971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossDamage_1
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 0
+        width: 336
+        height: 853
+      alignment: 9
+      pivot: {x: 0.49669293, y: 0.49218443}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bfa25884c97eca49b149a57bd000484
+      internalID: -247632374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossDamage_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 853
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e59a48de4e4ab684d983809f190784bb
+      internalID: -285783318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossDamage_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 320
+        height: 853
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49e51550772bb2b4192b5d3b56ffdfb2
+      internalID: -240201493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 7ff04f5d4375be447aae0c3b6b667842
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BossDamage_0: 66281971
+      BossDamage_1: -247632374
+      BossDamage_2: -285783318
+      BossDamage_3: -240201493
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

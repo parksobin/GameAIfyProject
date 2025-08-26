@@ -62,6 +62,7 @@ public class PlayerStat : MonoBehaviour
         purificationGauge = 0;
         purificationClearposSign = false;
         BossStamina = 50000f;
+        
         MessLevel = 1;
         SyringeLevel = 1;
         DroneLevel = 1;
@@ -73,6 +74,7 @@ public class PlayerStat : MonoBehaviour
         AttSpeedLevel = 0;
         AttPowerLevel = 0;
         itemSelectCount = 0;
+
         VCFS = 0f;
         maxHP = 500f;
         HP = 500f;
