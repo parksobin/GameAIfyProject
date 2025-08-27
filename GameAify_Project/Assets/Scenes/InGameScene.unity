@@ -11671,7 +11671,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 121.67, y: 427.18}
+  m_AnchoredPosition: {x: 102, y: 427.18}
   m_SizeDelta: {x: 1389, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1151197162
@@ -16892,7 +16892,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 50f5de9af5678f34d9409ba3e2ceafe2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -16914,7 +16914,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.16, y: 2.73, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1682259208}
@@ -23105,7 +23105,7 @@ Transform:
   m_GameObject: {fileID: 2126516345}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 10.11, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23184,6 +23184,7 @@ MonoBehaviour:
   BossHpFill: {fileID: 1151197162}
   sr: {fileID: 2126516348}
   hitEffectPrefab: {fileID: 7492643975509734500, guid: dff736ed960ce3c42b1a805d32cfa527, type: 3}
+  bossAnimator: {fileID: 2126516347}
 --- !u!70 &2126516354
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
