@@ -308,9 +308,6 @@ public class PlayerMove : MonoBehaviour
         MainCanvas.SetActive(false);
         BossGameOver.SetActive(true);   
     }
-    public void ResetGame()
-    {
-        SceneBoot.ReloadFresh();
-    }
+
 
 }

@@ -10,14 +10,16 @@ public class MainSceneManager : MonoBehaviour
 
     public GameObject MainScreen01; // 첫 진입에서만 보이는 화면
     public GameObject MainScreen02; // 이후 기본 시작화면
-    public GameObject Option;
-    public GameObject PressKey;
-    public MainScreenFade mainScreenFade;
+    public GameObject Option; //옵션창
+    public GameObject PressKey; //presskey 이미지
+    public MainScreenFade mainScreenFade; 
 
     private bool mainScreen = true;
     private bool PressKeyActive = true;
     private float PressTime = 0f;
     private bool OptionActive = false;
+    private bool startBtnClick= false; //게임 시작 버튼 사인
+    private float startFadeTime = 0f; //게임 시작버튼 후 fade time 1초 여부 확인용
 
     public AudioManager AudioManager;
     public Slider bgmSlider;
@@ -64,24 +66,36 @@ public class MainSceneManager : MonoBehaviour
 
         UpdateVolumeText(bgmSlider.value, BgmpercentText);
         UpdateVolumeText(sfxSlider.value, SfxpercentText);
+
+        if (startBtnClick)
+        {
+            startFadeTime += Time.unscaledDeltaTime;
+            if (startFadeTime > 1.0f)
+            {
+                Time.timeScale = 1f;
+                startFadeTime = 0;
+                startBtnClick=false;
+                SceneManager.LoadScene("InGameScene");
+            }
+        }
     }
 
-    public void ScreenOnoff()
+    public void ScreenOnoff() //메인 화면 onoff
     {
         MainScreen01.SetActive(false);
         MainScreen02.SetActive(true);
     }
 
-    public void OptionClick()
+    public void OptionClick() //옵션 클릭 화면
     {
         OptionActive = !OptionActive;
         Option.SetActive(OptionActive);
         if (!OptionActive) SaveVolumes();
     }
 
-    private void PressKeyUpdate()
+    private void PressKeyUpdate() //메인화면 pressankkey 깜빡임
     {
-        if (mainScreen)
+        if (mainScreen) 
         {
             PressTime += Time.deltaTime;
             if (PressTime > 0.5f)
@@ -97,14 +111,14 @@ public class MainSceneManager : MonoBehaviour
         }
     }
 
-    private void SaveVolumes()
+    private void SaveVolumes() // 볼륨 저장
     {
         if (bgmSlider) PlayerPrefs.SetFloat(KEY_BGM, Mathf.Clamp01(bgmSlider.value));
         if (sfxSlider) PlayerPrefs.SetFloat(KEY_SFX, Mathf.Clamp01(sfxSlider.value));
         PlayerPrefs.Save();
     }
 
-    private void UpdateVolumeText(float value, TextMeshProUGUI txt)
+    private void UpdateVolumeText(float value, TextMeshProUGUI txt) //볼륨 스프라이트 이미지 변경
     {
         int percent = Mathf.RoundToInt(value * 100);
         txt.text = percent.ToString() + "%";
@@ -125,8 +139,8 @@ public class MainSceneManager : MonoBehaviour
 
     public void StartBtn()
     {
-        SceneManager.LoadScene("InGameScene");
-        Time.timeScale = 1f;
+        startBtnClick=!startBtnClick;
+        mainScreenFade.StartFadeIN();
     }
     public void QuitGame()
     {

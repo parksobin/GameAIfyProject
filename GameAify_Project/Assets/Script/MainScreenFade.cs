@@ -23,11 +23,19 @@ public class MainScreenFade : MonoBehaviour
     {
         StartCoroutine(FadeSequence());
     }
-
-    private IEnumerator FadeSequence()
+    public void StartFadeIN() //Start 시 Fade 처리
+    {
+        BlackPannel.SetActive(true);
+        StartCoroutine(NormalScreenFade());
+    }
+    private IEnumerator NormalScreenFade() //게임 시작 등 검정색으로 변화하는데만 사용
     {
         yield return StartCoroutine(Fade(0f, 1f, duration));
-        sceneManager.ScreenOnoff();
+    }
+    private IEnumerator FadeSequence() //1초 기준 화면 불투명도 조정 
+    {
+        yield return StartCoroutine(Fade(0f, 1f, duration));
+        sceneManager.ScreenOnoff(); //main 1,2 껐다가 켜짐 -> 자연스러움
         yield return StartCoroutine(Fade(1f, 0f, duration));
         BlackPannel.SetActive(false);
     }

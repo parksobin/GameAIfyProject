@@ -4345,7 +4345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overlay: {fileID: 110459822}
-  duration: 0.5
+  duration: 1
   sceneManager: {fileID: 2035990453}
   BlackPannel: {fileID: 110459818}
 --- !u!1 &2058328816
