@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Video;
 using System.Collections;
 
 public class StageSetting : MonoBehaviour
@@ -10,6 +11,7 @@ public class StageSetting : MonoBehaviour
     public GameObject BossStage; //보스맵
     public GameObject BossStageDoor; // 보스 스테이지 출입문
     public GameObject BossVideo; //보스 출현 동영상
+    public GameObject SwitchMapCanvas; // 영상 준비 완료 전까지 가림용 캔버스
     public GameObject BossHpFill;
     public GameObject BossHpFrame;
 
@@ -19,8 +21,11 @@ public class StageSetting : MonoBehaviour
 
     public static bool InbossStage =false; //보스맵 스테이지에 들어간 상태인지 확인
     public bool bossVideoEnd =false; //보스 영상 끝난지 판단 -> 다른 스크립트에서 사용
+    public static bool gameplayUnpausedAfterVideo = false; // 보스 영상 7초 경과 후 기능 재개 플래그
     public bool BossLevel2 =false; 
     private float videoTime; //재생시간
+    public VideoPlayer bossVideoPlayer; // 보스 영상 플레이어
+    private bool videoPrepared = false; // 준비 완료 여부
 
 
     void Start()
@@ -30,6 +35,15 @@ public class StageSetting : MonoBehaviour
         BossVideo.SetActive(false);
         BossHpFill.SetActive(false);
         BossHpFrame.SetActive(false);
+
+        // 비디오 플레이어 초기화
+        bossVideoPlayer = BossVideo != null ? BossVideo.GetComponent<VideoPlayer>() : null;
+        if (bossVideoPlayer != null)
+        {
+            bossVideoPlayer.playOnAwake = false;
+            bossVideoPlayer.skipOnDrop = false;
+            bossVideoPlayer.prepareCompleted += OnBossVideoPrepared;
+        }
     }
 
     void Update()
@@ -62,25 +76,68 @@ public class StageSetting : MonoBehaviour
         Boss.transform.position = new Vector3(0,10,0); // 보스 초기위치
         Player.transform.position = new Vector3(0,-7.5f,0); //플레이어 초기위치
         Time.timeScale = 0f;
+
+        // 영상 준비 전까지 캔버스 표시
+        if (SwitchMapCanvas != null) SwitchMapCanvas.SetActive(true);
+        videoPrepared = false;
+        videoTime = 0f;
+        gameplayUnpausedAfterVideo = false;
+        bossVideoEnd = false;
+
+        // 영상 준비 시작
+        if (bossVideoPlayer != null)
+        {
+            bossVideoPlayer.Stop();
+            bossVideoPlayer.Prepare();
+            // 이미 준비된 경우 대비
+            if (bossVideoPlayer.isPrepared)
+            {
+                OnBossVideoPrepared(bossVideoPlayer);
+            }
+        }
     }
 
     private void VideoStartTime() //영상길기 (7초) 뒤에 꺼지도록 설정 -> 진짜 메인 입장
     {
         if (BossVideo.active==true)
         {
-            videoTime += Time.unscaledDeltaTime; //timeScale이 0이어도 시간 더해짐
-            if (videoTime > 7f)
+            // 실제 재생이 시작된 이후부터 7초 카운트
+            bool isPlaying = bossVideoPlayer != null ? bossVideoPlayer.isPlaying : true;
+            if (isPlaying)
             {
-                Time.timeScale = 1f;
-                BossStage.SetActive(true);
-                BossVideo.SetActive(false);
-                Boss.SetActive(true);
-                // AudioManager.instance.SFXVolumeControl(true);
-                //AudioManager.instance.BossBGM.Play();
-                BossHpFill.SetActive(true);
-                BossHpFrame.SetActive(true);
-                bossVideoEnd =true; 
+                videoTime += Time.unscaledDeltaTime; //timeScale이 0이어도 시간 더해짐
+                if (videoTime > 7f)
+                {
+                    Time.timeScale = 1f;
+                    BossStage.SetActive(true);
+                    BossVideo.SetActive(false);
+                    Boss.SetActive(true);
+                    // AudioManager.instance.SFXVolumeControl(true);
+                    //AudioManager.instance.BossBGM.Play();
+                    BossHpFill.SetActive(true);
+                    BossHpFrame.SetActive(true);
+                    bossVideoEnd =true; 
+                    gameplayUnpausedAfterVideo = true; // 다른 스크립트에서 재개 체크
+                }
             }
+        }
+    }
+
+    private void OnBossVideoPrepared(VideoPlayer source)
+    {
+        videoPrepared = true;
+        if (SwitchMapCanvas != null) SwitchMapCanvas.SetActive(false);
+        if (bossVideoPlayer != null && !bossVideoPlayer.isPlaying)
+        {
+            bossVideoPlayer.Play();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (bossVideoPlayer != null)
+        {
+            bossVideoPlayer.prepareCompleted -= OnBossVideoPrepared;
         }
     }
 

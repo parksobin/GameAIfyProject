@@ -55,8 +55,14 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        // 정화 게이지 100 이상 시 보스 연출(영상) 종료 전까지 모든 공격/생성 기능 일시 중지
+        if (PlayerStat.purificationGauge >= 100 && !StageSetting.gameplayUnpausedAfterVideo)
+        {
+            return;
+        }
+
         CapsuleActiveOn();
-        AttackSyringeAndMess();     
+        AttackSyringeAndMess();
         CheckDamage();
     }
 
@@ -96,6 +102,7 @@ public class PlayerAttack : MonoBehaviour
         PlayerStat.MessPower = PlayerStat.AttackPower / 2.0f;
     }
 
+    // 주사기 발사 함수
     IEnumerator ShootSyringe()
     {
         int countPerRow;
@@ -170,6 +177,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // 메스 휘두르기 함수
     private IEnumerator SpawnMessRotate(float direction)
     {
         float elapsed = 0f;
@@ -221,7 +229,8 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(PlayerStat.AttackSpeed);
         MessRotating = false;
     }
-    void MessBulletShoot() //매스 총알
+    // 메스 총알 발사 함수1
+    void MessBulletShoot()
     { 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
@@ -236,6 +245,7 @@ public class PlayerAttack : MonoBehaviour
         if (AR != null) AR.SetStartPosition(transform.position);
     }
 
+    // 메스 총알 발사 함수2
     void Explosion()
     {
         for (int i = 0; i <= totalRadian; i += radian)
@@ -249,8 +259,8 @@ public class PlayerAttack : MonoBehaviour
             if (AR != null) AR.SetStartPosition(transform.position);
         }
     }
+
     // 백신 생성 함수
-    
     private void MakeVaccine()
     {
         // VaccineWaitSeconds = 8f;

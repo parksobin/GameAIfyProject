@@ -4,17 +4,17 @@ using UnityEngine;
 public class DroneMove : MonoBehaviour
 {
     public Transform player; 
-    public GameObject DronePrefab; // ÀÏ¹Ý µå·Ð ÇÁ¸®ÆÕ
-    public GameObject UpgradeDronePrefab; // ¾÷±×·¹ÀÌµå µå·Ð ÇÁ¸®ÆÕ
+    public GameObject DronePrefab; // ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public GameObject UpgradeDronePrefab; // ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private int currentDroneStep = -1;
 
-    // ÀÏ¹Ý µå·Ð
+    // ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½
     private GameObject[] normalDrones;
     private float[] normalAngles;
     private float normalRadius = 3f;
     private float normalSpeed = 2f;
 
-    // ¾÷±×·¹ÀÌµå µå·Ð
+    // ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½
     private GameObject[] upgradeDrones;
     private float[] upgradeAngles;
     private float upgradeRadius = 6f;
@@ -26,7 +26,7 @@ public class DroneMove : MonoBehaviour
     }
     private void SetDrone()
     {
-        // ±âÁ¸ µå·Ð Á¦°Å
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (normalDrones != null)
             foreach (var d in normalDrones) Destroy(d);
         if (upgradeDrones != null)
@@ -56,7 +56,7 @@ public class DroneMove : MonoBehaviour
 
     void Update()
     {
-        // DroneLevel º¯°æ °¨Áö
+        // DroneLevel ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (PlayerStat.DroneLevel != currentDroneStep)
         {
             currentDroneStep = PlayerStat.DroneLevel;
@@ -66,7 +66,7 @@ public class DroneMove : MonoBehaviour
         if (PlayerStat.DroneLevel == 3) PlayerStat.DronePower = PlayerStat.AttackPower / 2.0f;
         else PlayerStat.DronePower = PlayerStat.AttackPower / 3.0f;
 
-        // ÀÏ¹Ý µå·Ð °øÀü
+        // ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (normalDrones != null)
         {
             for (int i = 0; i < normalDrones.Length; i++)
@@ -78,7 +78,7 @@ public class DroneMove : MonoBehaviour
             }
         }
 
-        // ¾÷±×·¹ÀÌµå µå·Ð °øÀü
+        // ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (upgradeDrones != null)
         {
             for (int i = 0; i < upgradeDrones.Length; i++)
