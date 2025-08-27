@@ -104,26 +104,30 @@ public class EnemyStat : MonoBehaviour
     {
         float damage = EnemyAttack;
 
-        // ĸ���� Ȱ��ȭ�� ��쿡�� ������ ����
+        // 캡슐이 활성화된 경우에만 데미지를 감소시킴
         if (PlayerStat.CapsuleState)
         {
             switch (PlayerStat.CapsuleLevel)
             {
-                case 1: // 30% ���� �� 70%�� ����
-                    damage *= 0.7f; break;
-                case 2: // 50% ����
-                    damage *= 0.5f; break;
-                case 3: // 70% ����
-                    damage *= 0.3f; break;
-                case 4: // 100% ����(����ũ)
-                    damage = 0f; break;
+                case 1: // 캡슐 레벨 1: 30% 데미지 감소 (70%만 받음)
+                    damage *= 0.7f; 
+                    break;
+                case 2: // 캡슐 레벨 2: 50% 데미지 감소 (50%만 받음)
+                    damage *= 0.5f; 
+                    break;
+                case 3: // 캡슐 레벨 3: 70% 데미지 감소 (30%만 받음)
+                    damage *= 0.3f; 
+                    break;
+                case 4: // 캡슐 레벨 4: 100% 데미지 감소 (완전 무적 상태)
+                    damage = 0f; 
+                    break;
                 default:
-                    // ���� 0 �Ǵ� ���� ��: ���� ����
+                    // 캡슐 레벨이 0이거나 예상치 못한 값: 데미지 감소 효과 없음
                     break;
             }
         }
 
-        // ���� ���� �� ����
+        // 최종 데미지가 0 이하가 되지 않도록 보정
         if (damage <= 0f) damage = 0f;
         PlayerStat.HP -= damage;
     }
