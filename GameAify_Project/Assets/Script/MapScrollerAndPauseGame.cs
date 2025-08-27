@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class MapScrollerAndPauseGame : MonoBehaviour
 {
     public Transform player;
-    public float tileSize = 50f;           // Å¸ÀÏ ÇÑ º¯(¿ùµå À¯´Ö)
-    public GameObject[] tiles;                   // 9°³ Image(¼ø¼­ ¹«°ü)
-    public GameObject PausePanel; // ÀÏ½ÃÁ¤Áö ÆĞ³Î
-    private bool isPaused; // ÀÏ½ÃÁ¤Áö »óÅÂÀÎ°¡¸¦ È®ÀÎ
-    public GameObject StatCanvas; // µğ¹ö±×¿ë Äµ¹ö½º
+    private float tileSize = 19f;           // íƒ€ì¼ í¬ê¸°(í…ŒìŠ¤íŠ¸ìš©)
+    public GameObject[] tiles;                   // 9ê°œì˜ Image(í…ŒìŠ¤íŠ¸ìš©)
+    public GameObject PausePanel; // ì¼ì‹œì •ì§€ íŒ¨ë„
+    private bool isPaused; // ì¼ì‹œì •ì§€ ì—¬ë¶€
+    public GameObject StatCanvas; // í†µê³„ íŒ¨ë„
     private bool isStatOn;
 
     void Start()

@@ -7,17 +7,17 @@ using UnityEngine.Playables;
 
 public class EnemyStat : MonoBehaviour
 {
-    public float EnemyAttack; // Àû °ø°İ·Â
-    public float EnemyMoveSpeed; // Àû ÀÌµ¿¼Óµµ
-    private float maxHP; // Àû ±âº»Ã¼·Â
-    private float currentHP; // Àû ÇöÀçÃ¼·Â
+    public float EnemyAttack; // ì  ê³µê²©ë ¥
+    public float EnemyMoveSpeed; // ì  ì´ë™ì†ë„
+    private float maxHP; // ì  ìµœëŒ€ ì²´ë ¥
+    private float currentHP; // ì  í˜„ì¬ ì²´ë ¥
     public static bool OnVaccineDamage = false;
-    public GameObject DieEffect; // Àû »ç¸Á ½Ã ÀÌÆåÆ®
+    public GameObject DieEffect; // ì  ì‚¬ë§ ì´í™íŠ¸
 
     public Image fillImage;
     void Awake()
     {
-        // ÀÌ¸§ ±â¹İ maxHP ¼³Á¤
+        // ì  ìŠ¤íƒ¯ ë¶€ì—¬
         switch (gameObject.name.Replace("(Clone)", ""))
         {
             case "Virus1":
@@ -41,7 +41,7 @@ public class EnemyStat : MonoBehaviour
                 EnemyMoveSpeed = 2.0f;
                 break;
             case "Snailer":
-                maxHP = 600f;
+                maxHP = 1000f;
                 EnemyAttack = 60f;
                 EnemyMoveSpeed = 1.0f;
                 break;
@@ -87,7 +87,7 @@ public class EnemyStat : MonoBehaviour
             }
         }
 
-        // ÀûÀÌ ÇÃ·¹ÀÌ¾î¿¡ ´ê¾ÒÀ» ¶§ ÇÃ·¹ÀÌ¾î ÇÇÇØ °è»ê
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         else if (collision.CompareTag("Player") && !PlayerMove.isInvincible)
         {
             CapsuleDamageCalcurate(EnemyAttack);
@@ -104,26 +104,26 @@ public class EnemyStat : MonoBehaviour
     {
         float damage = EnemyAttack;
 
-        // Ä¸½¶ÀÌ È°¼ºÈ­µÈ °æ¿ì¿¡¸¸ °¨¼ÒÀ² Àû¿ë
+        // Ä¸ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (PlayerStat.CapsuleState)
         {
             switch (PlayerStat.CapsuleLevel)
             {
-                case 1: // 30% °¨¼Ò ¡æ 70%¸¸ ¹ŞÀ½
+                case 1: // 30% ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 70%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     damage *= 0.7f; break;
-                case 2: // 50% °¨¼Ò
+                case 2: // 50% ï¿½ï¿½ï¿½ï¿½
                     damage *= 0.5f; break;
-                case 3: // 70% °¨¼Ò
+                case 3: // 70% ï¿½ï¿½ï¿½ï¿½
                     damage *= 0.3f; break;
-                case 4: // 100% °¨¼Ò(À¯´ÏÅ©)
+                case 4: // 100% ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Å©)
                     damage = 0f; break;
                 default:
-                    // ·¹º§ 0 ¶Ç´Â Á¤ÀÇ ¹Û: °¨¼Ò ¾øÀ½
+                    // ï¿½ï¿½ï¿½ï¿½ 0 ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     break;
             }
         }
 
-        // À½¼ö ¹æÁö ¹× Àû¿ë
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (damage <= 0f) damage = 0f;
         PlayerStat.HP -= damage;
     }
@@ -143,7 +143,7 @@ public class EnemyStat : MonoBehaviour
             {
                 MainSpawnerAndTimer.isDropApple = true;
                 Vector2 collisionPosition = transform.position;
-                MainSpawnerAndTimer.SetDropPosition(collisionPosition); // À§Ä¡ Àü´Ş
+                MainSpawnerAndTimer.SetDropPosition(collisionPosition); // ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
             }
         }
     }
@@ -152,7 +152,7 @@ public class EnemyStat : MonoBehaviour
     {
         PlayerStat.currentGauge++;
         MainSpawnerAndTimer.SpawnCount--;
-        //µğ¹ö±×¿ë
+        //ï¿½ï¿½ï¿½ï¿½×¿ï¿½
         //Debug.Log("Gauge : " + PlayerStat.currentGauge + ", Upgrade : " + PlayerAttack.NowCount);
         Instantiate(DieEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);

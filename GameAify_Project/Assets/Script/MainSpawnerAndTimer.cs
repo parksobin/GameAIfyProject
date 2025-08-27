@@ -294,9 +294,9 @@ public class MainSpawnerAndTimer : MonoBehaviour
     public static void SetDropPosition(Vector2 pos)
     {
         lastDropPosition = pos;
-        int randomValue = UnityEngine.Random.Range(0, 100);
-        if (randomValue < 10) Instantiate(ApplePrefab, lastDropPosition, Quaternion.identity);
-        else if (randomValue >= 10 && randomValue < 20) Instantiate(AppleDamagePrefab, lastDropPosition, Quaternion.identity);
+        float randomValue = UnityEngine.Random.Range(0f, 100f);
+        if (randomValue >= 98f) Instantiate(ApplePrefab, lastDropPosition, Quaternion.identity);
+        else if (randomValue >= 90f && randomValue < 98f) Instantiate(AppleDamagePrefab, lastDropPosition, Quaternion.identity);
         isDropApple = false;
     }
 
