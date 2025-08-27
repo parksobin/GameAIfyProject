@@ -37,12 +37,12 @@ public class StageSetting : MonoBehaviour
         BossHpFrame.SetActive(false);
 
         // 비디오 플레이어 초기화
-        bossVideoPlayer = BossVideo != null ? BossVideo.GetComponent<VideoPlayer>() : null;
         if (bossVideoPlayer != null)
         {
             bossVideoPlayer.playOnAwake = false;
             bossVideoPlayer.skipOnDrop = false;
             bossVideoPlayer.prepareCompleted += OnBossVideoPrepared;
+            bossVideoPlayer.loopPointReached += OnBossVideoEnded;
         }
     }
 
@@ -95,6 +95,11 @@ public class StageSetting : MonoBehaviour
                 OnBossVideoPrepared(bossVideoPlayer);
             }
         }
+        else
+        {
+            // 비디오 플레이어가 없으면 캔버스를 끄고 바로 진행
+            if (SwitchMapCanvas != null) SwitchMapCanvas.SetActive(false);
+        }
     }
 
     private void VideoStartTime() //영상길기 (7초) 뒤에 꺼지도록 설정 -> 진짜 메인 입장
@@ -103,6 +108,18 @@ public class StageSetting : MonoBehaviour
         {
             // 실제 재생이 시작된 이후부터 7초 카운트
             bool isPlaying = bossVideoPlayer != null ? bossVideoPlayer.isPlaying : true;
+
+            // 재생이 시작되면 캔버스 강제 비활성화 (안전장치)
+            if (isPlaying && SwitchMapCanvas != null && SwitchMapCanvas.activeSelf)
+            {
+                SwitchMapCanvas.SetActive(false);
+            }
+
+            // 준비 완료 콜백이 유실된 경우를 대비해, 준비가 되었으면 즉시 처리
+            if (!videoPrepared && bossVideoPlayer != null && bossVideoPlayer.isPrepared)
+            {
+                OnBossVideoPrepared(bossVideoPlayer);
+            }
             if (isPlaying)
             {
                 videoTime += Time.unscaledDeltaTime; //timeScale이 0이어도 시간 더해짐
@@ -133,11 +150,21 @@ public class StageSetting : MonoBehaviour
         }
     }
 
+    private void OnBossVideoEnded(VideoPlayer source)
+    {
+        // 비디오가 끝난 경우에도 캔버스는 반드시 꺼진 상태여야 함
+        if (SwitchMapCanvas != null && SwitchMapCanvas.activeSelf)
+        {
+            SwitchMapCanvas.SetActive(false);
+        }
+    }
+
     private void OnDestroy()
     {
         if (bossVideoPlayer != null)
         {
             bossVideoPlayer.prepareCompleted -= OnBossVideoPrepared;
+            bossVideoPlayer.loopPointReached -= OnBossVideoEnded;
         }
     }
 
