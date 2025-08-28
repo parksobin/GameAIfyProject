@@ -9,6 +9,10 @@ public class Laser : MonoBehaviour
 
     private void Update()
     {
+        if(PlayerStat.BossStamina <=0)
+        {
+            this.gameObject.SetActive(false);
+        }
         // 쿨타임 진행 중이면 시간 측정
         if (isCooldown)
         {
@@ -21,6 +25,7 @@ public class Laser : MonoBehaviour
             }
         }
     }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
