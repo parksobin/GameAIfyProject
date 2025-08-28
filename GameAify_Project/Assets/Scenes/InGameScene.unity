@@ -7766,12 +7766,12 @@ GameObject:
   - component: {fileID: 696815355}
   - component: {fileID: 696815354}
   m_Layer: 5
-  m_Name: Button
+  m_Name: StatBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &696815353
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8810,7 +8810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &838896810
 MonoBehaviour:
   m_ObjectHideFlags: 0

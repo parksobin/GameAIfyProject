@@ -161,7 +161,6 @@ public class PlayerMove : MonoBehaviour
             collision.CompareTag("Virus_BossMap")) && PlayerStat.HP >= 0)
         {
             CapsuleState.CapsuleControl();
-            
             // 보스 스태미나가 0 이하일 때는 깜빡임 효과 없이 데미지만 적용
             if (PlayerStat.BossStamina > 0)
             {
@@ -185,7 +184,7 @@ public class PlayerMove : MonoBehaviour
         }
         if(collision.CompareTag("Virus_BossMap"))
         {
-            PlayerStat.HP -= 20f;
+            if(PlayerStat.BossStamina > 0) PlayerStat.HP -= 20f;
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.name== "BossDoor") //보스맵으로 이동

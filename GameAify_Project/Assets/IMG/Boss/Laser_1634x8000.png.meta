@@ -130,6 +130,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -322,7 +335,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Laser_1634x8000_0: -5311455734468910323
+      Laser_1634x8000_1: 5224536518373788047
+      Laser_1634x8000_2: -173296053515109285
+      Laser_1634x8000_3: -3934128679406003974
+      Laser_1634x8000_4: 8286099936095415306
+      Laser_1634x8000_5: 8411518890887277436
+      Laser_1634x8000_6: 4303078269470383531
+      Laser_1634x8000_7: 4121005972037695065
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
