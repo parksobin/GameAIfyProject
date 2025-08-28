@@ -4353,7 +4353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb85a2e232d5e94ba9588f46bd73585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioManager: {fileID: 1357193096}
   bgmSlider: {fileID: 182590661}
   sfxSlider: {fileID: 1695980613}
   bgmPercentText: {fileID: 359311756}
@@ -4363,8 +4362,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7a9d71a8cd45c35438384b9ed1ce7160, type: 3}
   bgmIcon: {fileID: 821171171}
   sfxIcon: {fileID: 1823716937}
-  loadOnEnable: 1
-  saveOnDisable: 1
 --- !u!1 &2058328816
 GameObject:
   m_ObjectHideFlags: 0
