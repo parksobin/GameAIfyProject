@@ -10,7 +10,7 @@ public class DogPatternManager : MonoBehaviour
     private readonly List<GameObject> RunningDogList = new List<GameObject>();
     private float RunningDogSpawnDistance = 30f; // 개무리 생성 거리
     private int RunningDogCount = 10;   // 무리당 개 수
-    private float RunningDogSpawnDelay = 20f;  // 무리를 출력시킬 간격
+    private float RunningDogSpawnDelay = 10f;  // 무리를 출력시킬 간격
     private float spacing = 2.0f; // 개체 간 최소 간격
     private float spreadRadius = 5f;   // 첫 개 기준 확산 반경
     private bool isRoutineRunning;
