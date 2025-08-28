@@ -16,7 +16,7 @@ public class VirusSet : MonoBehaviour
 
     public void SpawnCenterBoss3_Hit()
     {
-        Vector3 center = transform.position; // ±‚¡ÿ¡° ∞Ì¡§
+        Vector3 center = transform.position; // Î≥¥Ïä§ Ï§ëÏã¨
         SpawnDiamond(center);
     }
 
@@ -30,7 +30,7 @@ public class VirusSet : MonoBehaviour
         {
             var go = Instantiate(prefab, center, Quaternion.identity);
 
-            if (faceOutwards && go) // ≥Œ ∞°µÂ
+            if (faceOutwards && go) // Î∞îÍπ• Î∞©Ìñ•
             {
                 Vector3 dir = (target - center).normalized;
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
@@ -77,7 +77,7 @@ public class VirusSet : MonoBehaviour
 
         if (duration <= 0f)
         {
-            if (tr) tr.position = target; // ∏∂¡ˆ∏∑ø°µµ ≥Œ ∞°µÂ
+            if (tr) tr.position = target; // Ï¶âÏãú Ïù¥Îèô
             yield break;
         }
 
@@ -86,23 +86,29 @@ public class VirusSet : MonoBehaviour
 
         while (t < duration)
         {
-            if (!tr) yield break; // ∆ƒ±´/∫Ò»∞º∫ µÓ¿∏∑Œ ¬¸¡∂ ≤˜±‚∏È ¡æ∑·
+            if (!tr) yield break; // Ïò§Î∏åÏ†ùÌä∏Í∞Ä ÎπÑÌôúÏÑ±Ìôî/ÌååÍ¥¥Îêú Í≤ΩÏö∞
+
+            // Î≥¥Ïä§ Ïä§ÌÉúÎØ∏ÎÇòÍ∞Ä 0 Ïù¥ÌïòÏùº Îïå Ïù¥Îèô Ï§ëÏßÄ
+            if (PlayerStat.BossStamina <= 0)
+            {
+                yield break;
+            }
 
             t += Time.deltaTime;
             float p = Mathf.Clamp01(t / duration);
             p = p * p * (3f - 2f * p); // smoothstep
 
-            // ø©±‚º≠µµ ≥Œ ∞°µÂ
+            // ÏïàÏ†ÑÏÑ± Ï≤¥ÌÅ¨
             if (!tr) yield break;
             tr.position = Vector3.Lerp(start, target, p);
 
             yield return null;
         }
 
-        if (tr) tr.position = target; // ∑Á«¡ »ƒ √÷¡æ Ω∫≥¿ Ω√ø°µµ √º≈©
+        if (tr) tr.position = target; // ÎßàÏßÄÎßâ ÏúÑÏπò Î≥¥Ïû•
     }
 
-    // ¿Ã Ω∫≈©∏≥∆Æ∞° ∫Ò»∞º∫/∆ƒ±´µ… ∂ß ƒ⁄∑Á∆æ ¡§∏Æ(æ»¿¸)
+    // Ïä§ÌÅ¨Î¶ΩÌä∏Í∞Ä ÎπÑÌôúÏÑ±Ìôî/ÌååÍ¥¥Îê† Îïå Î™®Îì† ÏΩîÎ£®Ìã¥ Ï†ïÎ¶¨
     void OnDisable() { StopAllCoroutines(); }
     void OnDestroy() { StopAllCoroutines(); }
 }

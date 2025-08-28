@@ -43,6 +43,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject CapsuleItem; // 캡슐 끄기용
     public GameObject ResetBtn; // 게임 다시 하기 버튼
     public GameObject BossGameOver; // 보스 맵에서 게임 오버
+    public GameObject ClearUI; // 보스 맵 클리어 패널
 
     void Start()
     {
@@ -64,6 +65,20 @@ public class PlayerMove : MonoBehaviour
         {
             sr.sprite = PlayerSprite[1];
             animator.enabled = false;
+        }
+        else if(PlayerStat.BossStamina <= 0) // 보스 스태미나 0 이하시 Clear 애니메이션 재생 및 시간 정지
+        {
+            // 플레이어 크기를 0.3으로 설정
+            transform.localScale = Vector3.one * 0.3f;
+            transform.position = new Vector2(0, 3f);
+            // 5초간 무적 상태 시작
+            StartCoroutine(BossClearInvincibleRoutine());
+            // Clear 애니메이션 재생
+            walkAni("Clear", true, false, false, false);
+            StartCoroutine(MonitorClearAnimationUnscaled());
+            
+            // 플레이어 이동 및 입력 비활성화
+            enabled = false;
         }
         else
         {
@@ -144,7 +159,12 @@ public class PlayerMove : MonoBehaviour
             collision.CompareTag("Virus_BossMap")) && PlayerStat.HP >= 0)
         {
             CapsuleState.CapsuleControl();
-            StartCoroutine(InvincibleRoutine());
+            
+            // 보스 스태미나가 0 이하일 때는 깜빡임 효과 없이 데미지만 적용
+            if (PlayerStat.BossStamina > 0)
+            {
+                StartCoroutine(InvincibleRoutine());
+            }
         }
         if (collision.CompareTag("Apple"))
         {
@@ -222,7 +242,7 @@ public class PlayerMove : MonoBehaviour
             animator.SetBool("skill", false);
             
             // 스킬애니메이션 작동시 다른 애니 중복 제어
-            if(aniName == "skill")
+            if(aniName == "Clear")
             {
                 animator.SetBool("walk", false);
                 animator.SetBool("walkUp", false);
@@ -309,5 +329,48 @@ public class PlayerMove : MonoBehaviour
         BossGameOver.SetActive(true);   
     }
 
+    private IEnumerator MonitorClearAnimation()
+    {
+        // 3초 대기 후 ClearUI 활성화
+        yield return new WaitForSeconds(5f);
+        
+        // 3초 후 ClearUI 활성화
+        if (ClearUI != null)
+        {
+            ClearUI.SetActive(true);
+        }
+    }
+
+    private IEnumerator MonitorClearAnimationUnscaled()
+    {
+        // 5초 대기 후 ClearUI 활성화 (UnscaledTime 사용)
+        yield return new WaitForSecondsRealtime(5f);
+        
+        // 5초 후 ClearUI 활성화
+        if (ClearUI != null)
+        {
+            ClearUI.SetActive(true);
+        }
+    }
+
+    private IEnumerator BossClearInvincibleRoutine()
+    {
+        // 기존 무적 상태 설정
+        isInvincible = true;
+        
+        // 레이어 충돌 무시 설정
+        if (playerLayer != -1 && enemyLayer != -1)
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
+        
+        // 5초간 무적 상태 유지 (깜빡임 효과 없음)
+        yield return new WaitForSecondsRealtime(5f);
+        
+        // 레이어 충돌 복원
+        if (playerLayer != -1 && enemyLayer != -1)
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+        
+        // 무적 상태 해제
+        isInvincible = false;
+    }
 
 }

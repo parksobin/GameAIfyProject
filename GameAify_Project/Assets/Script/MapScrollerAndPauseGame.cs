@@ -61,7 +61,8 @@ public class MapScrollerAndPauseGame : MonoBehaviour
 
     public void CheckPauseGame()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isPaused
+        && (PlayerStat.BossStamina > 0 || PlayerStat.HP > 0))
         {
             Time.timeScale = 0f;
             PausePanel.SetActive(true);

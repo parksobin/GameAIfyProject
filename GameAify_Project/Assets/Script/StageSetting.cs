@@ -27,6 +27,10 @@ public class StageSetting : MonoBehaviour
     public VideoPlayer bossVideoPlayer; // 보스 영상 플레이어
     private bool videoPrepared = false; // 준비 완료 여부
 
+    private void Awake()
+    {
+        InbossStage = false;
+    }
 
     void Start()
     {

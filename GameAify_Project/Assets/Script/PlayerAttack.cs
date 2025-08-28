@@ -55,8 +55,9 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        // 정화 게이지 100 이상 시 보스 연출(영상) 종료 전까지 모든 공격/생성 기능 일시 중지
-        if (PlayerStat.purificationGauge >= 100 && !StageSetting.gameplayUnpausedAfterVideo)
+        // 정화 게이지 100 이상 시 보스 연출(영상) 종료 전까지(또는 보스 체력이 0이 되면) 모든 공격/생성 기능 일시 중지
+        if ((PlayerStat.purificationGauge >= 100 && 
+        !StageSetting.gameplayUnpausedAfterVideo) || PlayerStat.BossStamina <= 0)
         {
             return;
         }
