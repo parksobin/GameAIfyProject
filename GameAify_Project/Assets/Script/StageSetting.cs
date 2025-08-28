@@ -14,11 +14,12 @@ public class StageSetting : MonoBehaviour
     public GameObject SwitchMapCanvas; // 영상 준비 완료 전까지 가림용 캔버스
     public GameObject BossHpFill;
     public GameObject BossHpFrame;
-
+    public GameObject Option;// 옵션창 오브젝트
 
     public GameObject laserPreFab; //2단계 레이저 프리팹
     public GameObject VirusPreFab; //3단계 바이러스 프리팹
 
+    private bool OptionState = false;    //옵션창 닫고 열기 활성화용
     public static bool InbossStage =false; //보스맵 스테이지에 들어간 상태인지 확인
     public bool bossVideoEnd =false; //보스 영상 끝난지 판단 -> 다른 스크립트에서 사용
     public static bool gameplayUnpausedAfterVideo = false; // 보스 영상 7초 경과 후 기능 재개 플래그
@@ -34,6 +35,7 @@ public class StageSetting : MonoBehaviour
 
     void Start()
     {
+        Option.SetActive(OptionState);
        Boss.SetActive(false);
         BossStageDoor.SetActive(false);
         BossVideo.SetActive(false);
@@ -172,4 +174,10 @@ public class StageSetting : MonoBehaviour
         }
     }
 
+    public void OptionBtn()
+    {
+        OptionState = !OptionState;
+        Option.SetActive(OptionState);
+
+    }
 }
