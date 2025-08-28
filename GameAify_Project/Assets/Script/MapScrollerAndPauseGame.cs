@@ -9,11 +9,11 @@ public class MapScrollerAndPauseGame : MonoBehaviour
     private float tileSize = 19f;           // 타일 크기(테스트용)
     public GameObject[] tiles;                   // 9개의 Image(테스트용)
     public GameObject PausePanel; // 일시정지 패널
-    private bool isPaused; // 일시정지 여부
+    public static bool isPaused; // 일시정지 여부
     public GameObject StatCanvas; // 통계 패널
     private bool isStatOn;
 
-    void Start()
+    void Awake()
     {
         isPaused = false;
         isStatOn = false;
@@ -21,6 +21,13 @@ public class MapScrollerAndPauseGame : MonoBehaviour
 
     void Update()
     {
+        // 강제 유지: 다른 스크립트가 timeScale을 되돌려도, 일시정지 중에는 매 프레임 0으로 고정
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            return; // 일시정지 중에는 이하 로직(지형 스위칭 등) 스킵
+        }
+
         CheckPauseGame();
         SwitchGround();
     }
@@ -62,11 +69,11 @@ public class MapScrollerAndPauseGame : MonoBehaviour
     public void CheckPauseGame()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused
-        && (PlayerStat.BossStamina > 0 || PlayerStat.HP > 0))
+        && (PlayerStat.BossStamina > 0 && PlayerStat.HP > 0))
         {
+            isPaused = true;
             Time.timeScale = 0f;
             PausePanel.SetActive(true);
-            isPaused = true;
         }
     }
 

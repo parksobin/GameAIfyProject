@@ -108,43 +108,42 @@ public class StageSetting : MonoBehaviour
         }
     }
 
-    private void VideoStartTime() //영상길기 (7초) 뒤에 꺼지도록 설정 -> 진짜 메인 입장
+    private void VideoStartTime()
+{
+    // 일시정지면 아무것도 하지 않음
+    if (Time.timeScale == 0f) return;
+
+    if (BossVideo.active == true)
     {
-        if (BossVideo.active==true)
+        bool isPlaying = bossVideoPlayer != null ? bossVideoPlayer.isPlaying : true;
+
+        if (isPlaying && SwitchMapCanvas != null && SwitchMapCanvas.activeSelf)
+            SwitchMapCanvas.SetActive(false);
+
+        if (!videoPrepared && bossVideoPlayer != null && bossVideoPlayer.isPrepared)
+            OnBossVideoPrepared(bossVideoPlayer);
+
+        if (isPlaying)
         {
-            // 실제 재생이 시작된 이후부터 7초 카운트
-            bool isPlaying = bossVideoPlayer != null ? bossVideoPlayer.isPlaying : true;
-
-            // 재생이 시작되면 캔버스 강제 비활성화 (안전장치)
-            if (isPlaying && SwitchMapCanvas != null && SwitchMapCanvas.activeSelf)
+            videoTime += Time.unscaledDeltaTime;
+            if (videoTime > 7f)
             {
-                SwitchMapCanvas.SetActive(false);
-            }
-
-            // 준비 완료 콜백이 유실된 경우를 대비해, 준비가 되었으면 즉시 처리
-            if (!videoPrepared && bossVideoPlayer != null && bossVideoPlayer.isPrepared)
-            {
-                OnBossVideoPrepared(bossVideoPlayer);
-            }
-            if (isPlaying)
-            {
-                videoTime += Time.unscaledDeltaTime; //timeScale이 0이어도 시간 더해짐
-                if (videoTime > 7f)
+                // 여기 도달해도, 혹시 다른 곳에서 pause 중이면 되돌리지 않도록 한 번 더 보호
+                if (Time.timeScale != 0f)
                 {
                     Time.timeScale = 1f;
                     BossStage.SetActive(true);
                     BossVideo.SetActive(false);
                     Boss.SetActive(true);
-                    // AudioManager.instance.SFXVolumeControl(true);
-                    //AudioManager.instance.BossBGM.Play();
                     BossHpFill.SetActive(true);
                     BossHpFrame.SetActive(true);
-                    bossVideoEnd =true; 
-                    gameplayUnpausedAfterVideo = true; // 다른 스크립트에서 재개 체크
+                    bossVideoEnd = true;
+                    gameplayUnpausedAfterVideo = true;
                 }
             }
         }
     }
+}
 
     private void OnBossVideoPrepared(VideoPlayer source)
     {

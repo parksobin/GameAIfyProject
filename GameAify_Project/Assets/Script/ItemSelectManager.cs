@@ -8,7 +8,7 @@ public class ItemSelectManager : MonoBehaviour
     private int[] ItemSelectOn;
     public static int StepIndex = 0;
     public static int allUpgrade = 0;
-    private bool panelOpen = false;
+    public static bool panelOpen = false;
 
     void Awake()
     {

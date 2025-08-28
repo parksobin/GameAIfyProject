@@ -45,9 +45,6 @@ public class EnemyStat : MonoBehaviour
                 EnemyAttack = 60f;
                 EnemyMoveSpeed = 1.0f;
                 break;
-            case "Virus_BossMap":
-                EnemyAttack = 20f;
-                break;
         }
         currentHP = maxHP;
     }

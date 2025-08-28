@@ -61,6 +61,8 @@ public class PlayerMove : MonoBehaviour
         movement.y = Input.GetAxisRaw("Vertical");
         movement.Normalize(); // 대각선 속도 보정
 
+        if(MapScrollerAndPauseGame.isPaused || ItemSelectManager.panelOpen) Time.timeScale = 0f;
+        else Time.timeScale = 1f;
         if(PlayerStat.HP <=0) // 플레이어 체력 0시 죽는 스프라이트로 변경 && 애니메이터, 이동 불가
         {
             sr.sprite = PlayerSprite[1];
@@ -179,6 +181,11 @@ public class PlayerMove : MonoBehaviour
         if(collision.CompareTag("Spear"))
         {
             PlayerStat.HP -= 30f;
+            Destroy(collision.gameObject);
+        }
+        if(collision.CompareTag("Virus_BossMap"))
+        {
+            PlayerStat.HP -= 20f;
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.name== "BossDoor") //보스맵으로 이동
@@ -326,7 +333,8 @@ public class PlayerMove : MonoBehaviour
     void BossMapDead()
     {
         MainCanvas.SetActive(false);
-        BossGameOver.SetActive(true);   
+        BossGameOver.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     private IEnumerator MonitorClearAnimation()
