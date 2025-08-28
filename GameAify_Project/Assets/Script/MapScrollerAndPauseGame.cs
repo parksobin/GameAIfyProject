@@ -9,7 +9,7 @@ public class MapScrollerAndPauseGame : MonoBehaviour
     private float tileSize = 19f;           // 타일 크기(테스트용)
     public GameObject[] tiles;                   // 9개의 Image(테스트용)
     public GameObject PausePanel; // 일시정지 패널
-    public static bool isPaused; // 일시정지 여부
+    public static bool isPaused=false; // 일시정지 여부
     public GameObject StatCanvas; // 통계 패널
     private bool isStatOn;
 
@@ -17,6 +17,34 @@ public class MapScrollerAndPauseGame : MonoBehaviour
     {
         isPaused = false;
         isStatOn = false;
+        Time.timeScale =1.0f;   
+    }
+
+    void OnEnable()
+    {
+        // 씬이 로드될 때마다 자동 리셋
+        SceneManager.sceneLoaded += OnSceneLoaded_ResetPause;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded_ResetPause;
+    }
+
+    //  씬 재로드/전환 직후 초기화
+    private void OnSceneLoaded_ResetPause(Scene scene, LoadSceneMode mode)
+    {
+        isPaused = false;
+        Time.timeScale = 1.0f;
+
+        if (PausePanel && PausePanel.activeSelf)
+            PausePanel.SetActive(false);
+
+        if (StatCanvas && StatCanvas.activeSelf)
+        {
+            StatCanvas.SetActive(false);
+            isStatOn = false;
+        }
     }
 
     void Update()
