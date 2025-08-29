@@ -29,7 +29,7 @@ public class BossHPBar : MonoBehaviour
     {
         UpdateHPBar();
         CheckBossDownAnimation();
-        Debug.Log("보스 체력 : " + PlayerStat.BossStamina);
+        //Debug.Log("보스 체력 : " + PlayerStat.BossStamina);
     }
 
     public void TakeDamage(float damage)

@@ -70,11 +70,13 @@ public class PlayerMove : MonoBehaviour
         
         if(PlayerStat.HP <= 0) // 플레이어 체력 0시 죽는 스프라이트로 변경 && 깜빡임/충돌 원복
         {
+            
             // 깜빡임과 무적을 즉시 종료하고 원복
             EndInvincibilityImmediate();
             sr.sprite = PlayerSprite[1];
             animator.enabled = false;
             Time.timeScale = 0f; // 게임 시간 정지
+            
         }
         else if(PlayerStat.BossStamina <= 0) // 보스 스태미나 0 이하시 Clear 애니메이션 재생 및 시간 정지
         {
@@ -118,13 +120,6 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        //스킬 사용 애니 작성칸입니다
-        /*
-        if()
-        {
-            walkAni("skill", true,false,false,true);
-        }
-        */
         hpText.text = PlayerStat.HP.ToString("N0"); 
         UpdateHPBar();
         UpdateGauge();
@@ -145,8 +140,10 @@ public class PlayerMove : MonoBehaviour
             else if (hpPercent >= 30f) PlayerFace.sprite = PlayerFaces[1]; // 74% ~ 30%
             else PlayerFace.sprite = PlayerFaces[2]; // 29% ~ 0%
         }
+        
         if (PlayerStat.HP <= 0) PlayerDead();
         if (PlayerStat.HP >= 750) PlayerStat.HP = 750;
+        
     }
 
     public void PlayerDead()
