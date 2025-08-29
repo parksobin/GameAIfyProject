@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
 public class ItemSelectManager : MonoBehaviour
@@ -24,24 +24,24 @@ public class ItemSelectManager : MonoBehaviour
 
     void Update()
     {
-        UpgradeCountText.text = "Count : " + PlayerAttack.NowCount;
-        // ÆĞ³ÎÀÌ ´İÇôÀÖÀ» ¶§¸¸ ´ÙÀ½ ÀÓ°è°ª Ã¼Å©
+        UpgradeCountText.text = "ì—…ê·¸ë ˆì´ë“œ : " + PlayerAttack.NowCount;
+        // íŒ¨ë„ì´ ë‹«í˜€ìˆì„ ë•Œë§Œ ë‹¤ìŒ ì„ê³„ê°’ ì²´í¬
         if (!panelOpen && StepIndex < ItemSelectOn.Length && PlayerStat.itemSelectCount != 10)
         {
-            if (PlayerStat.currentGauge >= ItemSelectOn[StepIndex])   // ÇÙ½É: >=
+            if (PlayerStat.currentGauge >= ItemSelectOn[StepIndex])   // í•µì‹¬: >=
             {
                 OpenPanel();
-                StepIndex++; // ÀÌ ÀÓ°è°ªÀº ¼Òºñ
+                StepIndex++; // ì´ ì„ê³„ê°’ì€ ì†Œë¹„
             }
         }
 
-        // ¼±ÅÃ ¿Ï·á ½Ã ´İ±â
+        // ì„ íƒ ì™„ë£Œ ì‹œ ë‹«ê¸°
         if (panelOpen && ItemChecker.SelectedItem || PlayerStat.itemSelectCount == 10)
         {
-            ItemChecker.SelectedItem = false; // ÀçÁøÀÔ ¹æÁö
+            ItemChecker.SelectedItem = false; // ì¬ì§„ì… ë°©ì§€
             ClosePanel();
 
-            // ´İÀÚ¸¶ÀÚ "ÀÌ¹Ì ³ÑÀº" ´ÙÀ½ ÀÓ°è°ªÀÌ ÀÖÀ¸¸é ¹Ù·Î ¶Ç ¶ç¿ò
+            // ë‹«ìë§ˆì "ì´ë¯¸ ë„˜ì€" ë‹¤ìŒ ì„ê³„ê°’ì´ ìˆìœ¼ë©´ ë°”ë¡œ ë˜ ë„ì›€
             while (!panelOpen && StepIndex < ItemSelectOn.Length &&
                    PlayerStat.currentGauge >= ItemSelectOn[StepIndex] && PlayerStat.itemSelectCount != 10)
             {

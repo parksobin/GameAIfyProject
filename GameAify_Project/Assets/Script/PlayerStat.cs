@@ -142,7 +142,7 @@ public class PlayerStat : MonoBehaviour
             float PlusHP = 50f;
             HP += PlusHP;
             maxHP += PlusHP;
-            Hp.text = " + %" + ((HpLevel + 1) * 10).ToString();
+            Hp.text = " + " + ((HpLevel + 1) * 10)+"%".ToString();
             HpLevel++;
             CheckisSelected();
             RaiseStatsChanged();
@@ -154,7 +154,7 @@ public class PlayerStat : MonoBehaviour
         if (AttPowerLevel < 5)
         {
             AttackPower += 10f;
-            AttPower.text = " + %" + ((AttPowerLevel + 1) * 10).ToString();
+            AttPower.text = " + " + ((AttPowerLevel + 1) * 10) + "%".ToString();
             AttPowerLevel++;
             CheckisSelected();
             RaiseStatsChanged();
@@ -166,7 +166,7 @@ public class PlayerStat : MonoBehaviour
         if (PlayerSpeedLevel < 5)
         {
             PlayerMoveSpeed += 0.5f;
-            PlayerSpeed.text = " + %" + ((PlayerSpeedLevel + 1) * 10).ToString();
+            PlayerSpeed.text = " + " + ((PlayerSpeedLevel + 1) * 10) + "%".ToString();
             PlayerSpeedLevel++;
             CheckisSelected();
             RaiseStatsChanged();
@@ -178,7 +178,7 @@ public class PlayerStat : MonoBehaviour
         if (AttSpeedLevel < 5)
         {
             AttackSpeed = 5.0f - (0.5f * (AttSpeedLevel + 1));
-            AttSpeed.text = " + %" + ((AttSpeedLevel + 1) * 10).ToString();
+            AttSpeed.text = " + " + ((AttSpeedLevel + 1) * 10) + "%".ToString();
             VaccineAndCapsuleCheck();
             AttSpeedLevel++;
             CheckisSelected();
@@ -191,7 +191,7 @@ public class PlayerStat : MonoBehaviour
         if (AttRangeLevel < 5)
         {
             AttackRange += (AttRangeLevel + 1.0f);
-            AttRange.text = " + %" + ((AttRangeLevel + 1) * 10).ToString();
+            AttRange.text = " + " + ((AttRangeLevel + 1) * 10) + "%".ToString();
             if (VaccineLevel == 4) VCFS = 3.0f + 0.3f * (AttRangeLevel + 1);
             else VCFS = 1.5f + (0.15f * (AttRangeLevel + 1));
             AttRangeLevel++;
@@ -216,10 +216,6 @@ public class PlayerStat : MonoBehaviour
     {
         if (VaccineLevel <= 2) PlayerAttack.VaccineWaitSeconds -= 0.8f * (AttSpeedLevel + 1);
         else PlayerAttack.VaccineWaitSeconds -= 0.5f * (AttSpeedLevel + 1);
-        /*
-        if (CapsuleLevel == 4) PlayerAttack.CapsuleTime -= 1.5f * (AttSpeedLevel + 1);
-        else PlayerAttack.CapsuleTime -= 2.0f * (AttSpeedLevel + 1);
-        */
     }
 
     void CheckisSelected() // 아이템을 선택했는지 확인하는 함수
@@ -241,25 +237,5 @@ public class PlayerStat : MonoBehaviour
         }
     }
 
-    /*
-    // 백신 필드 공격력 증가 임시 구현(기획팀과 논의 필요)
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Vaccine" && !hasIncreased)
-        {
-            currentAttackPower += AttackPower * 0.1f;
-            hasIncreased = true;
-        }
-        Debug.Log("공격력 증가!! 현재 공격력: " + currentAttackPower);
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Vaccine" && hasIncreased)
-        {
-            currentAttackPower = AttackPower;
-            hasIncreased = false;
-            Debug.Log("공격력이 원래대로 돌아왔습니다. 현재 공격력: " + currentAttackPower);
-        }
-    }
-    */
+
 }
