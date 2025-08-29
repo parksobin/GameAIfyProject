@@ -52,7 +52,7 @@ public class AudioManager : MonoBehaviour
             _sfx = PlayerPrefs.GetFloat(KEY_SFX, 0.5f);
             _initialized = true;
         }
-
+        Screen.SetResolution(1920,1080,true); // 화면 고정
         // 씬 로드 콜백 등록
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
