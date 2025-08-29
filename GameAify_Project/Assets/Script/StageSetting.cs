@@ -109,27 +109,24 @@ public class StageSetting : MonoBehaviour
     }
 
     private void VideoStartTime()
-{
-    // 일시정지면 아무것도 하지 않음
-    if (Time.timeScale == 0f) return;
-
-    if (BossVideo.active == true)
     {
-        bool isPlaying = bossVideoPlayer != null ? bossVideoPlayer.isPlaying : true;
-
-        if (isPlaying && SwitchMapCanvas != null && SwitchMapCanvas.activeSelf)
-            SwitchMapCanvas.SetActive(false);
-
-        if (!videoPrepared && bossVideoPlayer != null && bossVideoPlayer.isPrepared)
-            OnBossVideoPrepared(bossVideoPlayer);
-
-        if (isPlaying)
+        if (BossVideo.active == true)
         {
-            videoTime += Time.unscaledDeltaTime;
-            if (videoTime > 7f)
+            // 비디오가 준비되었는지 체크
+            if (!videoPrepared && bossVideoPlayer != null && bossVideoPlayer.isPrepared)
+                OnBossVideoPrepared(bossVideoPlayer);
+
+            // 비디오가 재생 중이거나 준비된 상태라면 시간 체크
+            if (videoPrepared)
             {
-                // 여기 도달해도, 혹시 다른 곳에서 pause 중이면 되돌리지 않도록 한 번 더 보호
-                if (Time.timeScale != 0f)
+                // SwitchMapCanvas는 비디오가 재생되면 끄기
+                if (SwitchMapCanvas != null && SwitchMapCanvas.activeSelf)
+                    SwitchMapCanvas.SetActive(false);
+
+                // 시간은 unscaledDeltaTime으로 체크 (Time.timeScale이 0이어도 작동)
+                videoTime += Time.unscaledDeltaTime;
+                
+                if (videoTime > 7f)
                 {
                     Time.timeScale = 1f;
                     BossStage.SetActive(true);
@@ -143,7 +140,6 @@ public class StageSetting : MonoBehaviour
             }
         }
     }
-}
 
     private void OnBossVideoPrepared(VideoPlayer source)
     {

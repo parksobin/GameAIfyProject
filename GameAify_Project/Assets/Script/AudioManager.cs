@@ -136,6 +136,21 @@ public class AudioManager : MonoBehaviour
         if (BossBGM && !BossBGM.isPlaying) BossBGM.Play();
     }
 
+    // BossBGM에서 BasicBGM으로 전환하는 전역 함수
+    public void SwitchToBasicBGM()
+    {
+        if (BossBGM && BossBGM.isPlaying)
+        {
+            BossBGM.Stop();
+            switched = false; // 보스 BGM 전환 플래그 리셋
+        }
+        
+        if (BasicBGM && !BasicBGM.isPlaying)
+        {
+            BasicBGM.Play();
+        }
+    }
+
 
     public void SetBgmVolume(float v01)
     {

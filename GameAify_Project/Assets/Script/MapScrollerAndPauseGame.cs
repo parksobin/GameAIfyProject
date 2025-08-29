@@ -117,6 +117,7 @@ public class MapScrollerAndPauseGame : MonoBehaviour
 
     public void GoMain()
     {
+        AudioManager.instance.SwitchToBasicBGM();
         SceneManager.LoadScene("MainScene");
     }
 }
