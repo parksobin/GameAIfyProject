@@ -194,4 +194,10 @@ public class AudioManager : MonoBehaviour
         // PlayerPrefs.SetInt("START_SCREEN_PASSED", 1);
         // PlayerPrefs.Save();
     }
+
+    public void BasicBgmStart()
+    {
+        BossBGM.Stop();
+        BasicBGM.Play();
+    }
 }

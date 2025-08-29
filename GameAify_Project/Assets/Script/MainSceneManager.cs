@@ -9,7 +9,6 @@ public class MainSceneManager : MonoBehaviour
     public GameObject PressKey;
     public MainScreenFade mainScreenFade;
     public AudioManager AudioManager;
-
     // 새로 추가: 옵션 UI 컴포넌트 참조
     [SerializeField] private AudioOptionsUI audioOptionsUI;
 
@@ -31,6 +30,8 @@ public class MainSceneManager : MonoBehaviour
         // 옵션 패널에 AudioOptionsUI가 없다면 자동으로 찾아보기 (선택)
         if (!audioOptionsUI && Option)
             audioOptionsUI = Option.GetComponentInChildren<AudioOptionsUI>(true);
+        AudioManager.instance.BasicBgmStart();
+
     }
 
     private void Update()
