@@ -31,8 +31,14 @@ public class Laser : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !isCooldown)
         {
+            // 무적 상태면 데미지 무시
+            if (PlayerMove.isInvincible) return;
+
             // 플레이어 체력 감소
             EnemyStat.CapsuleDamageCalcurate(BossAttackLaser);
+
+            // 레이저 자체 쿨타임 시작
+            isCooldown = true;
         }
     }
 }
