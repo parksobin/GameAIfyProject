@@ -74,6 +74,7 @@ public class PlayerStat : MonoBehaviour
         AttSpeedLevel = 0;
         AttPowerLevel = 0;
         itemSelectCount = 0;
+        CapsuleState = true;
 
         VCFS = 0f;
         maxHP = 500f;

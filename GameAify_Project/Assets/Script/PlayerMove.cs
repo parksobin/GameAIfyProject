@@ -45,10 +45,14 @@ public class PlayerMove : MonoBehaviour
     public GameObject BossGameOver; // 보스 맵에서 게임 오버
     public GameObject ClearUI; // 보스 맵 클리어 패널
 
+    void Awake()
+    {
+        Time.timeScale = 1f;
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        sr =  this.GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         playerLayer = LayerMask.NameToLayer(playerLayerName);
         enemyLayer = LayerMask.NameToLayer(enemyLayerName);
@@ -62,11 +66,12 @@ public class PlayerMove : MonoBehaviour
         movement.Normalize(); // 대각선 속도 보정
 
         if(MapScrollerAndPauseGame.isPaused || ItemSelectManager.panelOpen) Time.timeScale = 0f;
-        else Time.timeScale = 1f;
-        if(PlayerStat.HP <=0) // 플레이어 체력 0시 죽는 스프라이트로 변경 && 애니메이터, 이동 불가
+        
+        if(PlayerStat.HP <= 0) // 플레이어 체력 0시 죽는 스프라이트로 변경 && 애니메이터, 이동 불가
         {
             sr.sprite = PlayerSprite[1];
             animator.enabled = false;
+            Time.timeScale = 0f; // 게임 시간 정지
         }
         else if(PlayerStat.BossStamina <= 0) // 보스 스태미나 0 이하시 Clear 애니메이션 재생 및 시간 정지
         {
@@ -179,12 +184,12 @@ public class PlayerMove : MonoBehaviour
         }
         if(collision.CompareTag("Spear"))
         {
-            PlayerStat.HP -= 30f;
+            EnemyStat.CapsuleDamageCalcurate(30f);
             Destroy(collision.gameObject);
         }
         if(collision.CompareTag("Virus_BossMap"))
         {
-            if(PlayerStat.BossStamina > 0) PlayerStat.HP -= 20f;
+            if (PlayerStat.BossStamina > 0) EnemyStat.CapsuleDamageCalcurate(20f);
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.name== "BossDoor") //보스맵으로 이동
