@@ -34,6 +34,7 @@ public class PlayerMove : MonoBehaviour
     private int playerLayer;
     private int enemyLayer;
     private bool VaccineSign =false;
+    private Coroutine invincibleCoroutine; // 깜빡임 코루틴 핸들
 
     private bool running; // 게임이 진행중인가?
     public float duration = 1.2f;    // 연출 시간(초) — Unscaled
@@ -67,8 +68,10 @@ public class PlayerMove : MonoBehaviour
 
         if(MapScrollerAndPauseGame.isPaused || ItemSelectManager.panelOpen) Time.timeScale = 0f;
         
-        if(PlayerStat.HP <= 0) // 플레이어 체력 0시 죽는 스프라이트로 변경 && 애니메이터, 이동 불가
+        if(PlayerStat.HP <= 0) // 플레이어 체력 0시 죽는 스프라이트로 변경 && 깜빡임/충돌 원복
         {
+            // 깜빡임과 무적을 즉시 종료하고 원복
+            EndInvincibilityImmediate();
             sr.sprite = PlayerSprite[1];
             animator.enabled = false;
             Time.timeScale = 0f; // 게임 시간 정지
@@ -83,7 +86,7 @@ public class PlayerMove : MonoBehaviour
             // Clear 애니메이션 재생
             walkAni("Clear", true, false, false, false);
             StartCoroutine(MonitorClearAnimationUnscaled());
-            
+ 
             // 플레이어 이동 및 입력 비활성화
             enabled = false;
         }
@@ -169,7 +172,13 @@ public class PlayerMove : MonoBehaviour
             // 보스 스태미나가 0 이하일 때는 깜빡임 효과 없이 데미지만 적용
             if (PlayerStat.BossStamina > 0)
             {
-                StartCoroutine(InvincibleRoutine());
+                // 기존 코루틴이 있으면 중단 후 재시작
+                if (invincibleCoroutine != null)
+                {
+                    StopCoroutine(invincibleCoroutine);
+                    invincibleCoroutine = null;
+                }
+                invincibleCoroutine = StartCoroutine(InvincibleRoutine());
             }
         }
         if (collision.CompareTag("Apple"))
@@ -216,6 +225,10 @@ public class PlayerMove : MonoBehaviour
         }
     }
     */
+    // 피격 시 일정 시간 동안 무적 및 스프라이트 깜빡임을 처리하는 코루틴
+    // - Player/Enemy 레이어 충돌을 임시로 무시하고
+    // - blinkInterval 간격으로 SpriteRenderer를 On/Off 하여 깜빡임 연출
+    // - invincibleDuration 경과 후 원상 복구
     private IEnumerator InvincibleRoutine()
     {
         isInvincible = true;
@@ -233,6 +246,22 @@ public class PlayerMove : MonoBehaviour
         }
 
         // 깜빡임 끝난 뒤 원래대로
+        sr.enabled = true;
+        if (playerLayer != -1 && enemyLayer != -1)
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+        isInvincible = false;
+    }
+
+    private void EndInvincibilityImmediate()
+    {
+        // 코루틴 중단
+        if (invincibleCoroutine != null)
+        {
+            StopCoroutine(invincibleCoroutine);
+            invincibleCoroutine = null;
+        }
+
+        // 스프라이트와 충돌 복원
         sr.enabled = true;
         if (playerLayer != -1 && enemyLayer != -1)
             Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
@@ -262,6 +291,10 @@ public class PlayerMove : MonoBehaviour
         }
         else animator.enabled = false; //애니메이터 비활성화 -> hold상태
     }
+    // 일반 맵에서 사망 연출을 진행하는 코루틴
+    // - UI 비활성화 및 타임스케일 0으로 정지
+    // - 화면 페이드 인(검은 패널 알파 증가)과 플레이어 스케일 업 연출
+    // - 연출 종료 후 게임오버 UI 및 리셋 버튼 활성화
     IEnumerator DeathRoutine()
     {
         running = true;
@@ -341,6 +374,7 @@ public class PlayerMove : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    // (사용처에 따라) 일정 시간 대기 후 클리어 UI를 표시하는 코루틴 (TimeScale 영향을 받음)
     private IEnumerator MonitorClearAnimation()
     {
         // 3초 대기 후 ClearUI 활성화
@@ -353,6 +387,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    // 5초 대기 후 클리어 UI를 표시하는 코루틴 (TimeScale의 영향을 받지 않음)
     private IEnumerator MonitorClearAnimationUnscaled()
     {
         // 5초 대기 후 ClearUI 활성화 (UnscaledTime 사용)
@@ -365,6 +400,8 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    // 보스 격파 연출 동안 5초간 무적을 부여하는 코루틴 (깜빡임 없이 유지)
+    // - Player/Enemy 레이어 충돌을 무시했다가, 5초 경과 후 복원
     private IEnumerator BossClearInvincibleRoutine()
     {
         // 기존 무적 상태 설정

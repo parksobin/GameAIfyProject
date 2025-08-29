@@ -105,6 +105,8 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(ApplyVolumesNextFrame());
     }
 
+    // 씬 전환 직후 한 프레임 대기했다가, 오디오 소스 목록을 재구성하고
+    // 저장된 볼륨 값을 모든 소스에 재적용하는 코루틴
     private IEnumerator ApplyVolumesNextFrame()
     {
         yield return null; // 한 프레임 대기
