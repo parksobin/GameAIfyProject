@@ -7,57 +7,57 @@ using UnityEngine.Pool;
 
 public class MainSpawnerAndTimer : MonoBehaviour
 {
-    public Transform player;          // Áß½ÉÀÌ µÉ ÇÃ·¹ÀÌ¾î
+    public Transform player;          // ï¿½ß½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½
     
-    // ¸ó½ºÅÍ ½ºÆù °ü·Ã ¸â¹ö º¯¼öµé
-    public List<GameObject> spawnEnemyPrefab; // 0~4 Å¸ÀÔ ÇÁ¸®ÆÕ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public List<GameObject> spawnEnemyPrefab; // 0~4 Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private List<GameObject> spawnedEnemies = new List<GameObject>();
-    private float EnemySpawnDistance = 20f; // ÇÃ·¹ÀÌ¾î·ÎºÎÅÍÀÇ ÀûÀÇ »ý¼º °Å¸®
-    public static int waveIndex = -1;   // -1ÀÌ¸é ¿þÀÌºê ¾øÀ½(´ë±â)
+    private float EnemySpawnDistance = 20f; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
+    public static int waveIndex = -1;   // -1ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½)
     private bool waveActive = false;
-    private float timeInWave = 0f; // ¿þÀÌºêº° ÁøÇàµÈ ½Ã°£
+    private float timeInWave = 0f; // ï¿½ï¿½ï¿½Ìºêº° ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
     private const short MAX_ALIVE = 150;
-    // alive ¸®½ºÆ® Á¤¸® ÁÖ±â(¼º´É¿ë)
+    // alive ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½(ï¿½ï¿½ï¿½É¿ï¿½)
     private float aliveCleanInterval = 0.25f;
     private float aliveCleanTimer = 0f;
-    private readonly int[] remain = new int[5]; // ¿þÀÌºêµ¿¾È »ý¼ºÇØ¾ß ÇÏ´Â ³²Àº ¸ó½ºÅÍ ¼ö
-    private readonly float[] rate = new float[5]; // ÃÊ´ç ¸ó½ºÅÍ ½ºÆù ¼Óµµ
-    private readonly float[] acc = new float[5]; // ÇöÀç ½×¿©ÀÖ´Â ¸ó½ºÅÍ ¼ö
+    private readonly int[] remain = new int[5]; // ï¿½ï¿½ï¿½Ìºêµ¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    private readonly float[] rate = new float[5]; // ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
+    private readonly float[] acc = new float[5]; // ï¿½ï¿½ï¿½ï¿½ ï¿½×¿ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     public static int SpawnCount;
     public float[,] SpawnRate;
 
-    // Å¸ÀÌ¸Ó °ü·Ã ¸â¹ö º¯¼öµé
-    private float waveDuration = 45.0f; // ¿þÀÌºêº° ÁøÇà½Ã°£
-    private float SpawnPercentCheckTime = 45.0f; // ¾ÆÀÌÅÛ ¼±ÅÃÃ¢ Ãâ·Â
-    public TextMeshProUGUI timerText; // Text »ç¿ë ½Ã¿¡´Â Text·Î º¯°æ
-    public static float timeRemaining = 15 * 60; // 15ºÐ = 900ÃÊ
+    // Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private float waveDuration = 45.0f; // ï¿½ï¿½ï¿½Ìºêº° ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+    private float SpawnPercentCheckTime = 45.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½
+    public TextMeshProUGUI timerText; // Text ï¿½ï¿½ï¿½ ï¿½Ã¿ï¿½ï¿½ï¿½ Textï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public static float timeRemaining = 15 * 60; // 15ï¿½ï¿½ = 900ï¿½ï¿½
     private bool timerRunning = true;
 
-    // »ç°ú ¾ÆÀÌÅÛ °ü·Ã ¸â¹ö º¯¼öµé
-    public GameObject applePrefabInspector;     // ÀÎ½ºÆåÅÍ¿¡¼­ ÇÒ´ç
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public GameObject applePrefabInspector;     // ï¿½Î½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
     public GameObject appleDamagePrefabInspector;
     public static GameObject ApplePrefab;
     public static GameObject AppleDamagePrefab;
     public static bool isDropApple = false;
-    public static Vector2 lastDropPosition; // »ç°ú¸¦ »ý¼ºÇÒ À§Ä¡ È®ÀÎ
+    public static Vector2 lastDropPosition; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ È®ï¿½ï¿½
 
     private IObjectPool<PooledEnemy>[] pools = new IObjectPool<PooledEnemy>[5];
-    private readonly int prewarmPerType = 300; // Å¸ÀÔº° ÇÁ¸®¿ú
+    private readonly int prewarmPerType = 300; // Å¸ï¿½Ôºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     void Awake()
     {
         ApplePrefab = applePrefabInspector;
         AppleDamagePrefab = appleDamagePrefabInspector;
-        waveDuration = 45.0f; // ¿þÀÌºêº° ÁøÇà½Ã°£
-        SpawnPercentCheckTime = 45.0f; // ¾ÆÀÌÅÛ ¼±ÅÃÃ¢ Ãâ·Â
+        waveDuration = 45.0f; // ï¿½ï¿½ï¿½Ìºêº° ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+        SpawnPercentCheckTime = 45.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½
         timeInWave = 0f;
         timeRemaining = 15 * 60;
         waveIndex = -1;
-        SpawnRate = new float[,] // ¿þÀÌºêº° ½ºÆù·ü
+        SpawnRate = new float[,] // ï¿½ï¿½ï¿½Ìºêº° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
-            // 0 ~ 4¹ø : ¸ó½ºÅÍ ÃÑ ½ºÆù ¼ö
-            // 5 ~ 9¹ø : ÃÊ´ç ½ºÆù ¼ö
-            // Virus1, Virus2, RunningDog, AppleBomber, Snailer ¼ø¼­
+            // 0 ~ 4ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+            // 5 ~ 9ï¿½ï¿½ : ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+            // Virus1, Virus2, RunningDog, AppleBomber, Snailer ï¿½ï¿½ï¿½ï¿½
                 { 158, 0, 0, 0, 0, 3.51f, 0, 0, 0, 0}, // 1
             { 186, 0, 0, 0, 0, 4.13f, 0, 0, 0, 0}, // 2
             { 213, 0, 0, 0, 0, 4.73f, 0, 0, 0, 0}, // 3
@@ -83,11 +83,11 @@ public class MainSpawnerAndTimer : MonoBehaviour
 
     void Start()
     {
-        // ¾ÈÀü Ã¼Å© (ÀÎ½ºÆåÅÍ ºüÁü ¹æÁö)
-        if (player == null) Debug.LogError("player°¡ ºñ¾îÀÖ½À´Ï´Ù.");
-        if (spawnEnemyPrefab == null || spawnEnemyPrefab.Count < 5) Debug.LogError("spawnEnemyPrefab 5°³ ÀÌ»óÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
-        if (timerText == null) Debug.LogWarning("timerText°¡ ºñ¾îÀÖ½À´Ï´Ù."); // ¾ø¾îµµ ½ºÆùÀº µÊ
-        // ¹Ù·Î ¿þÀÌºê 0 ½ÃÀÛ
+        // ï¿½ï¿½ï¿½ï¿½ Ã¼Å© (ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+        if (player == null) Debug.LogError("playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
+        if (spawnEnemyPrefab == null || spawnEnemyPrefab.Count < 5) Debug.LogError("spawnEnemyPrefab 5ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Õ´Ï´ï¿½.");
+        if (timerText == null) Debug.LogWarning("timerTextï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½."); // ï¿½ï¿½ï¿½îµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        // ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ 0 ï¿½ï¿½ï¿½ï¿½
         BuildPools();        
         SpawnCheck();           
     }
@@ -104,7 +104,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
             pools[i] = new ObjectPool<PooledEnemy>(
                 createFunc: () =>
                 {
-                    var go = Instantiate(spawnEnemyPrefab[type], typeRoot); // ºÎ¸ð ÁöÁ¤
+                    var go = Instantiate(spawnEnemyPrefab[type], typeRoot); // ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½
                     var pe = go.GetComponent<PooledEnemy>() ?? go.AddComponent<PooledEnemy>();
                     pe.pool = pools[type];
                     go.SetActive(false);
@@ -127,7 +127,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
                 maxSize: 2000
             );
 
-            // ¡Ú ¿©±â¼­ ºñµ¿±â ÇÁ¸®¿ú ÄÚ·çÆ¾ ½ÃÀÛ
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½ñµ¿±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½
             StartCoroutine(PrewarmRoutine(prewarmPerType, typeRoot, type));
         }
     }
@@ -142,20 +142,20 @@ public class MainSpawnerAndTimer : MonoBehaviour
             int n = Mathf.Min(batch, countPerType - made);
             tmp.Clear();
 
-            // n°³¸¦ °­Á¦·Î »õ·Î ¸¸µé±â
+            // nï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
             for (int k = 0; k < n; k++)
             {
                 var pe = pools[poolIndex].Get();
                 tmp.Add(pe);
             }
 
-            // ¸¸µç °Íµé Release ¡æ Ç®¿¡ Inactive·Î ½×ÀÓ
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Íµï¿½ Release ï¿½ï¿½ Ç®ï¿½ï¿½ Inactiveï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             for (int k = 0; k < n; k++)
                 pools[poolIndex].Release(tmp[k]);
 
             made += n;
 
-            // ÇÑ ÇÁ·¹ÀÓ¿¡ ÀüºÎ ¸¸µé¸é ¹ö¹÷ÀÏ ¼ö ÀÖ¾î¼­ ÇÁ·¹ÀÓ ºÐ»ê
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¾î¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð»ï¿½
             yield return null;
         }
 
@@ -165,7 +165,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log($"ÇöÀç ¸ó½ºÅÍ ¼ö : {SpawnCount}");
+        //Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ : {SpawnCount}");
         if (!PlayerStat.purificationClearposSign)
         {
             if (timerRunning)
@@ -175,8 +175,8 @@ public class MainSpawnerAndTimer : MonoBehaviour
                     timeRemaining -= Time.deltaTime;
                     if (timeRemaining > 0f && timeRemaining <= (15f * 60f) - SpawnPercentCheckTime)
                     {
-                        SpawnCheck(); // ÀÌº¥Æ® ½ÇÇà
-                        SpawnPercentCheckTime += waveDuration; // ´ÙÀ½ ÀÌº¥Æ® ½Ã°£ °»½Å
+                        SpawnCheck(); // ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                        SpawnPercentCheckTime += waveDuration; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
                     }
                     UpdateTimerDisplay();
                 }
@@ -185,40 +185,41 @@ public class MainSpawnerAndTimer : MonoBehaviour
                     timeRemaining = 0;
                     timerRunning = false;
                     UpdateTimerDisplay();
-                    // ¿©±â¿¡ Å¸ÀÌ¸Ó Á¾·á ½Ã ÀÌº¥Æ® Ãß°¡
+                    PlayerStat.HP = 0;
+                    // ï¿½ï¿½ï¿½â¿¡ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ß°ï¿½
                 }
             }
 
-            // ¿þÀÌºê°¡ ÁøÇà ÁßÀÎ µ¿¾È¿¡¸¸ ½ºÆù ·ÎÁ÷À» µ¹¸°´Ù.
+            // ï¿½ï¿½ï¿½Ìºê°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
             if (waveActive)
             {
                 timeInWave += Time.deltaTime;
-                // --- µ¿½Ã È°¼º »óÇÑ Ã¼Å© ---
+                // --- ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ---
                 int alive = GetAliveCount();
-                // 500 ÀÌ»óÀÌ¸é ½ºÆù/´©ÀûÀ» ¸ðµÎ 'ÀÏ½Ã Á¤Áö'
+                // 500 ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 'ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½'
                 if (alive >= MAX_ALIVE)
                 {
-                    // ´©Àû(acc) Áõ°¡µµ ¸ØÃç Æø¹ß ½ºÆù ¹æÁö
-                    // (¾Æ¹«°Íµµ ÇÏÁö ¾Ê°í ¹Ù·Î ºüÁ®³ª°¨)
-                    // ¿þÀÌºê ½Ã°£Àº °è¼Ó Èå¸£¹Ç·Î,
-                    // ¿À·¡ ¸·È÷¸é ÇØ´ç ¿þÀÌºêÀÇ ³²Àº ¼ö(remain)°¡ ³²Àº Ã¤·Î Á¾·áµÉ ¼ö ÀÖÀ½(ÀÇµµ).
+                    // ï¿½ï¿½ï¿½ï¿½(acc) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    // (ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+                    // ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½å¸£ï¿½Ç·ï¿½,
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(remain)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Çµï¿½).
                 }
                 else
                 {
-                    // ³²Àº ½½·Ô(ÀÌ¹ø ÇÁ·¹ÀÓ¿¡ ÃÖ´ë ¸î ¸¶¸® ´õ »ÌÀ» ¼ö ÀÖ³ª)
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö³ï¿½)
                     int slotsLeft = MAX_ALIVE - alive;
 
                     for (int i = 0; i < 5; i++)
                     {
                         if (remain[i] <= 0 || rate[i] <= 0f) continue;
 
-                        // ¡Ú Á¤Áö »óÅÂ°¡ ¾Æ´Ï¹Ç·Î ÀÌ¶§¸¸ ´©Àû
+                        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¹Ç·ï¿½ ï¿½Ì¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                         acc[i] += rate[i] * Time.deltaTime;
 
                         int toSpawn = Mathf.Min(remain[i], Mathf.FloorToInt(acc[i]));
                         if (toSpawn <= 0) continue;
 
-                        // ÇÑ ÇÁ·¹ÀÓ ½ºÆù·®À» ³²Àº ½½·ÔÀ¸·Î Á¦ÇÑ
+                        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                         if (toSpawn > slotsLeft) toSpawn = slotsLeft;
 
                         for (int k = 0; k < toSpawn; k++)
@@ -228,7 +229,7 @@ public class MainSpawnerAndTimer : MonoBehaviour
                         remain[i] -= toSpawn;
                         slotsLeft -= toSpawn;
 
-                        if (slotsLeft <= 0) break; // ½½·Ô ¼ÒÁø ¡æ ´ÙÀ½ ÇÁ·¹ÀÓ±îÁö ´ë±â
+                        if (slotsLeft <= 0) break; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                     }
                 }
 
@@ -244,24 +245,24 @@ public class MainSpawnerAndTimer : MonoBehaviour
         Vector2 dir = UnityEngine.Random.insideUnitCircle.normalized;
         Vector3 pos = player.position + new Vector3(dir.x, dir.y, 0f) * EnemySpawnDistance;
 
-        // Ç®¿¡¼­ ²¨³»±â
+        // Ç®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         var pe = pools[enemyIdx].Get();
         pe.pool = pools[enemyIdx];
         pe.transform.SetPositionAndRotation(pos, Quaternion.identity);
 
-        // ±âÁ¸ alive Ä«¿îÆ®/¸®½ºÆ®´Â ±×´ë·Î È°¿ë °¡´É
+        // ï¿½ï¿½ï¿½ï¿½ alive Ä«ï¿½ï¿½Æ®/ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½×´ï¿½ï¿½ È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         SpawnCount++;
         spawnedEnemies.Add(pe.gameObject);
 
-        // (¼±ÅÃ) ¼ö¸í Å×½ºÆ®¿ë ÀÚµ¿ ¹Ý³³ÀÌ ÇÊ¿äÇÏ¸é ¾Æ·¡Ã³·³:
+        // (ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½Úµï¿½ ï¿½Ý³ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï¸ï¿½ ï¿½Æ·ï¿½Ã³ï¿½ï¿½:
         // pe.StartCoroutine(AutoRelease(pe, 12f));
     }
 
-    // 45ÃÊ °æ°è¸¶´Ù È£ÃâµÊ: ´ÙÀ½ ¿þÀÌºê 1È¸ ÃÊ±âÈ­¸¸ ¼öÇà
+    // 45ï¿½ï¿½ ï¿½ï¿½è¸¶ï¿½ï¿½ È£ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ 1È¸ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SpawnCheck()
     {
         int totalWaves = SpawnRate.GetLength(0);
-        int nextWave = waveIndex + 1; // ÇöÀç ´ÙÀ½ ¿þÀÌºê
+        int nextWave = waveIndex + 1; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
         if (nextWave >= totalWaves) return;
 
         waveIndex = nextWave;
@@ -270,22 +271,22 @@ public class MainSpawnerAndTimer : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            remain[i] = (int)SpawnRate[waveIndex, i];      // 0~4: ¸¶¸´¼ö
-            rate[i] = SpawnRate[waveIndex, 5 + i]; // 5~9: ÃÊ´ç ¼Óµµ
+            remain[i] = (int)SpawnRate[waveIndex, i];      // 0~4: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            rate[i] = SpawnRate[waveIndex, 5 + i]; // 5~9: ï¿½Ê´ï¿½ ï¿½Óµï¿½
             acc[i] = 0f;
         }
-        // µð¹ö±×¿ë(¿øÇÏ¸é)
-        Debug.Log($"Wave {waveIndex+1} ½ÃÀÛ - counts: {remain[0]},{remain[1]},{remain[2]},{remain[3]},{remain[4]} / rates: {rate[0]},{rate[1]},{rate[2]},{rate[3]},{rate[4]}");
+        // ï¿½ï¿½ï¿½ï¿½×¿ï¿½(ï¿½ï¿½ï¿½Ï¸ï¿½)
+        Debug.Log($"Wave {waveIndex+1} ï¿½ï¿½ï¿½ï¿½ - counts: {remain[0]},{remain[1]},{remain[2]},{remain[3]},{remain[4]} / rates: {rate[0]},{rate[1]},{rate[2]},{rate[3]},{rate[4]}");
     }
 
     int GetAliveCount()
     {
-        // ÁÖ±âÀûÀ¸·Î¸¸ null Á¤¸®(¼º´É)
+        // ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ null ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
         aliveCleanTimer += Time.deltaTime;
         if (aliveCleanTimer >= aliveCleanInterval)
         {
             aliveCleanTimer = 0f;
-            // ÆÄ±«µÇ¾ú°Å³ª ºñÈ°¼ºÀÎ °Í Á¦°Å
+            // ï¿½Ä±ï¿½ï¿½Ç¾ï¿½ï¿½Å³ï¿½ ï¿½ï¿½È°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             spawnedEnemies.RemoveAll(go => go == null || !go.activeInHierarchy);
         }
         return spawnedEnemies.Count;

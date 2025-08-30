@@ -10,6 +10,13 @@ public class CapsuleState : MonoBehaviour
     public static int maxCollisionCount=1;
     public static SpriteRenderer SpriteRenderer;
 
+    void Awake()
+    {
+        CapsuleActive = true;
+        collisionCount = 0;
+        maxCollisionCount = 1;
+    }
+
     private void Start()
     {
         Player = GameObject.Find("Player");
