@@ -25,7 +25,7 @@ public class MainScreenFade : MonoBehaviour
     private IEnumerator NormalFadeinOparcity() //게임 시작 등 검정색으로 변화하는데만 사용
     {
         overlay.alpha = 1f;
-        yield return StartCoroutine(Fade(1f, 0f, 3.0f));
+        yield return StartCoroutine(Fade(1f, 0f, 2.0f));
     }
 
     public void ScreenFade()

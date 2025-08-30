@@ -53,7 +53,7 @@ public class MainSceneManager : MonoBehaviour
         if (mainScreen && videosign)
         {
             videoTimer += Time.deltaTime;
-            if(videoTimer >1f)
+            if(videoTimer >1.5f)
             {
                 mainScreenFade.FadeinOparcity();
                 VideoScreen.SetActive(false);
