@@ -45,6 +45,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject ResetBtn; // 게임 다시 하기 버튼
     public GameObject BossGameOver; // 보스 맵에서 게임 오버
     public GameObject ClearUI; // 보스 맵 클리어 패널
+    private bool isBossClearMode;
 
     void Awake()
     {
@@ -89,10 +90,10 @@ public class PlayerMove : MonoBehaviour
             walkAni("Clear", true, false, false, false);
             StartCoroutine(MonitorClearAnimationUnscaled());
  
-            // 플레이어 이동 및 입력 비활성화
-            enabled = false;
+            // 보스 클리어 모드 활성화 (입력 및 이동만 제한)
+            isBossClearMode = true;
         }
-        else
+        else if(!isBossClearMode) // 보스 클리어 모드가 아닐 때만 일반 플레이어 입력 처리
         {
             //플레이어 입력 이동에 따른
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
@@ -155,7 +156,11 @@ public class PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * PlayerStat.PlayerMoveSpeed * Time.fixedDeltaTime);
+        // 보스 클리어 모드가 아닐 때만 이동 처리
+        if (!isBossClearMode)
+        {
+            rb.MovePosition(rb.position + movement * PlayerStat.PlayerMoveSpeed * Time.fixedDeltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -417,6 +422,9 @@ public class PlayerMove : MonoBehaviour
         
         // 무적 상태 해제
         isInvincible = false;
+        
+        // 보스 클리어 모드 해제 (입력 및 이동 복원)
+        isBossClearMode = false;
     }
 
 }

@@ -10769,7 +10769,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GAME CLEAR!!
+  m_text: VICTORY!!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c31010d6379a0a4d849f934762888f1, type: 2}
   m_sharedMaterial: {fileID: 5748617614116358605, guid: 1c31010d6379a0a4d849f934762888f1, type: 2}
