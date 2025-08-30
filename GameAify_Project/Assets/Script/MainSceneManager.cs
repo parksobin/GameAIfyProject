@@ -3,8 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class MainSceneManager : MonoBehaviour
 {
-    public GameObject MainScreen01;
-    public GameObject MainScreen02;
+    public GameObject VideoScreen; //비디오 로우이미지
+    public GameObject VideoPlayer; // 비디오 플레이어 
+    public GameObject MainScreen01; // 메인화면
+    public GameObject MainScreen02; //서브 메뉴 화면
     public GameObject Option;
     public GameObject PressKey;
     public MainScreenFade mainScreenFade;
@@ -12,6 +14,8 @@ public class MainSceneManager : MonoBehaviour
     // 새로 추가: 옵션 UI 컴포넌트 참조
     [SerializeField] private AudioOptionsUI audioOptionsUI;
 
+    private float videoTimer = 0;
+    private bool videosign ;
     private bool mainScreen = true;
     private bool pressKeyActive = true;
     private float pressTime = 0f;
@@ -22,23 +26,44 @@ public class MainSceneManager : MonoBehaviour
     private void Start()
     {
         bool passed = AudioManager.StartScreenSign;
-        MainScreen01.SetActive(!passed);
+        MainScreen01.SetActive(!passed); 
+        VideoScreen.SetActive(!passed);
+        VideoPlayer.SetActive(!passed);
         MainScreen02.SetActive(passed);
         Option.SetActive(optionActive);
         mainScreen = !passed;
+        videosign = !passed;
 
         // 옵션 패널에 AudioOptionsUI가 없다면 자동으로 찾아보기 (선택)
         if (!audioOptionsUI && Option)
             audioOptionsUI = Option.GetComponentInChildren<AudioOptionsUI>(true);
         AudioManager.instance.BasicBgmStart();
 
+        if (!passed)
+        { AudioManager.instance.BasicBGM.Stop(); }
+        else 
+        { AudioManager.instance.BasicBGM.Play(); }
     }
 
     private void Update()
     {
         PressKeyUpdate();
+         
+        //첫시작 메인 화면은 게임 실행 처음만 실행
+        if (mainScreen && videosign)
+        {
+            videoTimer += Time.deltaTime;
+            if(videoTimer >1.7f)
+            {
+                VideoScreen.SetActive(false);
+                VideoPlayer.SetActive(false);
+                videosign =false;
+                AudioManager.instance.BasicBGM.Play();
+            }
+        }
 
-        if (mainScreen && Input.anyKeyDown)
+        //비디오 종료 후 메인화면 키 입력 가능
+        if (mainScreen && Input.anyKeyDown&&!videosign)
         {
             mainScreen = false;
             AudioManager.MarkStartScreenPassed();
