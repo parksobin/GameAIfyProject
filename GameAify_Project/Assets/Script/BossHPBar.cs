@@ -6,6 +6,7 @@ public class BossHPBar : MonoBehaviour
 {
     public Image  BossHpFill;   // 빨간 HP 이미지
     private float BossMaxHP = 50000f; //보스 전체 체력 저장
+    public static float BossStamina = 50000f; //보스 체력  (테스트용 10000)
     private float duration = 0.4f; // 몇 초동안
     private float blinkInterval = 0.1f; // 몇 초 간격으로 깜빡이게 할 껀지
 
@@ -17,9 +18,14 @@ public class BossHPBar : MonoBehaviour
     // 애니메이션 컴포넌트 참조
     public Animator bossAnimator;
 
+    private void Awake()
+    {
+        BossStamina = 50000f;
+        BossMaxHP = BossStamina;
+    }
     void Start()
     {
-        BossMaxHP = PlayerStat.BossStamina;
+        
         sr = GetComponent<SpriteRenderer>();
         bossAnimator = GetComponent<Animator>();
         UpdateHPBar();
@@ -37,8 +43,8 @@ public class BossHPBar : MonoBehaviour
         // 데미지 무적 상태일 때는 데미지를 입지 않음
         if (!canTakeDamage) return;
         
-        PlayerStat.BossStamina -= damage;
-        if (PlayerStat.BossStamina < 0) PlayerStat.BossStamina = 0;
+        BossStamina -= damage;
+        if (BossStamina < 0) BossStamina = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -111,7 +117,7 @@ public class BossHPBar : MonoBehaviour
 
     void UpdateHPBar() // 보스 이미지에 따른 체력 표시
     {
-        BossHpFill.fillAmount = (float)PlayerStat.BossStamina / BossMaxHP;
+        BossHpFill.fillAmount = (float)BossStamina / BossMaxHP;
     }
     
     // StartBossDown 애니메이션 상태를 감지하여 데미지 무적 상태 제어

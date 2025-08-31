@@ -89,7 +89,7 @@ public class VirusSet : MonoBehaviour
             if (!tr) yield break; // 오브젝트가 비활성화/파괴된 경우
 
             // 보스 스태미나가 0 이하일 때 이동 중지
-            if (PlayerStat.BossStamina <= 0)
+            if (BossHPBar.BossStamina <= 0)
             {
                 yield break;
             }

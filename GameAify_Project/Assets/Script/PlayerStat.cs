@@ -24,7 +24,7 @@ public class PlayerStat : MonoBehaviour
 
     public static int purificationGauge = 0; //정화 게이지 퍼센트
     public static bool purificationClearposSign = false; // 정화 완료 여부 확인 
-    public static float BossStamina = 50000; //보스 체력  (테스트용 10000)
+    
 
     public static int MessLevel = 1; // 메스 단계
     public static int SyringeLevel = 1; // 주사기 단계
@@ -43,8 +43,6 @@ public class PlayerStat : MonoBehaviour
     public static float PlayerMoveSpeed = 5f; // 플레이어 기본 이동 속도
     public static float AttackSpeed = 5.0f; // 플레이어의 기본 공격 속도
     public static float AttackPower = 100f; // 플레이어의 기본 공격력
-    private float currentAttackPower; // 현재 플레이어의 공격력
-    private bool hasIncreased = false; // 이미 증가했는지 체크
     public static bool CapsuleState = true; //캡슐 쉴드 상태인지
 
     public static float DronePower; // 드론 공격력
@@ -61,7 +59,6 @@ public class PlayerStat : MonoBehaviour
         currentGauge = 0;
         purificationGauge = 0;
         purificationClearposSign = false;
-        BossStamina = 50000f;
         
         MessLevel = 1;
         SyringeLevel = 1;

@@ -79,7 +79,7 @@ public class PlayerMove : MonoBehaviour
             Time.timeScale = 0f; // 게임 시간 정지
             
         }
-        else if(PlayerStat.BossStamina <= 0) // 보스 스태미나 0 이하시 Clear 애니메이션 재생 및 시간 정지
+        else if(BossHPBar.BossStamina <= 0) // 보스 스태미나 0 이하시 Clear 애니메이션 재생 및 시간 정지
         {
             // 플레이어 크기를 0.3으로 설정
             transform.localScale = Vector3.one * 0.3f;
@@ -172,7 +172,7 @@ public class PlayerMove : MonoBehaviour
         {
             CapsuleState.CapsuleControl();
             // 보스 스태미나가 0 이하일 때는 깜빡임 효과 없이 데미지만 적용
-            if (PlayerStat.BossStamina > 0)
+            if (BossHPBar.BossStamina > 0)
             {
                 // 기존 코루틴이 있으면 중단 후 재시작
                 if (invincibleCoroutine != null)
@@ -200,7 +200,7 @@ public class PlayerMove : MonoBehaviour
         }
         if(collision.CompareTag("Virus_BossMap"))
         {
-            if (PlayerStat.BossStamina > 0) EnemyStat.CapsuleDamageCalcurate(20f);
+            if (BossHPBar.BossStamina > 0) EnemyStat.CapsuleDamageCalcurate(20f);
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.name== "BossDoor") //보스맵으로 이동

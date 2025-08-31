@@ -17,7 +17,7 @@ public class MapScrollerAndPauseGame : MonoBehaviour
     {
         isPaused = false;
         isStatOn = false;
-        Time.timeScale =1.0f;   
+        Time.timeScale = 1.0f;   
     }
 
     void OnEnable()
@@ -97,7 +97,7 @@ public class MapScrollerAndPauseGame : MonoBehaviour
     public void CheckPauseGame()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused
-        && (PlayerStat.BossStamina > 0 && PlayerStat.HP > 0))
+        && (BossHPBar.BossStamina > 0 && PlayerStat.HP > 0))
         {
             isPaused = true;
             Time.timeScale = 0f;

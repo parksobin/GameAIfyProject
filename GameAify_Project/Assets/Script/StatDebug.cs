@@ -45,7 +45,7 @@ public class StatDebug : MonoBehaviour
 
     public void ApplySettings()
     {
-        if (int.TryParse(BossHealth.text, out int bos)) PlayerStat.BossStamina = bos;
+        if (int.TryParse(BossHealth.text, out int bos)) BossHPBar.BossStamina = bos;
         if (int.TryParse(Purification.text, out int pur)) PlayerStat.purificationGauge = pur;
         if (int.TryParse(SyringeLev.text, out int Syr)) PlayerStat.SyringeLevel = Syr;
         if (int.TryParse(MessLev.text, out int Mes)) PlayerStat.MessLevel = Mes;
@@ -88,6 +88,6 @@ public class StatDebug : MonoBehaviour
         AspText.text = "Att Speed : " + PlayerStat.AttackSpeed.ToString();
         AtpText.text = "Att Power : " + PlayerStat.AttackPower.ToString("N1");
         purificationText.text = "정화율(%) : "+PlayerStat.purificationGauge.ToString();
-        BossHealthText.text = "보스체력 : "+PlayerStat.BossStamina.ToString();
+        BossHealthText.text = "보스체력 : "+BossHPBar.BossStamina.ToString();
     }
 }

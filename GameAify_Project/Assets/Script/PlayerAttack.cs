@@ -46,6 +46,15 @@ public class PlayerAttack : MonoBehaviour
     //public Sprite[] UniqueImg;  //  (0 매스, 1 매스 총알 )  / 백신은 따로 프리팹 안에 되어 잇음
     public static int NowCount = 0; // 아이템 업그레이드 가능 횟수
 
+    void Awake()
+    {
+        SyringeTimer = 0f;
+        MessTimer = 0f;
+        VaccineTimer = 0f;
+        capsuleTimer = 0f;
+        NowCount = 0;
+    }
+
     void Start()
     {
         //StartCoroutine(VaccineInject());
@@ -57,7 +66,7 @@ public class PlayerAttack : MonoBehaviour
     {
         // 정화 게이지 100 이상 시 보스 연출(영상) 종료 전까지(또는 보스 체력이 0이 되면) 모든 공격/생성 기능 일시 중지
         if ((PlayerStat.purificationGauge >= 100 && 
-        !StageSetting.gameplayUnpausedAfterVideo) || PlayerStat.BossStamina <= 0)
+        !StageSetting.gameplayUnpausedAfterVideo) || BossHPBar.BossStamina <= 0)
         {
             return;
         }

@@ -9,7 +9,7 @@ public class Laser : MonoBehaviour
 
     private void Update()
     {
-        if(PlayerStat.BossStamina <=0)
+        if(BossHPBar.BossStamina <=0)
         {
             this.gameObject.SetActive(false);
         }
