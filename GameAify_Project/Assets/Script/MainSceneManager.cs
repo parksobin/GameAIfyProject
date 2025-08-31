@@ -26,7 +26,7 @@ public class MainSceneManager : MonoBehaviour
     private void Start()
     {
         bool passed = AudioManager.StartScreenSign;
-        MainScreen01.SetActive(!passed); 
+        MainScreen01.SetActive(passed); 
         VideoScreen.SetActive(!passed);
         VideoPlayer.SetActive(!passed);
         MainScreen02.SetActive(passed);
@@ -58,6 +58,7 @@ public class MainSceneManager : MonoBehaviour
                 mainScreenFade.FadeinOparcity();
                 VideoScreen.SetActive(false);
                 VideoPlayer.SetActive(false);
+                MainScreen01.SetActive(true);
                 videosign =false;
                 AudioManager.instance.BasicBGM.Play();
             }
